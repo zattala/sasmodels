@@ -1,0 +1,255 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>3.6. Model parser &mdash; Sasmodels</title>
+    
+    <link rel="stylesheet" href="../_static/haiku-site.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.9',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Sasmodels" href="../index.html" />
+    <link rel="up" title="3. Reference" href="index.html" />
+    <link rel="next" title="3.7. OpenCL model evaluator" href="kernelcl.html" />
+    <link rel="prev" title="3.5. Annotate exceptions" href="exception.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../index.html">
+          <span>Home</span></a></h1>
+        <h2 class="heading"><span>3.6. Model parser</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        «&#160;&#160;<a href="exception.html">3.5. Annotate exceptions</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="kernelcl.html">3.7. OpenCL model evaluator</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="model-parser">
+<h1>3.6. Model parser<a class="headerlink" href="#model-parser" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-sasmodels.generate">
+<span id="sasmodels-generate"></span><h2>3.6.1. <a class="reference internal" href="#module-sasmodels.generate" title="sasmodels.generate"><tt class="xref py py-mod docutils literal"><span class="pre">sasmodels.generate</span></tt></a><a class="headerlink" href="#module-sasmodels.generate" title="Permalink to this headline">¶</a></h2>
+<p>SAS model constructor.</p>
+<p>Small angle scattering models are defined by a set of kernel functions:</p>
+<blockquote>
+<div><p><em>Iq(q, p1, p2, ...)</em> returns the scattering at q for a form with
+particular dimensions averaged over all orientations.</p>
+<p><em>Iqxy(qx, qy, p1, p2, ...)</em> returns the scattering at qx,qy for a form
+with particular dimensions for a single orientation.</p>
+<p><em>Imagnetic(qx, qy, result[], p1, p2, ...)</em> returns the scattering for the
+polarized neutron spin states (up-up, up-down, down-up, down-down) for
+a form with particular dimensions for a single orientation.</p>
+<p><em>form_volume(p1, p2, ...)</em> returns the volume of the form with particular
+dimension.</p>
+<p><em>ER(p1, p2, ...)</em> returns the effective radius of the form with
+particular dimensions.</p>
+<p><em>VR(p1, p2, ...)</em> returns the volume ratio for core-shell style forms.</p>
+</div></blockquote>
+<p>These functions are defined in a kernel module .py script and an associated
+set of .c files.  The model constructor will use them to create models with
+polydispersity across volume and orientation parameters, and provide
+scale and background parameters for each model.</p>
+<p><em>Iq</em>, <em>Iqxy</em>, <em>Imagnetic</em> and <em>form_volume</em> should be stylized C-99
+functions written for OpenCL.  All functions need prototype declarations
+even if the are defined before they are used.  OpenCL does not support
+<em>#include</em> preprocessor directives, so instead the list of includes needs
+to be given as part of the metadata in the kernel module definition.
+The included files should be listed using a path relative to the kernel
+module, or if using &#8220;lib/file.c&#8221; if it is one of the standard includes
+provided with the sasmodels source.  The includes need to be listed in
+order so that functions are defined before they are used.</p>
+<p>Floating point values should be declared as <em>double</em>.  For single precision
+calculations, <em>double</em> will be replaced by <em>float</em>.  The single precision
+conversion will also tag floating point constants with &#8220;f&#8221; to make them
+single precision constants.  When using integral values in floating point
+expressions, they should be expressed as floating point values by including
+a decimal point.  This includes 0., 1. and 2.</p>
+<p>OpenCL has a <em>sincos</em> function which can improve performance when both
+the <em>sin</em> and <em>cos</em> values are needed for a particular argument.  Since
+this function does not exist in C99, all use of <em>sincos</em> should be
+replaced by the macro <em>SINCOS(value,sn,cn)</em> where <em>sn</em> and <em>cn</em> are
+previously declared <em>double</em> variables.  When compiled for systems without
+OpenCL, <em>SINCOS</em> will be replaced by <em>sin</em> and <em>cos</em> calls.   If <em>value</em> is
+an expression, it will appear twice in this case; whether or not it will be
+evaluated twice depends on the quality of the compiler.</p>
+<p>If the input parameters are invalid, the scattering calculator should
+return a negative number. Particularly with polydispersity, there are
+some sets of shape parameters which lead to nonsensical forms, such
+as a capped cylinder where the cap radius is smaller than the
+cylinder radius.  The polydispersity calculation will ignore these points,
+effectively chopping the parameter weight distributions at the boundary
+of the infeasible region.  The resulting scattering will be set to
+background.  This will work correctly even when polydispersity is off.</p>
+<p><em>ER</em> and <em>VR</em> are python functions which operate on parameter vectors.
+The constructor code will generate the necessary vectors for computing
+them with the desired polydispersity.</p>
+<p>The available kernel parameters are defined as a list, with each parameter
+defined as a sublist with the following elements:</p>
+<blockquote>
+<div><p><em>name</em> is the name that will be used in the call to the kernel
+function and the name that will be displayed to the user.  Names
+should be lower case, with words separated by underscore.  If
+acronyms are used, the whole acronym should be upper case.</p>
+<p><em>units</em> should be one of <em>degrees</em> for angles, <em>Ang</em> for lengths,
+<em>1e-6/Ang^2</em> for SLDs.</p>
+<p><em>default value</em> will be the initial value for  the model when it
+is selected, or when an initial value is not otherwise specified.</p>
+<p>[<em>lb</em>, <em>ub</em>] are the hard limits on the parameter value, used to limit
+the polydispersity density function.  In the fit, the parameter limits
+given to the fit are the limits  on the central value of the parameter.
+If there is polydispersity, it will evaluate parameter values outside
+the fit limits, but not outside the hard limits specified in the model.
+If there are no limits, use +/-inf imported from numpy.</p>
+<p><em>type</em> indicates how the parameter will be used.  &#8220;volume&#8221; parameters
+will be used in all functions.  &#8220;orientation&#8221; parameters will be used
+in <em>Iqxy</em> and <em>Imagnetic</em>.  &#8220;magnetic* parameters will be used in
+<em>Imagnetic</em> only.  If <em>type</em> is the empty string, the parameter will
+be used in all of <em>Iq</em>, <em>Iqxy</em> and <em>Imagnetic</em>.</p>
+<p><em>description</em> is a short description of the parameter.  This will
+be displayed in the parameter table and used as a tool tip for the
+parameter value in the user interface.</p>
+</div></blockquote>
+<p>The kernel module must set variables defining the kernel meta data:</p>
+<blockquote>
+<div><p><em>name</em> is the model name</p>
+<p><em>title</em> is a short description of the model, suitable for a tool tip,
+or a one line model summary in a table of models.</p>
+<p><em>description</em> is an extended description of the model to be displayed
+while the model parameters are being edited.</p>
+<p><em>parameters</em> is the list of parameters.  Parameters in the kernel
+functions must appear in the same order as they appear in the
+parameters list.  Two additional parameters, <em>scale</em> and <em>background</em>
+are added to the beginning of the parameter list.  They will show up
+in the documentation as model parameters, but they are never sent to
+the kernel functions.</p>
+<p><em>source</em> is the list of C-99 source files that must be joined to
+create the OpenCL kernel functions.  The files defining the functions
+need to be listed before the files which use the functions.</p>
+<p><em>ER</em> is a python function defining the effective radius.  If it is
+not present, the effective radius is 0.</p>
+<p><em>VR</em> is a python function defining the volume ratio.  If it is not
+present, the volume ratio is 1.</p>
+<p><em>form_volume</em>, <em>Iq</em>, <em>Iqxy</em>, <em>Imagnetic</em> are strings containing the
+C source code for the body of the volume, Iq, and Iqxy functions
+respectively.  These can also be defined in the last source file.</p>
+<p><em>Iq</em> and <em>Iqxy</em> also be instead be python functions defining the
+kernel.  If they are marked as <em>Iq.vectorized = True</em> then the
+kernel is passed the entire <em>q</em> vector at once, otherwise it is
+passed values one <em>q</em> at a time.  The performance improvement of
+this step is significant.</p>
+</div></blockquote>
+<p>An <em>info</em> dictionary is constructed from the kernel meta data and
+returned to the caller.</p>
+<p>Additional fields can be defined in the kernel definition file that
+are not needed for sas modelling.</p>
+<blockquote>
+<div><p><em>demo</em> is a dictionary of parameter=value defining a set of
+parameters to use by default when <em>compare</em> is called.</p>
+<p><em>oldname</em> is the name of the model in sasview before sasmodels
+was split into its own package, and <em>oldpars</em> is a dictionary
+of <em>parameter: old_parameter</em> pairs defining the new names for
+the parameters.  This is used by <em>compare</em> to check the values
+of the new model against the values of the old model before
+you are ready to add the new model to sasmodels.</p>
+</div></blockquote>
+<p>The model evaluator, function call sequence consists of q inputs and the return vector,
+followed by the loop value/weight vector, followed by the values for
+the non-polydisperse parameters, followed by the lengths of the
+polydispersity loops.  To construct the call for 1D models, the
+categories <em>fixed-1d</em> and <em>pd-1d</em> list the names of the parameters
+of the non-polydisperse and the polydisperse parameters respectively.
+Similarly, <em>fixed-2d</em> and <em>pd-2d</em> provide parameter names for 2D models.
+The <em>pd-rel</em> category is a set of those parameters which give
+polydispersitiy as a portion of the value (so a 10% length dispersity
+would use a polydispersity value of 0.1) rather than absolute
+dispersity such as an angle plus or minus 15 degrees.</p>
+<p>The <em>volume</em> category lists the volume parameters in order for calls
+to volume within the kernel (used for volume normalization) and for
+calls to ER and VR for effective radius and volume ratio respectively.</p>
+<p>The <em>orientation</em> and <em>magnetic</em> categories list the orientation and
+magnetic parameters.  These are used by the sasview interface.  The
+blank category is for parameters such as scale which don&#8217;t have any
+other marking.</p>
+<p>The doc string at the start of the kernel module will be used to
+construct the model documentation web pages.  Embedded figures should
+appear in the subdirectory &#8220;img&#8221; beside the model definition, and tagged
+with the kernel module name to avoid collision with other models.  Some
+file systems are case-sensitive, so only use lower case characters for
+file names and extensions.</p>
+<p>The function <a class="reference internal" href="#sasmodels.generate.make" title="sasmodels.generate.make"><tt class="xref py py-func docutils literal"><span class="pre">make()</span></tt></a> loads the metadata from the module and returns
+the kernel source.  The function <a class="reference internal" href="#sasmodels.generate.doc" title="sasmodels.generate.doc"><tt class="xref py py-func docutils literal"><span class="pre">doc()</span></tt></a> extracts the doc string
+and adds the parameter table to the top.  The function <a class="reference internal" href="#sasmodels.generate.sources" title="sasmodels.generate.sources"><tt class="xref py py-func docutils literal"><span class="pre">sources()</span></tt></a>
+returns a list of files required by the model.</p>
+<dl class="function">
+<dt id="sasmodels.generate.make">
+<tt class="descclassname">sasmodels.generate.</tt><tt class="descname">make</tt><big>(</big><em>kernel_module</em><big>)</big><a class="headerlink" href="#sasmodels.generate.make" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build an OpenCL/ctypes function from the definition in <em>kernel_module</em>.</p>
+<p>The module can be loaded with a normal python import statement if you
+know which module you need, or with __import__(&#8216;sasmodels.model.&#8217;+name)
+if the name is in a string.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="sasmodels.generate.doc">
+<tt class="descclassname">sasmodels.generate.</tt><tt class="descname">doc</tt><big>(</big><em>kernel_module</em><big>)</big><a class="headerlink" href="#sasmodels.generate.doc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the documentation for the model.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="sasmodels.generate.sources">
+<tt class="descclassname">sasmodels.generate.</tt><tt class="descname">sources</tt><big>(</big><em>info</em><big>)</big><a class="headerlink" href="#sasmodels.generate.sources" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of the sources file paths for the module.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="sasmodels.generate.use_single">
+<tt class="descclassname">sasmodels.generate.</tt><tt class="descname">use_single</tt><big>(</big><em>source</em><big>)</big><a class="headerlink" href="#sasmodels.generate.use_single" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert code from double precision to single precision.</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        «&#160;&#160;<a href="exception.html">3.5. Annotate exceptions</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="kernelcl.html">3.7. OpenCL model evaluator</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2014, sasview team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,12 @@
+..
+    Generated from doc/gentoc.py -- DO NOT EDIT --
+
+.. shape-parallelpiped:
+
+***********************
+Parallelpiped Functions
+***********************
+
+.. toctree::
+
+    ../../model/parallelepiped.rst

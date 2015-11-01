@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>2.2.3. Gaussian peak &mdash; Sasmodels</title>
+    
+    <link rel="stylesheet" href="../_static/haiku-site.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.9',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Sasmodels" href="../index.html" />
+    <link rel="up" title="2.2. Shape-Independent Functions" href="../ref/models/shape-independent.html" />
+    <link rel="next" title="2.3. Structure Factors" href="../ref/models/structure-factor.html" />
+    <link rel="prev" title="2.2.2. Dab" href="dab.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../index.html">
+          <span>Home</span></a></h1>
+        <h2 class="heading"><span>2.2.3. Gaussian peak</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        «&#160;&#160;<a href="dab.html">2.2.2. Dab</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="../ref/models/structure-factor.html">2.3. Structure Factors</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="gaussian-peak">
+<span id="id1"></span><h1>2.2.3. Gaussian peak<a class="headerlink" href="#gaussian-peak" title="Permalink to this headline">¶</a></h1>
+<p>Gaussian shaped peak</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="16%" />
+<col width="50%" />
+<col width="13%" />
+<col width="21%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parameter</th>
+<th class="head">Description</th>
+<th class="head">Units</th>
+<th class="head">Default value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>scale</td>
+<td>Source intensity</td>
+<td>None</td>
+<td>1</td>
+</tr>
+<tr class="row-odd"><td>background</td>
+<td>Source background</td>
+<td>cm<sup>-1</sup></td>
+<td>0</td>
+</tr>
+<tr class="row-even"><td>q0</td>
+<td>Peak position</td>
+<td>Å<sup>-1</sup></td>
+<td>0.05</td>
+</tr>
+<tr class="row-odd"><td>sigma</td>
+<td>Peak width (standard deviation)</td>
+<td>Å<sup>-1</sup></td>
+<td>0.005</td>
+</tr>
+</tbody>
+</table>
+<p>The returned value is scaled to units of cm<sup>-1</sup>.</p>
+<p>This model describes a Gaussian shaped peak on a flat background</p>
+<img alt="model/img/image198.PNG" src="model/img/image198.PNG" />
+<p>with the peak having height of <em>I0</em> centered at <em>q0</em> and having a standard deviation of <em>B</em>. The FWHM (full-width
+half-maximum) is 2.354 B.</p>
+<p>For 2D data: The 2D scattering intensity is calculated in the same way as 1D, where the <em>q</em> vector is defined as</p>
+<img alt="model/img/image040.gif" src="model/img/image040.gif" />
+<img alt="model/img/image199.jpg" src="model/img/image199.jpg" />
+<p><em>Figure. 1D plot using the default values (w/500 data points).</em></p>
+<div class="section" id="reference">
+<h2>2.2.3.1. REFERENCE<a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
+<p>None.</p>
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        «&#160;&#160;<a href="dab.html">2.2.2. Dab</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="../ref/models/structure-factor.html">2.3. Structure Factors</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2014, sasview team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

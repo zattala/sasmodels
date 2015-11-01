@@ -1,0 +1,310 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>3.13. Sasview interface &mdash; Sasmodels</title>
+    
+    <link rel="stylesheet" href="../_static/haiku-site.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.9',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Sasmodels" href="../index.html" />
+    <link rel="up" title="3. Reference" href="index.html" />
+    <link rel="next" title="3.14. SESANS model evaluator" href="sesans.html" />
+    <link rel="prev" title="3.12. 2-D resolution functions" href="resolution2d.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../index.html">
+          <span>Home</span></a></h1>
+        <h2 class="heading"><span>3.13. Sasview interface</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        «&#160;&#160;<a href="resolution2d.html">3.12. 2-D resolution functions</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="sesans.html">3.14. SESANS model evaluator</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="sasview-interface">
+<h1>3.13. Sasview interface<a class="headerlink" href="#sasview-interface" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-sasmodels.sasview_model">
+<span id="sasmodels-sasview-model"></span><h2>3.13.1. <a class="reference internal" href="#module-sasmodels.sasview_model" title="sasmodels.sasview_model"><tt class="xref py py-mod docutils literal"><span class="pre">sasmodels.sasview_model</span></tt></a><a class="headerlink" href="#module-sasmodels.sasview_model" title="Permalink to this headline">¶</a></h2>
+<p>Sasview model constructor.</p>
+<p>Given a module defining an OpenCL kernel such as sasmodels.models.cylinder,
+create a sasview model class to run that kernel as follows:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">sasmodels.sasview_model</span> <span class="kn">import</span> <span class="n">make_class</span>
+<span class="kn">from</span> <span class="nn">sasmodels.models</span> <span class="kn">import</span> <span class="n">cylinder</span>
+<span class="n">CylinderModel</span> <span class="o">=</span> <span class="n">make_class</span><span class="p">(</span><span class="n">cylinder</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s">&#39;single&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The model parameters for sasmodels are different from those in sasview.
+When reloading previously saved models, the parameters should be converted
+using <tt class="xref py py-func docutils literal"><span class="pre">sasmodels.convert.convert()</span></tt>.</p>
+<dl class="class">
+<dt id="sasmodels.sasview_model.SasviewModel">
+<em class="property">class </em><tt class="descclassname">sasmodels.sasview_model.</tt><tt class="descname">SasviewModel</tt><big>(</big><em>model</em><big>)</big><a class="headerlink" href="#sasmodels.sasview_model.SasviewModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Sasview wrapper for opencl/ctypes model.</p>
+<p>Initialization</p>
+<dl class="method">
+<dt id="sasmodels.sasview_model.SasviewModel.calculate_ER">
+<tt class="descname">calculate_ER</tt><big>(</big><big>)</big><a class="headerlink" href="#sasmodels.sasview_model.SasviewModel.calculate_ER" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the effective radius for P(q)*S(q)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of the effective radius</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.sasview_model.SasviewModel.calculate_Iq">
+<tt class="descname">calculate_Iq</tt><big>(</big><em>*args</em><big>)</big><a class="headerlink" href="#sasmodels.sasview_model.SasviewModel.calculate_Iq" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate Iq for one set of q with the current parameters.</p>
+<p>If the model is 1D, use <em>q</em>.  If 2D, use <em>qx</em>, <em>qy</em>.</p>
+<p>This should NOT be used for fitting since it copies the <em>q</em> vectors
+to the card for each evaluation.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.sasview_model.SasviewModel.calculate_VR">
+<tt class="descname">calculate_VR</tt><big>(</big><big>)</big><a class="headerlink" href="#sasmodels.sasview_model.SasviewModel.calculate_VR" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the volf ratio for P(q)*S(q)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the value of the volf ratio</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.sasview_model.SasviewModel.clone">
+<tt class="descname">clone</tt><big>(</big><big>)</big><a class="headerlink" href="#sasmodels.sasview_model.SasviewModel.clone" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a identical copy of self</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.sasview_model.SasviewModel.evalDistribution">
+<tt class="descname">evalDistribution</tt><big>(</big><em>qdist</em><big>)</big><a class="headerlink" href="#sasmodels.sasview_model.SasviewModel.evalDistribution" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate a distribution of q-values.</p>
+<ul>
+<li><p class="first">For 1D, a numpy array is expected as input:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">evalDistribution</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>where q is a numpy array.</p>
+</li>
+<li><p class="first">For 2D, a list of numpy arrays are expected: [qx,qy],
+with 1D arrays:</p>
+<div class="highlight-python"><div class="highlight"><pre>qx = [ qx[0], qx[1], qx[2], ....]
+</pre></div>
+</div>
+<p>and:</p>
+<div class="highlight-python"><div class="highlight"><pre>qy = [ qy[0], qy[1], qy[2], ....]
+</pre></div>
+</div>
+</li>
+</ul>
+<p>Then get</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">q</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">qx</span><span class="o">^</span><span class="mi">2</span><span class="o">+</span><span class="n">qy</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>that is a qr in 1D array:</p>
+<div class="highlight-python"><div class="highlight"><pre>q = [q[0], q[1], q[2], ....]
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>qdist</strong> &#8211; ndarray of scalar q-values or list [qx,qy]</td>
+</tr>
+</tbody>
+</table>
+<p>where qx,qy are 1D ndarrays</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.sasview_model.SasviewModel.getDispParamList">
+<tt class="descname">getDispParamList</tt><big>(</big><big>)</big><a class="headerlink" href="#sasmodels.sasview_model.SasviewModel.getDispParamList" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of all available parameters for the model</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.sasview_model.SasviewModel.getParam">
+<tt class="descname">getParam</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#sasmodels.sasview_model.SasviewModel.getParam" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the value of a model parameter</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> &#8211; name of the parameter</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.sasview_model.SasviewModel.getParamList">
+<tt class="descname">getParamList</tt><big>(</big><big>)</big><a class="headerlink" href="#sasmodels.sasview_model.SasviewModel.getParamList" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of all available parameters for the model</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.sasview_model.SasviewModel.getProfile">
+<tt class="descname">getProfile</tt><big>(</big><big>)</big><a class="headerlink" href="#sasmodels.sasview_model.SasviewModel.getProfile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get SLD profile</p>
+<dl class="docutils">
+<dt>: return: (z, beta) where z is a list of depth of the transition points</dt>
+<dd>beta is a list of the corresponding SLD values</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.sasview_model.SasviewModel.is_fittable">
+<tt class="descname">is_fittable</tt><big>(</big><em>par_name</em><big>)</big><a class="headerlink" href="#sasmodels.sasview_model.SasviewModel.is_fittable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if a given parameter is fittable or not</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>par_name</strong> &#8211; the parameter name to check</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.sasview_model.SasviewModel.run">
+<tt class="descname">run</tt><big>(</big><em>x=0.0</em><big>)</big><a class="headerlink" href="#sasmodels.sasview_model.SasviewModel.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate the model</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>x</strong> &#8211; input q, or [q,phi]</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">scattering function P(q)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>DEPRECATED</strong>: use calculate_Iq instead</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.sasview_model.SasviewModel.runXY">
+<tt class="descname">runXY</tt><big>(</big><em>x=0.0</em><big>)</big><a class="headerlink" href="#sasmodels.sasview_model.SasviewModel.runXY" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate the model in cartesian coordinates</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>x</strong> &#8211; input q, or [qx, qy]</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">scattering function P(q)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>DEPRECATED</strong>: use calculate_Iq instead</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.sasview_model.SasviewModel.setParam">
+<tt class="descname">setParam</tt><big>(</big><em>name</em>, <em>value</em><big>)</big><a class="headerlink" href="#sasmodels.sasview_model.SasviewModel.setParam" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the value of a model parameter</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> &#8211; name of the parameter</li>
+<li><strong>value</strong> &#8211; value of the parameter</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.sasview_model.SasviewModel.set_dispersion">
+<tt class="descname">set_dispersion</tt><big>(</big><em>parameter</em>, <em>dispersion</em><big>)</big><a class="headerlink" href="#sasmodels.sasview_model.SasviewModel.set_dispersion" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the dispersion object for a model parameter</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>parameter</strong> &#8211; name of the parameter [string]</li>
+<li><strong>dispersion</strong> &#8211; dispersion object of type Dispersion</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="sasmodels.sasview_model.make_class">
+<tt class="descclassname">sasmodels.sasview_model.</tt><tt class="descname">make_class</tt><big>(</big><em>model_definition</em>, <em>dtype='single'</em>, <em>namestyle='name'</em><big>)</big><a class="headerlink" href="#sasmodels.sasview_model.make_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load the sasview model defined in <em>kernel_module</em>.</p>
+<p>Returns a class that can be used directly as a sasview model.</p>
+<p>Defaults to using the new name for a model.  Setting
+<em>namestyle=&#8217;oldname&#8217;</em> will produce a class with a name
+compatible with SasView.</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        «&#160;&#160;<a href="resolution2d.html">3.12. 2-D resolution functions</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="sesans.html">3.14. SESANS model evaluator</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2014, sasview team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

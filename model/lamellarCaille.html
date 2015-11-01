@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>2.1.3.2. Lamellarps &mdash; Sasmodels</title>
+    
+    <link rel="stylesheet" href="../_static/haiku-site.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.9',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Sasmodels" href="../index.html" />
+    <link rel="up" title="2.1.3. Lamellae Functions" href="../ref/models/shape-lamellae.html" />
+    <link rel="next" title="2.1.3.3. Lamellarcaillehg" href="lamellarCailleHG.html" />
+    <link rel="prev" title="2.1.3.1. Lamellar" href="lamellar.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../index.html">
+          <span>Home</span></a></h1>
+        <h2 class="heading"><span>2.1.3.2. Lamellarps</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        «&#160;&#160;<a href="lamellar.html">2.1.3.1. Lamellar</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="lamellarCailleHG.html">2.1.3.3. Lamellarcaillehg</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="lamellarps">
+<span id="id1"></span><h1>2.1.3.2. Lamellarps<a class="headerlink" href="#lamellarps" title="Permalink to this headline">¶</a></h1>
+<p>Random lamellar sheet with Caille structure factor</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="22%" />
+<col width="45%" />
+<col width="16%" />
+<col width="18%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parameter</th>
+<th class="head">Description</th>
+<th class="head">Units</th>
+<th class="head">Default value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>scale</td>
+<td>Source intensity</td>
+<td>None</td>
+<td>1</td>
+</tr>
+<tr class="row-odd"><td>background</td>
+<td>Source background</td>
+<td>cm<sup>-1</sup></td>
+<td>0</td>
+</tr>
+<tr class="row-even"><td>thickness</td>
+<td>sheet thickness</td>
+<td>Å</td>
+<td>30</td>
+</tr>
+<tr class="row-odd"><td>Nlayers</td>
+<td>Number of layers</td>
+<td>None</td>
+<td>20</td>
+</tr>
+<tr class="row-even"><td>spacing</td>
+<td>d-spacing of Caille S(Q)</td>
+<td>Å</td>
+<td>400</td>
+</tr>
+<tr class="row-odd"><td>Caille_parameter</td>
+<td>Caille parameter</td>
+<td>Å<sup>-2</sup></td>
+<td>0.1</td>
+</tr>
+<tr class="row-even"><td>sld</td>
+<td>layer scattering length density</td>
+<td>10<sup>-6</sup>Å<sup>-2</sup></td>
+<td>6.3</td>
+</tr>
+<tr class="row-odd"><td>solvent_sld</td>
+<td>Solvent scattering length density</td>
+<td>10<sup>-6</sup>Å<sup>-2</sup></td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>The returned value is scaled to units of cm<sup>-1</sup>.</p>
+<p>This model provides the scattering intensity, <span class="math">\(I(q) = P(q) S(q)\)</span>, for a
+lamellar phase where a random distribution in solution are assumed.
+Here a Caille <span class="math">\(S(Q)\)</span> is used for the lamellar stacks.</p>
+<p>The scattering intensity <span class="math">\(I(q)\)</span> is</p>
+<p>The form factor is</p>
+<p>and the structure factor is</p>
+<p>where</p>
+<p>Here <span class="math">\(d\)</span> = (repeat) spacing, <span class="math">\(\delta\)</span> = bilayer thickness,
+the contrast <span class="math">\(\Delta\rho\)</span> = SLD(headgroup) - SLD(solvent),
+<span class="math">\(K\)</span> = smectic bending elasticity, <span class="math">\(B\)</span> = compression modulus, and
+<span class="math">\(N\)</span> = number of lamellar plates (<em>n_plates</em>).</p>
+<p>NB: <strong>When the Caille parameter is greater than approximately 0.8 to 1.0, the
+assumptions of the model are incorrect.</strong> And due to a complication of the
+model function, users are responsible for making sure that all the assumptions
+are handled accurately (see the original reference below for more details).</p>
+<p>Non-integer numbers of stacks are calculated as a linear combination of
+results for the next lower and higher values.</p>
+<p>The 2D scattering intensity is calculated in the same way as 1D, where the
+<span class="math">\(q\)</span> vector is defined as</p>
+<div class="math">
+\[q = \sqrt{q_x^2 + q_y^2}\]</div>
+<p>The returned value is in units of cm<sup>-1</sup>, on absolute scale.</p>
+<img alt="../_images/lamellarCaille_1d.jpg" src="../_images/lamellarCaille_1d.jpg" />
+<p><em>Figure. 1D plot using the default values (w/6000 data point).</em></p>
+<p>Our model uses the form factor calculations as implemented in a c library
+provided by the NIST Center for Neutron Research (Kline, 2006).</p>
+<div class="section" id="reference">
+<h2>REFERENCE<a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
+<p>F Nallet, R Laversanne, and D Roux, J. Phys. II France, 3, (1993) 487-502</p>
+<p>also in J. Phys. Chem. B, 105, (2001) 11081-11088</p>
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        «&#160;&#160;<a href="lamellar.html">2.1.3.1. Lamellar</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="lamellarCailleHG.html">2.1.3.3. Lamellarcaillehg</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2014, sasview team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,1436 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>3.11. 1-D resolution functions &mdash; Sasmodels</title>
+    
+    <link rel="stylesheet" href="../_static/haiku-site.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.9',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Sasmodels" href="../index.html" />
+    <link rel="up" title="3. Reference" href="index.html" />
+    <link rel="next" title="3.12. 2-D resolution functions" href="resolution2d.html" />
+    <link rel="prev" title="3.10. Unit test support" href="model_test.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../index.html">
+          <span>Home</span></a></h1>
+        <h2 class="heading"><span>3.11. 1-D resolution functions</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        «&#160;&#160;<a href="model_test.html">3.10. Unit test support</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="resolution2d.html">3.12. 2-D resolution functions</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="d-resolution-functions">
+<h1>3.11. 1-D resolution functions<a class="headerlink" href="#d-resolution-functions" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-sasmodels.resolution">
+<span id="sasmodels-resolution"></span><h2>3.11.1. <a class="reference internal" href="#module-sasmodels.resolution" title="sasmodels.resolution"><tt class="xref py py-mod docutils literal"><span class="pre">sasmodels.resolution</span></tt></a><a class="headerlink" href="#module-sasmodels.resolution" title="Permalink to this headline">¶</a></h2>
+<p>Define the resolution functions for the data.</p>
+<p>This defines classes for 1D and 2D resolution calculations.</p>
+<dl class="class">
+<dt id="sasmodels.resolution.IgorComparisonTest">
+<em class="property">class </em><tt class="descclassname">sasmodels.resolution.</tt><tt class="descname">IgorComparisonTest</tt><big>(</big><em>methodName='runTest'</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.IgorComparisonTest" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></tt></p>
+<p>Create an instance of the class that will use the named test
+method when executed. Raises a ValueError if the instance does
+not have a method with the specified name.</p>
+<dl class="attribute">
+<dt id="sasmodels.resolution.IgorComparisonTest.failureException">
+<tt class="descname">failureException</tt><a class="headerlink" href="#sasmodels.resolution.IgorComparisonTest.failureException" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <tt class="xref py py-class docutils literal"><span class="pre">AssertionError</span></tt></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.IgorComparisonTest.Iq_sphere">
+<tt class="descname">Iq_sphere</tt><big>(</big><em>pars</em>, <em>resolution</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.IgorComparisonTest.Iq_sphere" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.IgorComparisonTest.addCleanup">
+<tt class="descname">addCleanup</tt><big>(</big><em>function</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.IgorComparisonTest.addCleanup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a function, with arguments, to be called when the test is
+completed. Functions added are called on a LIFO basis and are
+called after tearDown on test failure or success.</p>
+<p>Cleanup items are called even if setUp fails (unlike tearDown).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.IgorComparisonTest.addTypeEqualityFunc">
+<tt class="descname">addTypeEqualityFunc</tt><big>(</big><em>typeobj</em>, <em>function</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.IgorComparisonTest.addTypeEqualityFunc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a type specific assertEqual style function to compare a type.</p>
+<p>This method is for use by TestCase subclasses that need to register
+their own type equality functions to provide nicer error messages.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><dl class="first last docutils">
+<dt>typeobj: The data type to call this function on when both values</dt>
+<dd>are of the same type in assertEqual().</dd>
+<dt>function: The callable taking two arguments and an optional</dt>
+<dd>msg= argument that raises self.failureException with a
+useful error message when the two arguments are not equal.</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.IgorComparisonTest.assertAlmostEqual">
+<tt class="descname">assertAlmostEqual</tt><big>(</big><em>first</em>, <em>second</em>, <em>places=None</em>, <em>msg=None</em>, <em>delta=None</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.IgorComparisonTest.assertAlmostEqual" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fail if the two objects are unequal as determined by their
+difference rounded to the given number of decimal places
+(default 7) and comparing to zero, or by comparing that the
+between the two objects is more than the given delta.</p>
+<p>Note that decimal places (from zero) are usually not the same
+as significant digits (measured from the most signficant digit).</p>
+<p>If the two objects compare equal then they will automatically
+compare almost equal.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.IgorComparisonTest.assertAlmostEquals">
+<tt class="descname">assertAlmostEquals</tt><big>(</big><em>first</em>, <em>second</em>, <em>places=None</em>, <em>msg=None</em>, <em>delta=None</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.IgorComparisonTest.assertAlmostEquals" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fail if the two objects are unequal as determined by their
+difference rounded to the given number of decimal places
+(default 7) and comparing to zero, or by comparing that the
+between the two objects is more than the given delta.</p>
+<p>Note that decimal places (from zero) are usually not the same
+as significant digits (measured from the most signficant digit).</p>
+<p>If the two objects compare equal then they will automatically
+compare almost equal.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.IgorComparisonTest.assertDictContainsSubset">
+<tt class="descname">assertDictContainsSubset</tt><big>(</big><em>expected</em>, <em>actual</em>, <em>msg=None</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.IgorComparisonTest.assertDictContainsSubset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks whether actual is a superset of expected.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.IgorComparisonTest.assertDictEqual">
+<tt class="descname">assertDictEqual</tt><big>(</big><em>d1</em>, <em>d2</em>, <em>msg=None</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.IgorComparisonTest.assertDictEqual" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.IgorComparisonTest.assertEqual">
+<tt class="descname">assertEqual</tt><big>(</big><em>first</em>, <em>second</em>, <em>msg=None</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.IgorComparisonTest.assertEqual" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fail if the two objects are unequal as determined by the &#8216;==&#8217;
+operator.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.IgorComparisonTest.assertEquals">
+<tt class="descname">assertEquals</tt><big>(</big><em>first</em>, <em>second</em>, <em>msg=None</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.IgorComparisonTest.assertEquals" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fail if the two objects are unequal as determined by the &#8216;==&#8217;
+operator.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.IgorComparisonTest.assertFalse">
+<tt class="descname">assertFalse</tt><big>(</big><em>expr</em>, <em>msg=None</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.IgorComparisonTest.assertFalse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check that the expression is false.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.IgorComparisonTest.assertGreater">
+<tt class="descname">assertGreater</tt><big>(</big><em>a</em>, <em>b</em>, <em>msg=None</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.IgorComparisonTest.assertGreater" title="Permalink to this definition">¶</a></dt>
+<dd><p>Just like self.assertTrue(a &gt; b), but with a nicer default message.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.IgorComparisonTest.assertGreaterEqual">
+<tt class="descname">assertGreaterEqual</tt><big>(</big><em>a</em>, <em>b</em>, <em>msg=None</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.IgorComparisonTest.assertGreaterEqual" title="Permalink to this definition">¶</a></dt>
+<dd><p>Just like self.assertTrue(a &gt;= b), but with a nicer default message.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.IgorComparisonTest.assertIn">
+<tt class="descname">assertIn</tt><big>(</big><em>member</em>, <em>container</em>, <em>msg=None</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.IgorComparisonTest.assertIn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Just like self.assertTrue(a in b), but with a nicer default message.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.IgorComparisonTest.assertIs">
+<tt class="descname">assertIs</tt><big>(</big><em>expr1</em>, <em>expr2</em>, <em>msg=None</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.IgorComparisonTest.assertIs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Just like self.assertTrue(a is b), but with a nicer default message.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.IgorComparisonTest.assertIsInstance">
+<tt class="descname">assertIsInstance</tt><big>(</big><em>obj</em>, <em>cls</em>, <em>msg=None</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.IgorComparisonTest.assertIsInstance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Same as self.assertTrue(isinstance(obj, cls)), with a nicer
+default message.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.IgorComparisonTest.assertIsNone">
+<tt class="descname">assertIsNone</tt><big>(</big><em>obj</em>, <em>msg=None</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.IgorComparisonTest.assertIsNone" title="Permalink to this definition">¶</a></dt>
+<dd><p>Same as self.assertTrue(obj is None), with a nicer default message.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.IgorComparisonTest.assertIsNot">
+<tt class="descname">assertIsNot</tt><big>(</big><em>expr1</em>, <em>expr2</em>, <em>msg=None</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.IgorComparisonTest.assertIsNot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Just like self.assertTrue(a is not b), but with a nicer default message.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.IgorComparisonTest.assertIsNotNone">
+<tt class="descname">assertIsNotNone</tt><big>(</big><em>obj</em>, <em>msg=None</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.IgorComparisonTest.assertIsNotNone" title="Permalink to this definition">¶</a></dt>
+<dd><p>Included for symmetry with assertIsNone.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.IgorComparisonTest.assertItemsEqual">
+<tt class="descname">assertItemsEqual</tt><big>(</big><em>expected_seq</em>, <em>actual_seq</em>, <em>msg=None</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.IgorComparisonTest.assertItemsEqual" title="Permalink to this definition">¶</a></dt>
+<dd><p>An unordered sequence specific comparison. It asserts that
+actual_seq and expected_seq have the same element counts.
+Equivalent to:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">Counter</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">actual_seq</span><span class="p">)),</span>
+                 <span class="n">Counter</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">expected_seq</span><span class="p">)))</span>
+</pre></div>
+</div>
+<p>Asserts that each element has the same count in both sequences.
+Example:</p>
+<blockquote>
+<div><ul class="simple">
+<li>[0, 1, 1] and [1, 0, 1] compare equal.</li>
+<li>[0, 0, 1] and [0, 1] compare unequal.</li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.IgorComparisonTest.assertLess">
+<tt class="descname">assertLess</tt><big>(</big><em>a</em>, <em>b</em>, <em>msg=None</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.IgorComparisonTest.assertLess" title="Permalink to this definition">¶</a></dt>
+<dd><p>Just like self.assertTrue(a &lt; b), but with a nicer default message.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.IgorComparisonTest.assertLessEqual">
+<tt class="descname">assertLessEqual</tt><big>(</big><em>a</em>, <em>b</em>, <em>msg=None</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.IgorComparisonTest.assertLessEqual" title="Permalink to this definition">¶</a></dt>
+<dd><p>Just like self.assertTrue(a &lt;= b), but with a nicer default message.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.IgorComparisonTest.assertListEqual">
+<tt class="descname">assertListEqual</tt><big>(</big><em>list1</em>, <em>list2</em>, <em>msg=None</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.IgorComparisonTest.assertListEqual" title="Permalink to this definition">¶</a></dt>
+<dd><p>A list-specific equality assertion.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><p class="first">list1: The first list to compare.
+list2: The second list to compare.
+msg: Optional message to use on failure instead of a list of</p>
+<blockquote class="last">
+<div>differences.</div></blockquote>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.IgorComparisonTest.assertMultiLineEqual">
+<tt class="descname">assertMultiLineEqual</tt><big>(</big><em>first</em>, <em>second</em>, <em>msg=None</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.IgorComparisonTest.assertMultiLineEqual" title="Permalink to this definition">¶</a></dt>
+<dd><p>Assert that two multi-line strings are equal.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.IgorComparisonTest.assertNotAlmostEqual">
+<tt class="descname">assertNotAlmostEqual</tt><big>(</big><em>first</em>, <em>second</em>, <em>places=None</em>, <em>msg=None</em>, <em>delta=None</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.IgorComparisonTest.assertNotAlmostEqual" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fail if the two objects are equal as determined by their
+difference rounded to the given number of decimal places
+(default 7) and comparing to zero, or by comparing that the
+between the two objects is less than the given delta.</p>
+<p>Note that decimal places (from zero) are usually not the same
+as significant digits (measured from the most signficant digit).</p>
+<p>Objects that are equal automatically fail.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.IgorComparisonTest.assertNotAlmostEquals">
+<tt class="descname">assertNotAlmostEquals</tt><big>(</big><em>first</em>, <em>second</em>, <em>places=None</em>, <em>msg=None</em>, <em>delta=None</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.IgorComparisonTest.assertNotAlmostEquals" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fail if the two objects are equal as determined by their
+difference rounded to the given number of decimal places
+(default 7) and comparing to zero, or by comparing that the
+between the two objects is less than the given delta.</p>
+<p>Note that decimal places (from zero) are usually not the same
+as significant digits (measured from the most signficant digit).</p>
+<p>Objects that are equal automatically fail.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.IgorComparisonTest.assertNotEqual">
+<tt class="descname">assertNotEqual</tt><big>(</big><em>first</em>, <em>second</em>, <em>msg=None</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.IgorComparisonTest.assertNotEqual" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fail if the two objects are equal as determined by the &#8216;!=&#8217;
+operator.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.IgorComparisonTest.assertNotEquals">
+<tt class="descname">assertNotEquals</tt><big>(</big><em>first</em>, <em>second</em>, <em>msg=None</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.IgorComparisonTest.assertNotEquals" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fail if the two objects are equal as determined by the &#8216;!=&#8217;
+operator.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.IgorComparisonTest.assertNotIn">
+<tt class="descname">assertNotIn</tt><big>(</big><em>member</em>, <em>container</em>, <em>msg=None</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.IgorComparisonTest.assertNotIn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Just like self.assertTrue(a not in b), but with a nicer default message.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.IgorComparisonTest.assertNotIsInstance">
+<tt class="descname">assertNotIsInstance</tt><big>(</big><em>obj</em>, <em>cls</em>, <em>msg=None</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.IgorComparisonTest.assertNotIsInstance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Included for symmetry with assertIsInstance.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.IgorComparisonTest.assertNotRegexpMatches">
+<tt class="descname">assertNotRegexpMatches</tt><big>(</big><em>text</em>, <em>unexpected_regexp</em>, <em>msg=None</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.IgorComparisonTest.assertNotRegexpMatches" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fail the test if the text matches the regular expression.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.IgorComparisonTest.assertRaises">
+<tt class="descname">assertRaises</tt><big>(</big><em>excClass</em>, <em>callableObj=None</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.IgorComparisonTest.assertRaises" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fail unless an exception of class excClass is raised
+by callableObj when invoked with arguments args and keyword
+arguments kwargs. If a different type of exception is
+raised, it will not be caught, and the test case will be
+deemed to have suffered an error, exactly as for an
+unexpected exception.</p>
+<p>If called with callableObj omitted or None, will return a
+context object used like this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="n">SomeException</span><span class="p">):</span>
+    <span class="n">do_something</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The context manager keeps a reference to the exception as
+the &#8216;exception&#8217; attribute. This allows you to inspect the
+exception after the assertion:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="n">SomeException</span><span class="p">)</span> <span class="k">as</span> <span class="n">cm</span><span class="p">:</span>
+    <span class="n">do_something</span><span class="p">()</span>
+<span class="n">the_exception</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">exception</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">the_exception</span><span class="o">.</span><span class="n">error_code</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.IgorComparisonTest.assertRaisesRegexp">
+<tt class="descname">assertRaisesRegexp</tt><big>(</big><em>expected_exception</em>, <em>expected_regexp</em>, <em>callable_obj=None</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.IgorComparisonTest.assertRaisesRegexp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Asserts that the message in a raised exception matches a regexp.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><p class="first">expected_exception: Exception class expected to be raised.
+expected_regexp: Regexp (re pattern object or string) expected</p>
+<blockquote>
+<div>to be found in error message.</div></blockquote>
+<p class="last">callable_obj: Function to be called.
+args: Extra args.
+kwargs: Extra kwargs.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.IgorComparisonTest.assertRegexpMatches">
+<tt class="descname">assertRegexpMatches</tt><big>(</big><em>text</em>, <em>expected_regexp</em>, <em>msg=None</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.IgorComparisonTest.assertRegexpMatches" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fail the test unless the text matches the regular expression.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.IgorComparisonTest.assertSequenceEqual">
+<tt class="descname">assertSequenceEqual</tt><big>(</big><em>seq1</em>, <em>seq2</em>, <em>msg=None</em>, <em>seq_type=None</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.IgorComparisonTest.assertSequenceEqual" title="Permalink to this definition">¶</a></dt>
+<dd><p>An equality assertion for ordered sequences (like lists and tuples).</p>
+<p>For the purposes of this function, a valid ordered sequence type is one
+which can be indexed, has a length, and has an equality operator.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><p class="first">seq1: The first sequence to compare.
+seq2: The second sequence to compare.
+seq_type: The expected datatype of the sequences, or None if no</p>
+<blockquote>
+<div>datatype should be enforced.</div></blockquote>
+<dl class="last docutils">
+<dt>msg: Optional message to use on failure instead of a list of</dt>
+<dd>differences.</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.IgorComparisonTest.assertSetEqual">
+<tt class="descname">assertSetEqual</tt><big>(</big><em>set1</em>, <em>set2</em>, <em>msg=None</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.IgorComparisonTest.assertSetEqual" title="Permalink to this definition">¶</a></dt>
+<dd><p>A set-specific equality assertion.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><p class="first">set1: The first set to compare.
+set2: The second set to compare.
+msg: Optional message to use on failure instead of a list of</p>
+<blockquote class="last">
+<div>differences.</div></blockquote>
+</dd>
+</dl>
+<p>assertSetEqual uses ducktyping to support different types of sets, and
+is optimized for sets specifically (parameters must support a
+difference method).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.IgorComparisonTest.assertTrue">
+<tt class="descname">assertTrue</tt><big>(</big><em>expr</em>, <em>msg=None</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.IgorComparisonTest.assertTrue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check that the expression is true.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.IgorComparisonTest.assertTupleEqual">
+<tt class="descname">assertTupleEqual</tt><big>(</big><em>tuple1</em>, <em>tuple2</em>, <em>msg=None</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.IgorComparisonTest.assertTupleEqual" title="Permalink to this definition">¶</a></dt>
+<dd><p>A tuple-specific equality assertion.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><p class="first">tuple1: The first tuple to compare.
+tuple2: The second tuple to compare.
+msg: Optional message to use on failure instead of a list of</p>
+<blockquote class="last">
+<div>differences.</div></blockquote>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.IgorComparisonTest.assert_">
+<tt class="descname">assert_</tt><big>(</big><em>expr</em>, <em>msg=None</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.IgorComparisonTest.assert_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check that the expression is true.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.IgorComparisonTest.compare">
+<tt class="descname">compare</tt><big>(</big><em>q</em>, <em>output</em>, <em>answer</em>, <em>tolerance</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.IgorComparisonTest.compare" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.IgorComparisonTest.countTestCases">
+<tt class="descname">countTestCases</tt><big>(</big><big>)</big><a class="headerlink" href="#sasmodels.resolution.IgorComparisonTest.countTestCases" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.IgorComparisonTest.debug">
+<tt class="descname">debug</tt><big>(</big><big>)</big><a class="headerlink" href="#sasmodels.resolution.IgorComparisonTest.debug" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run the test without collecting errors in a TestResult</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.IgorComparisonTest.defaultTestResult">
+<tt class="descname">defaultTestResult</tt><big>(</big><big>)</big><a class="headerlink" href="#sasmodels.resolution.IgorComparisonTest.defaultTestResult" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.IgorComparisonTest.doCleanups">
+<tt class="descname">doCleanups</tt><big>(</big><big>)</big><a class="headerlink" href="#sasmodels.resolution.IgorComparisonTest.doCleanups" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute all cleanup functions. Normally called for you after
+tearDown.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.IgorComparisonTest.fail">
+<tt class="descname">fail</tt><big>(</big><em>msg=None</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.IgorComparisonTest.fail" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fail immediately, with the given message.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.IgorComparisonTest.failIf">
+<tt class="descname">failIf</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.IgorComparisonTest.failIf" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.IgorComparisonTest.failIfAlmostEqual">
+<tt class="descname">failIfAlmostEqual</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.IgorComparisonTest.failIfAlmostEqual" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.IgorComparisonTest.failIfEqual">
+<tt class="descname">failIfEqual</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.IgorComparisonTest.failIfEqual" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.IgorComparisonTest.failUnless">
+<tt class="descname">failUnless</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.IgorComparisonTest.failUnless" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.IgorComparisonTest.failUnlessAlmostEqual">
+<tt class="descname">failUnlessAlmostEqual</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.IgorComparisonTest.failUnlessAlmostEqual" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.IgorComparisonTest.failUnlessEqual">
+<tt class="descname">failUnlessEqual</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.IgorComparisonTest.failUnlessEqual" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.IgorComparisonTest.failUnlessRaises">
+<tt class="descname">failUnlessRaises</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.IgorComparisonTest.failUnlessRaises" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.IgorComparisonTest.id">
+<tt class="descname">id</tt><big>(</big><big>)</big><a class="headerlink" href="#sasmodels.resolution.IgorComparisonTest.id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.IgorComparisonTest.run">
+<tt class="descname">run</tt><big>(</big><em>result=None</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.IgorComparisonTest.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.IgorComparisonTest.setUp">
+<tt class="descname">setUp</tt><big>(</big><big>)</big><a class="headerlink" href="#sasmodels.resolution.IgorComparisonTest.setUp" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="sasmodels.resolution.IgorComparisonTest.setUpClass">
+<em class="property">classmethod </em><tt class="descname">setUpClass</tt><big>(</big><big>)</big><a class="headerlink" href="#sasmodels.resolution.IgorComparisonTest.setUpClass" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hook method for setting up class fixture before running tests in the class.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.IgorComparisonTest.shortDescription">
+<tt class="descname">shortDescription</tt><big>(</big><big>)</big><a class="headerlink" href="#sasmodels.resolution.IgorComparisonTest.shortDescription" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a one-line description of the test, or None if no
+description has been provided.</p>
+<p>The default implementation of this method returns the first line of
+the specified test method&#8217;s docstring.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.IgorComparisonTest.skipTest">
+<tt class="descname">skipTest</tt><big>(</big><em>reason</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.IgorComparisonTest.skipTest" title="Permalink to this definition">¶</a></dt>
+<dd><p>Skip this test.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.IgorComparisonTest.tearDown">
+<tt class="descname">tearDown</tt><big>(</big><big>)</big><a class="headerlink" href="#sasmodels.resolution.IgorComparisonTest.tearDown" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hook method for deconstructing the test fixture after testing it.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="sasmodels.resolution.IgorComparisonTest.tearDownClass">
+<em class="property">classmethod </em><tt class="descname">tearDownClass</tt><big>(</big><big>)</big><a class="headerlink" href="#sasmodels.resolution.IgorComparisonTest.tearDownClass" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hook method for deconstructing the class fixture after running all tests in the class.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.IgorComparisonTest.test_ellipsoid">
+<tt class="descname">test_ellipsoid</tt><big>(</big><big>)</big><a class="headerlink" href="#sasmodels.resolution.IgorComparisonTest.test_ellipsoid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compare romberg integration for ellipsoid model.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.IgorComparisonTest.test_perfect">
+<tt class="descname">test_perfect</tt><big>(</big><big>)</big><a class="headerlink" href="#sasmodels.resolution.IgorComparisonTest.test_perfect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compare sphere model with NIST Igor SANS, no resolution smearing.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.IgorComparisonTest.test_pinhole">
+<tt class="descname">test_pinhole</tt><big>(</big><big>)</big><a class="headerlink" href="#sasmodels.resolution.IgorComparisonTest.test_pinhole" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compare pinhole resolution smearing with NIST Igor SANS</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.IgorComparisonTest.test_pinhole_romberg">
+<tt class="descname">test_pinhole_romberg</tt><big>(</big><big>)</big><a class="headerlink" href="#sasmodels.resolution.IgorComparisonTest.test_pinhole_romberg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compare pinhole resolution smearing with romberg integration result.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.IgorComparisonTest.test_pinhole_sparse">
+<tt class="descname">test_pinhole_sparse</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.IgorComparisonTest.test_pinhole_sparse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compare pinhole resolution smearing with NIST Igor SANS on sparse data</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.IgorComparisonTest.test_slit">
+<tt class="descname">test_slit</tt><big>(</big><big>)</big><a class="headerlink" href="#sasmodels.resolution.IgorComparisonTest.test_slit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compare slit resolution smearing with NIST Igor SANS</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.IgorComparisonTest.test_slit_romberg">
+<tt class="descname">test_slit_romberg</tt><big>(</big><big>)</big><a class="headerlink" href="#sasmodels.resolution.IgorComparisonTest.test_slit_romberg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compare slit resolution smearing with romberg integration result.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sasmodels.resolution.IgorComparisonTest.longMessage">
+<tt class="descname">longMessage</tt><em class="property"> = False</em><a class="headerlink" href="#sasmodels.resolution.IgorComparisonTest.longMessage" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="sasmodels.resolution.IgorComparisonTest.maxDiff">
+<tt class="descname">maxDiff</tt><em class="property"> = 640</em><a class="headerlink" href="#sasmodels.resolution.IgorComparisonTest.maxDiff" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="sasmodels.resolution.Perfect1D">
+<em class="property">class </em><tt class="descclassname">sasmodels.resolution.</tt><tt class="descname">Perfect1D</tt><big>(</big><em>q</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.Perfect1D" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#sasmodels.resolution.Resolution" title="sasmodels.resolution.Resolution"><tt class="xref py py-class docutils literal"><span class="pre">sasmodels.resolution.Resolution</span></tt></a></p>
+<p>Resolution function to use when there is no actual resolution smearing
+to be applied.  It has the same interface as the other resolution
+functions, but returns the identity function.</p>
+<dl class="method">
+<dt id="sasmodels.resolution.Perfect1D.apply">
+<tt class="descname">apply</tt><big>(</big><em>theory</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.Perfect1D.apply" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="sasmodels.resolution.Perfect1D.q">
+<tt class="descname">q</tt><em class="property"> = None</em><a class="headerlink" href="#sasmodels.resolution.Perfect1D.q" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="sasmodels.resolution.Perfect1D.q_calc">
+<tt class="descname">q_calc</tt><em class="property"> = None</em><a class="headerlink" href="#sasmodels.resolution.Perfect1D.q_calc" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="sasmodels.resolution.Pinhole1D">
+<em class="property">class </em><tt class="descclassname">sasmodels.resolution.</tt><tt class="descname">Pinhole1D</tt><big>(</big><em>q</em>, <em>q_width</em>, <em>q_calc=None</em>, <em>nsigma=3</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.Pinhole1D" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#sasmodels.resolution.Resolution" title="sasmodels.resolution.Resolution"><tt class="xref py py-class docutils literal"><span class="pre">sasmodels.resolution.Resolution</span></tt></a></p>
+<p>Pinhole aperture with q-dependent gaussian resolution.</p>
+<p><em>q</em> points at which the data is measured.</p>
+<p><em>q_width</em> gaussian 1-sigma resolution at each data point.</p>
+<p><em>q_calc</em> is the list of points to calculate, or None if this should
+be estimated from the <em>q</em> and <em>q_width</em>.</p>
+<dl class="method">
+<dt id="sasmodels.resolution.Pinhole1D.apply">
+<tt class="descname">apply</tt><big>(</big><em>theory</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.Pinhole1D.apply" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="sasmodels.resolution.Pinhole1D.q">
+<tt class="descname">q</tt><em class="property"> = None</em><a class="headerlink" href="#sasmodels.resolution.Pinhole1D.q" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="sasmodels.resolution.Pinhole1D.q_calc">
+<tt class="descname">q_calc</tt><em class="property"> = None</em><a class="headerlink" href="#sasmodels.resolution.Pinhole1D.q_calc" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="sasmodels.resolution.Resolution">
+<em class="property">class </em><tt class="descclassname">sasmodels.resolution.</tt><tt class="descname">Resolution</tt><a class="headerlink" href="#sasmodels.resolution.Resolution" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Abstract base class defining a 1D resolution function.</p>
+<p><em>q</em> is the set of q values at which the data is measured.</p>
+<p><em>q_calc</em> is the set of q values at which the theory needs to be evaluated.
+This may extend and interpolate the q values.</p>
+<p><em>apply</em> is the method to call with I(q_calc) to compute the resolution
+smeared theory I(q).</p>
+<dl class="method">
+<dt id="sasmodels.resolution.Resolution.apply">
+<tt class="descname">apply</tt><big>(</big><em>theory</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.Resolution.apply" title="Permalink to this definition">¶</a></dt>
+<dd><p>Smear <em>theory</em> by the resolution function, returning <em>Iq</em>.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sasmodels.resolution.Resolution.q">
+<tt class="descname">q</tt><em class="property"> = None</em><a class="headerlink" href="#sasmodels.resolution.Resolution.q" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="sasmodels.resolution.Resolution.q_calc">
+<tt class="descname">q_calc</tt><em class="property"> = None</em><a class="headerlink" href="#sasmodels.resolution.Resolution.q_calc" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="sasmodels.resolution.ResolutionTest">
+<em class="property">class </em><tt class="descclassname">sasmodels.resolution.</tt><tt class="descname">ResolutionTest</tt><big>(</big><em>methodName='runTest'</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.ResolutionTest" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></tt></p>
+<p>Create an instance of the class that will use the named test
+method when executed. Raises a ValueError if the instance does
+not have a method with the specified name.</p>
+<dl class="attribute">
+<dt id="sasmodels.resolution.ResolutionTest.failureException">
+<tt class="descname">failureException</tt><a class="headerlink" href="#sasmodels.resolution.ResolutionTest.failureException" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <tt class="xref py py-class docutils literal"><span class="pre">AssertionError</span></tt></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.ResolutionTest.Iq">
+<tt class="descname">Iq</tt><big>(</big><em>q</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.ResolutionTest.Iq" title="Permalink to this definition">¶</a></dt>
+<dd><p>Linear function for resolution unit test</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.ResolutionTest.addCleanup">
+<tt class="descname">addCleanup</tt><big>(</big><em>function</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.ResolutionTest.addCleanup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a function, with arguments, to be called when the test is
+completed. Functions added are called on a LIFO basis and are
+called after tearDown on test failure or success.</p>
+<p>Cleanup items are called even if setUp fails (unlike tearDown).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.ResolutionTest.addTypeEqualityFunc">
+<tt class="descname">addTypeEqualityFunc</tt><big>(</big><em>typeobj</em>, <em>function</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.ResolutionTest.addTypeEqualityFunc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a type specific assertEqual style function to compare a type.</p>
+<p>This method is for use by TestCase subclasses that need to register
+their own type equality functions to provide nicer error messages.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><dl class="first last docutils">
+<dt>typeobj: The data type to call this function on when both values</dt>
+<dd>are of the same type in assertEqual().</dd>
+<dt>function: The callable taking two arguments and an optional</dt>
+<dd>msg= argument that raises self.failureException with a
+useful error message when the two arguments are not equal.</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.ResolutionTest.assertAlmostEqual">
+<tt class="descname">assertAlmostEqual</tt><big>(</big><em>first</em>, <em>second</em>, <em>places=None</em>, <em>msg=None</em>, <em>delta=None</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.ResolutionTest.assertAlmostEqual" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fail if the two objects are unequal as determined by their
+difference rounded to the given number of decimal places
+(default 7) and comparing to zero, or by comparing that the
+between the two objects is more than the given delta.</p>
+<p>Note that decimal places (from zero) are usually not the same
+as significant digits (measured from the most signficant digit).</p>
+<p>If the two objects compare equal then they will automatically
+compare almost equal.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.ResolutionTest.assertAlmostEquals">
+<tt class="descname">assertAlmostEquals</tt><big>(</big><em>first</em>, <em>second</em>, <em>places=None</em>, <em>msg=None</em>, <em>delta=None</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.ResolutionTest.assertAlmostEquals" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fail if the two objects are unequal as determined by their
+difference rounded to the given number of decimal places
+(default 7) and comparing to zero, or by comparing that the
+between the two objects is more than the given delta.</p>
+<p>Note that decimal places (from zero) are usually not the same
+as significant digits (measured from the most signficant digit).</p>
+<p>If the two objects compare equal then they will automatically
+compare almost equal.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.ResolutionTest.assertDictContainsSubset">
+<tt class="descname">assertDictContainsSubset</tt><big>(</big><em>expected</em>, <em>actual</em>, <em>msg=None</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.ResolutionTest.assertDictContainsSubset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks whether actual is a superset of expected.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.ResolutionTest.assertDictEqual">
+<tt class="descname">assertDictEqual</tt><big>(</big><em>d1</em>, <em>d2</em>, <em>msg=None</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.ResolutionTest.assertDictEqual" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.ResolutionTest.assertEqual">
+<tt class="descname">assertEqual</tt><big>(</big><em>first</em>, <em>second</em>, <em>msg=None</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.ResolutionTest.assertEqual" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fail if the two objects are unequal as determined by the &#8216;==&#8217;
+operator.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.ResolutionTest.assertEquals">
+<tt class="descname">assertEquals</tt><big>(</big><em>first</em>, <em>second</em>, <em>msg=None</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.ResolutionTest.assertEquals" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fail if the two objects are unequal as determined by the &#8216;==&#8217;
+operator.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.ResolutionTest.assertFalse">
+<tt class="descname">assertFalse</tt><big>(</big><em>expr</em>, <em>msg=None</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.ResolutionTest.assertFalse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check that the expression is false.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.ResolutionTest.assertGreater">
+<tt class="descname">assertGreater</tt><big>(</big><em>a</em>, <em>b</em>, <em>msg=None</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.ResolutionTest.assertGreater" title="Permalink to this definition">¶</a></dt>
+<dd><p>Just like self.assertTrue(a &gt; b), but with a nicer default message.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.ResolutionTest.assertGreaterEqual">
+<tt class="descname">assertGreaterEqual</tt><big>(</big><em>a</em>, <em>b</em>, <em>msg=None</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.ResolutionTest.assertGreaterEqual" title="Permalink to this definition">¶</a></dt>
+<dd><p>Just like self.assertTrue(a &gt;= b), but with a nicer default message.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.ResolutionTest.assertIn">
+<tt class="descname">assertIn</tt><big>(</big><em>member</em>, <em>container</em>, <em>msg=None</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.ResolutionTest.assertIn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Just like self.assertTrue(a in b), but with a nicer default message.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.ResolutionTest.assertIs">
+<tt class="descname">assertIs</tt><big>(</big><em>expr1</em>, <em>expr2</em>, <em>msg=None</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.ResolutionTest.assertIs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Just like self.assertTrue(a is b), but with a nicer default message.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.ResolutionTest.assertIsInstance">
+<tt class="descname">assertIsInstance</tt><big>(</big><em>obj</em>, <em>cls</em>, <em>msg=None</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.ResolutionTest.assertIsInstance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Same as self.assertTrue(isinstance(obj, cls)), with a nicer
+default message.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.ResolutionTest.assertIsNone">
+<tt class="descname">assertIsNone</tt><big>(</big><em>obj</em>, <em>msg=None</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.ResolutionTest.assertIsNone" title="Permalink to this definition">¶</a></dt>
+<dd><p>Same as self.assertTrue(obj is None), with a nicer default message.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.ResolutionTest.assertIsNot">
+<tt class="descname">assertIsNot</tt><big>(</big><em>expr1</em>, <em>expr2</em>, <em>msg=None</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.ResolutionTest.assertIsNot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Just like self.assertTrue(a is not b), but with a nicer default message.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.ResolutionTest.assertIsNotNone">
+<tt class="descname">assertIsNotNone</tt><big>(</big><em>obj</em>, <em>msg=None</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.ResolutionTest.assertIsNotNone" title="Permalink to this definition">¶</a></dt>
+<dd><p>Included for symmetry with assertIsNone.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.ResolutionTest.assertItemsEqual">
+<tt class="descname">assertItemsEqual</tt><big>(</big><em>expected_seq</em>, <em>actual_seq</em>, <em>msg=None</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.ResolutionTest.assertItemsEqual" title="Permalink to this definition">¶</a></dt>
+<dd><p>An unordered sequence specific comparison. It asserts that
+actual_seq and expected_seq have the same element counts.
+Equivalent to:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">Counter</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">actual_seq</span><span class="p">)),</span>
+                 <span class="n">Counter</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">expected_seq</span><span class="p">)))</span>
+</pre></div>
+</div>
+<p>Asserts that each element has the same count in both sequences.
+Example:</p>
+<blockquote>
+<div><ul class="simple">
+<li>[0, 1, 1] and [1, 0, 1] compare equal.</li>
+<li>[0, 0, 1] and [0, 1] compare unequal.</li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.ResolutionTest.assertLess">
+<tt class="descname">assertLess</tt><big>(</big><em>a</em>, <em>b</em>, <em>msg=None</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.ResolutionTest.assertLess" title="Permalink to this definition">¶</a></dt>
+<dd><p>Just like self.assertTrue(a &lt; b), but with a nicer default message.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.ResolutionTest.assertLessEqual">
+<tt class="descname">assertLessEqual</tt><big>(</big><em>a</em>, <em>b</em>, <em>msg=None</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.ResolutionTest.assertLessEqual" title="Permalink to this definition">¶</a></dt>
+<dd><p>Just like self.assertTrue(a &lt;= b), but with a nicer default message.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.ResolutionTest.assertListEqual">
+<tt class="descname">assertListEqual</tt><big>(</big><em>list1</em>, <em>list2</em>, <em>msg=None</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.ResolutionTest.assertListEqual" title="Permalink to this definition">¶</a></dt>
+<dd><p>A list-specific equality assertion.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><p class="first">list1: The first list to compare.
+list2: The second list to compare.
+msg: Optional message to use on failure instead of a list of</p>
+<blockquote class="last">
+<div>differences.</div></blockquote>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.ResolutionTest.assertMultiLineEqual">
+<tt class="descname">assertMultiLineEqual</tt><big>(</big><em>first</em>, <em>second</em>, <em>msg=None</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.ResolutionTest.assertMultiLineEqual" title="Permalink to this definition">¶</a></dt>
+<dd><p>Assert that two multi-line strings are equal.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.ResolutionTest.assertNotAlmostEqual">
+<tt class="descname">assertNotAlmostEqual</tt><big>(</big><em>first</em>, <em>second</em>, <em>places=None</em>, <em>msg=None</em>, <em>delta=None</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.ResolutionTest.assertNotAlmostEqual" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fail if the two objects are equal as determined by their
+difference rounded to the given number of decimal places
+(default 7) and comparing to zero, or by comparing that the
+between the two objects is less than the given delta.</p>
+<p>Note that decimal places (from zero) are usually not the same
+as significant digits (measured from the most signficant digit).</p>
+<p>Objects that are equal automatically fail.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.ResolutionTest.assertNotAlmostEquals">
+<tt class="descname">assertNotAlmostEquals</tt><big>(</big><em>first</em>, <em>second</em>, <em>places=None</em>, <em>msg=None</em>, <em>delta=None</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.ResolutionTest.assertNotAlmostEquals" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fail if the two objects are equal as determined by their
+difference rounded to the given number of decimal places
+(default 7) and comparing to zero, or by comparing that the
+between the two objects is less than the given delta.</p>
+<p>Note that decimal places (from zero) are usually not the same
+as significant digits (measured from the most signficant digit).</p>
+<p>Objects that are equal automatically fail.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.ResolutionTest.assertNotEqual">
+<tt class="descname">assertNotEqual</tt><big>(</big><em>first</em>, <em>second</em>, <em>msg=None</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.ResolutionTest.assertNotEqual" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fail if the two objects are equal as determined by the &#8216;!=&#8217;
+operator.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.ResolutionTest.assertNotEquals">
+<tt class="descname">assertNotEquals</tt><big>(</big><em>first</em>, <em>second</em>, <em>msg=None</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.ResolutionTest.assertNotEquals" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fail if the two objects are equal as determined by the &#8216;!=&#8217;
+operator.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.ResolutionTest.assertNotIn">
+<tt class="descname">assertNotIn</tt><big>(</big><em>member</em>, <em>container</em>, <em>msg=None</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.ResolutionTest.assertNotIn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Just like self.assertTrue(a not in b), but with a nicer default message.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.ResolutionTest.assertNotIsInstance">
+<tt class="descname">assertNotIsInstance</tt><big>(</big><em>obj</em>, <em>cls</em>, <em>msg=None</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.ResolutionTest.assertNotIsInstance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Included for symmetry with assertIsInstance.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.ResolutionTest.assertNotRegexpMatches">
+<tt class="descname">assertNotRegexpMatches</tt><big>(</big><em>text</em>, <em>unexpected_regexp</em>, <em>msg=None</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.ResolutionTest.assertNotRegexpMatches" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fail the test if the text matches the regular expression.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.ResolutionTest.assertRaises">
+<tt class="descname">assertRaises</tt><big>(</big><em>excClass</em>, <em>callableObj=None</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.ResolutionTest.assertRaises" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fail unless an exception of class excClass is raised
+by callableObj when invoked with arguments args and keyword
+arguments kwargs. If a different type of exception is
+raised, it will not be caught, and the test case will be
+deemed to have suffered an error, exactly as for an
+unexpected exception.</p>
+<p>If called with callableObj omitted or None, will return a
+context object used like this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="n">SomeException</span><span class="p">):</span>
+    <span class="n">do_something</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The context manager keeps a reference to the exception as
+the &#8216;exception&#8217; attribute. This allows you to inspect the
+exception after the assertion:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="n">SomeException</span><span class="p">)</span> <span class="k">as</span> <span class="n">cm</span><span class="p">:</span>
+    <span class="n">do_something</span><span class="p">()</span>
+<span class="n">the_exception</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">exception</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">the_exception</span><span class="o">.</span><span class="n">error_code</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.ResolutionTest.assertRaisesRegexp">
+<tt class="descname">assertRaisesRegexp</tt><big>(</big><em>expected_exception</em>, <em>expected_regexp</em>, <em>callable_obj=None</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.ResolutionTest.assertRaisesRegexp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Asserts that the message in a raised exception matches a regexp.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><p class="first">expected_exception: Exception class expected to be raised.
+expected_regexp: Regexp (re pattern object or string) expected</p>
+<blockquote>
+<div>to be found in error message.</div></blockquote>
+<p class="last">callable_obj: Function to be called.
+args: Extra args.
+kwargs: Extra kwargs.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.ResolutionTest.assertRegexpMatches">
+<tt class="descname">assertRegexpMatches</tt><big>(</big><em>text</em>, <em>expected_regexp</em>, <em>msg=None</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.ResolutionTest.assertRegexpMatches" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fail the test unless the text matches the regular expression.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.ResolutionTest.assertSequenceEqual">
+<tt class="descname">assertSequenceEqual</tt><big>(</big><em>seq1</em>, <em>seq2</em>, <em>msg=None</em>, <em>seq_type=None</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.ResolutionTest.assertSequenceEqual" title="Permalink to this definition">¶</a></dt>
+<dd><p>An equality assertion for ordered sequences (like lists and tuples).</p>
+<p>For the purposes of this function, a valid ordered sequence type is one
+which can be indexed, has a length, and has an equality operator.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><p class="first">seq1: The first sequence to compare.
+seq2: The second sequence to compare.
+seq_type: The expected datatype of the sequences, or None if no</p>
+<blockquote>
+<div>datatype should be enforced.</div></blockquote>
+<dl class="last docutils">
+<dt>msg: Optional message to use on failure instead of a list of</dt>
+<dd>differences.</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.ResolutionTest.assertSetEqual">
+<tt class="descname">assertSetEqual</tt><big>(</big><em>set1</em>, <em>set2</em>, <em>msg=None</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.ResolutionTest.assertSetEqual" title="Permalink to this definition">¶</a></dt>
+<dd><p>A set-specific equality assertion.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><p class="first">set1: The first set to compare.
+set2: The second set to compare.
+msg: Optional message to use on failure instead of a list of</p>
+<blockquote class="last">
+<div>differences.</div></blockquote>
+</dd>
+</dl>
+<p>assertSetEqual uses ducktyping to support different types of sets, and
+is optimized for sets specifically (parameters must support a
+difference method).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.ResolutionTest.assertTrue">
+<tt class="descname">assertTrue</tt><big>(</big><em>expr</em>, <em>msg=None</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.ResolutionTest.assertTrue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check that the expression is true.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.ResolutionTest.assertTupleEqual">
+<tt class="descname">assertTupleEqual</tt><big>(</big><em>tuple1</em>, <em>tuple2</em>, <em>msg=None</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.ResolutionTest.assertTupleEqual" title="Permalink to this definition">¶</a></dt>
+<dd><p>A tuple-specific equality assertion.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><p class="first">tuple1: The first tuple to compare.
+tuple2: The second tuple to compare.
+msg: Optional message to use on failure instead of a list of</p>
+<blockquote class="last">
+<div>differences.</div></blockquote>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.ResolutionTest.assert_">
+<tt class="descname">assert_</tt><big>(</big><em>expr</em>, <em>msg=None</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.ResolutionTest.assert_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check that the expression is true.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.ResolutionTest.countTestCases">
+<tt class="descname">countTestCases</tt><big>(</big><big>)</big><a class="headerlink" href="#sasmodels.resolution.ResolutionTest.countTestCases" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.ResolutionTest.debug">
+<tt class="descname">debug</tt><big>(</big><big>)</big><a class="headerlink" href="#sasmodels.resolution.ResolutionTest.debug" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run the test without collecting errors in a TestResult</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.ResolutionTest.defaultTestResult">
+<tt class="descname">defaultTestResult</tt><big>(</big><big>)</big><a class="headerlink" href="#sasmodels.resolution.ResolutionTest.defaultTestResult" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.ResolutionTest.doCleanups">
+<tt class="descname">doCleanups</tt><big>(</big><big>)</big><a class="headerlink" href="#sasmodels.resolution.ResolutionTest.doCleanups" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute all cleanup functions. Normally called for you after
+tearDown.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.ResolutionTest.fail">
+<tt class="descname">fail</tt><big>(</big><em>msg=None</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.ResolutionTest.fail" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fail immediately, with the given message.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.ResolutionTest.failIf">
+<tt class="descname">failIf</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.ResolutionTest.failIf" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.ResolutionTest.failIfAlmostEqual">
+<tt class="descname">failIfAlmostEqual</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.ResolutionTest.failIfAlmostEqual" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.ResolutionTest.failIfEqual">
+<tt class="descname">failIfEqual</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.ResolutionTest.failIfEqual" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.ResolutionTest.failUnless">
+<tt class="descname">failUnless</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.ResolutionTest.failUnless" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.ResolutionTest.failUnlessAlmostEqual">
+<tt class="descname">failUnlessAlmostEqual</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.ResolutionTest.failUnlessAlmostEqual" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.ResolutionTest.failUnlessEqual">
+<tt class="descname">failUnlessEqual</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.ResolutionTest.failUnlessEqual" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.ResolutionTest.failUnlessRaises">
+<tt class="descname">failUnlessRaises</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.ResolutionTest.failUnlessRaises" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.ResolutionTest.id">
+<tt class="descname">id</tt><big>(</big><big>)</big><a class="headerlink" href="#sasmodels.resolution.ResolutionTest.id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.ResolutionTest.run">
+<tt class="descname">run</tt><big>(</big><em>result=None</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.ResolutionTest.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.ResolutionTest.setUp">
+<tt class="descname">setUp</tt><big>(</big><big>)</big><a class="headerlink" href="#sasmodels.resolution.ResolutionTest.setUp" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="sasmodels.resolution.ResolutionTest.setUpClass">
+<em class="property">classmethod </em><tt class="descname">setUpClass</tt><big>(</big><big>)</big><a class="headerlink" href="#sasmodels.resolution.ResolutionTest.setUpClass" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hook method for setting up class fixture before running tests in the class.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.ResolutionTest.shortDescription">
+<tt class="descname">shortDescription</tt><big>(</big><big>)</big><a class="headerlink" href="#sasmodels.resolution.ResolutionTest.shortDescription" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a one-line description of the test, or None if no
+description has been provided.</p>
+<p>The default implementation of this method returns the first line of
+the specified test method&#8217;s docstring.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.ResolutionTest.skipTest">
+<tt class="descname">skipTest</tt><big>(</big><em>reason</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.ResolutionTest.skipTest" title="Permalink to this definition">¶</a></dt>
+<dd><p>Skip this test.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.ResolutionTest.tearDown">
+<tt class="descname">tearDown</tt><big>(</big><big>)</big><a class="headerlink" href="#sasmodels.resolution.ResolutionTest.tearDown" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hook method for deconstructing the test fixture after testing it.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="sasmodels.resolution.ResolutionTest.tearDownClass">
+<em class="property">classmethod </em><tt class="descname">tearDownClass</tt><big>(</big><big>)</big><a class="headerlink" href="#sasmodels.resolution.ResolutionTest.tearDownClass" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hook method for deconstructing the class fixture after running all tests in the class.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.ResolutionTest.test_perfect">
+<tt class="descname">test_perfect</tt><big>(</big><big>)</big><a class="headerlink" href="#sasmodels.resolution.ResolutionTest.test_perfect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perfect resolution and no smearing.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.ResolutionTest.test_pinhole">
+<tt class="descname">test_pinhole</tt><big>(</big><big>)</big><a class="headerlink" href="#sasmodels.resolution.ResolutionTest.test_pinhole" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pinhole smearing with dQ = 0.001 [Note: not dQ/Q = 0.001]</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.ResolutionTest.test_pinhole_zero">
+<tt class="descname">test_pinhole_zero</tt><big>(</big><big>)</big><a class="headerlink" href="#sasmodels.resolution.ResolutionTest.test_pinhole_zero" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pinhole smearing with perfect resolution</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.ResolutionTest.test_slit_both_high">
+<tt class="descname">test_slit_both_high</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.ResolutionTest.test_slit_both_high" title="Permalink to this definition">¶</a></dt>
+<dd><p>Slit smearing with width &lt; 100*height.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.ResolutionTest.test_slit_both_wide">
+<tt class="descname">test_slit_both_wide</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.ResolutionTest.test_slit_both_wide" title="Permalink to this definition">¶</a></dt>
+<dd><p>Slit smearing with width &gt; 100*height.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.ResolutionTest.test_slit_high">
+<tt class="descname">test_slit_high</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.ResolutionTest.test_slit_high" title="Permalink to this definition">¶</a></dt>
+<dd><p>Slit smearing with height 0.005</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.ResolutionTest.test_slit_wide">
+<tt class="descname">test_slit_wide</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.ResolutionTest.test_slit_wide" title="Permalink to this definition">¶</a></dt>
+<dd><p>Slit smearing with width 0.0002</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.resolution.ResolutionTest.test_slit_zero">
+<tt class="descname">test_slit_zero</tt><big>(</big><big>)</big><a class="headerlink" href="#sasmodels.resolution.ResolutionTest.test_slit_zero" title="Permalink to this definition">¶</a></dt>
+<dd><p>Slit smearing with perfect resolution.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sasmodels.resolution.ResolutionTest.longMessage">
+<tt class="descname">longMessage</tt><em class="property"> = False</em><a class="headerlink" href="#sasmodels.resolution.ResolutionTest.longMessage" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="sasmodels.resolution.ResolutionTest.maxDiff">
+<tt class="descname">maxDiff</tt><em class="property"> = 640</em><a class="headerlink" href="#sasmodels.resolution.ResolutionTest.maxDiff" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="sasmodels.resolution.Slit1D">
+<em class="property">class </em><tt class="descclassname">sasmodels.resolution.</tt><tt class="descname">Slit1D</tt><big>(</big><em>q</em>, <em>width</em>, <em>height</em>, <em>q_calc=None</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.Slit1D" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#sasmodels.resolution.Resolution" title="sasmodels.resolution.Resolution"><tt class="xref py py-class docutils literal"><span class="pre">sasmodels.resolution.Resolution</span></tt></a></p>
+<p>Slit aperture with a complicated resolution function.</p>
+<p><em>q</em> points at which the data is measured.</p>
+<p><em>qx_width</em> slit width</p>
+<p><em>qy_height</em> slit height</p>
+<p><em>q_calc</em> is the list of points to calculate, or None if this should
+be estimated from the <em>q</em> and <em>q_width</em>.</p>
+<p>The <em>weight_matrix</em> is computed by <tt class="xref py py-func docutils literal"><span class="pre">slit1d_resolution()</span></tt></p>
+<dl class="method">
+<dt id="sasmodels.resolution.Slit1D.apply">
+<tt class="descname">apply</tt><big>(</big><em>theory</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.Slit1D.apply" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="sasmodels.resolution.Slit1D.q">
+<tt class="descname">q</tt><em class="property"> = None</em><a class="headerlink" href="#sasmodels.resolution.Slit1D.q" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="sasmodels.resolution.Slit1D.q_calc">
+<tt class="descname">q_calc</tt><em class="property"> = None</em><a class="headerlink" href="#sasmodels.resolution.Slit1D.q_calc" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="sasmodels.resolution.apply_resolution_matrix">
+<tt class="descclassname">sasmodels.resolution.</tt><tt class="descname">apply_resolution_matrix</tt><big>(</big><em>weight_matrix</em>, <em>theory</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.apply_resolution_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply the resolution weight matrix to the computed theory function.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="sasmodels.resolution.bin_edges">
+<tt class="descclassname">sasmodels.resolution.</tt><tt class="descname">bin_edges</tt><big>(</big><em>x</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.bin_edges" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determine bin edges from bin centers, assuming that edges are centered
+between the bins.</p>
+<p>Note: this uses the arithmetic mean, which may not be appropriate for
+log-scaled data.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="sasmodels.resolution.demo">
+<tt class="descclassname">sasmodels.resolution.</tt><tt class="descname">demo</tt><big>(</big><big>)</big><a class="headerlink" href="#sasmodels.resolution.demo" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="sasmodels.resolution.demo_pinhole_1d">
+<tt class="descclassname">sasmodels.resolution.</tt><tt class="descname">demo_pinhole_1d</tt><big>(</big><big>)</big><a class="headerlink" href="#sasmodels.resolution.demo_pinhole_1d" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="sasmodels.resolution.demo_slit_1d">
+<tt class="descclassname">sasmodels.resolution.</tt><tt class="descname">demo_slit_1d</tt><big>(</big><big>)</big><a class="headerlink" href="#sasmodels.resolution.demo_slit_1d" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="sasmodels.resolution.eval_form">
+<tt class="descclassname">sasmodels.resolution.</tt><tt class="descname">eval_form</tt><big>(</big><em>q</em>, <em>form</em>, <em>pars</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.eval_form" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="sasmodels.resolution.gaussian">
+<tt class="descclassname">sasmodels.resolution.</tt><tt class="descname">gaussian</tt><big>(</big><em>q</em>, <em>q0</em>, <em>dq</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.gaussian" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="sasmodels.resolution.geometric_extrapolation">
+<tt class="descclassname">sasmodels.resolution.</tt><tt class="descname">geometric_extrapolation</tt><big>(</big><em>q</em>, <em>q_min</em>, <em>q_max</em>, <em>points_per_decade=None</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.geometric_extrapolation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extrapolate <em>q</em> to [<em>q_min</em>, <em>q_max</em>] using geometric steps, with the
+average geometric step size in <em>q</em> as the step size.</p>
+<p>if <em>q_min</em> is zero or less then <em>q[0]/10</em> is used instead.</p>
+<p><em>points_per_decade</em> sets the ratio between consecutive steps such
+that there will be <span class="math">\(n\)</span> points used for every factor of 10 increase
+in <em>q</em>.</p>
+<p>If <em>points_per_decade</em> is not given, it will be estimated as follows.
+Starting at <span class="math">\(q_1\)</span> and stepping geometrically by <span class="math">\(\Delta q\)</span> to <span class="math">\(q_n\)</span>
+in <span class="math">\(n\)</span> points gives a geometric average of:</p>
+<div class="math">
+\[\log \Delta q = (\log q_n - log q_1) / (n - 1)\]</div>
+<p>From this we can compute the number of steps required to extend <span class="math">\(q\)</span>
+from <span class="math">\(q_n\)</span> to <span class="math">\(q_\text{max}\)</span> by <span class="math">\(\Delta q\)</span> as:</p>
+<div class="math">
+\[n_\text{extend} = (\log q_\text{max} - \log q_n) / \log \Delta q\]</div>
+<p>Substituting:</p>
+<blockquote>
+<div><dl class="docutils">
+<dt><a href="#id1"><span class="problematic" id="id2">n_</span></a>text{extend} = (n-1) (log <a href="#id3"><span class="problematic" id="id4">q_</span></a>text{max} - log q_n)</dt>
+<dd>/ (log q_n - log q_1)</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="sasmodels.resolution.interpolate">
+<tt class="descclassname">sasmodels.resolution.</tt><tt class="descname">interpolate</tt><big>(</big><em>q</em>, <em>max_step</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.interpolate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns <em>q_calc</em> with points spaced at most max_step apart.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="sasmodels.resolution.linear_extrapolation">
+<tt class="descclassname">sasmodels.resolution.</tt><tt class="descname">linear_extrapolation</tt><big>(</big><em>q</em>, <em>q_min</em>, <em>q_max</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.linear_extrapolation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extrapolate <em>q</em> out to [<em>q_min</em>, <em>q_max</em>] using the step size in <em>q</em> as
+a guide.  Extrapolation below uses about the same size as the first
+interval.  Extrapolation above uses about the same size as the final
+interval.</p>
+<p>if <em>q_min</em> is zero or less then <em>q[0]/10</em> is used instead.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="sasmodels.resolution.main">
+<tt class="descclassname">sasmodels.resolution.</tt><tt class="descname">main</tt><big>(</big><big>)</big><a class="headerlink" href="#sasmodels.resolution.main" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run tests given is sys.argv.</p>
+<p>Returns 0 if success or 1 if any tests fail.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="sasmodels.resolution.pinhole_extend_q">
+<tt class="descclassname">sasmodels.resolution.</tt><tt class="descname">pinhole_extend_q</tt><big>(</big><em>q</em>, <em>q_width</em>, <em>nsigma=3</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.pinhole_extend_q" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given <em>q</em> and <em>q_width</em>, find a set of sampling points <em>q_calc</em> so
+that each point I(q) has sufficient support from the underlying
+function.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="sasmodels.resolution.pinhole_resolution">
+<tt class="descclassname">sasmodels.resolution.</tt><tt class="descname">pinhole_resolution</tt><big>(</big><em>q_calc</em>, <em>q</em>, <em>q_width</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.pinhole_resolution" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the convolution matrix <em>W</em> for pinhole resolution 1-D data.</p>
+<p>Each row <em>W[i]</em> determines the normalized weight that the corresponding
+points <em>q_calc</em> contribute to the resolution smeared point <em>q[i]</em>.  Given
+<em>W</em>, the resolution smearing can be computed using <em>dot(W,q)</em>.</p>
+<p><em>q_calc</em> must be increasing.  <em>q_width</em> must be greater than zero.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="sasmodels.resolution.q_to_u">
+<tt class="descclassname">sasmodels.resolution.</tt><tt class="descname">q_to_u</tt><big>(</big><em>q</em>, <em>q0</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.q_to_u" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert <em>q</em> values to <em>u</em> values for the integral computed at <em>q0</em>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="sasmodels.resolution.romberg_pinhole_1d">
+<tt class="descclassname">sasmodels.resolution.</tt><tt class="descname">romberg_pinhole_1d</tt><big>(</big><em>q</em>, <em>q_width</em>, <em>form</em>, <em>pars</em>, <em>nsigma=5</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.romberg_pinhole_1d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Romberg integration for pinhole resolution.</p>
+<p>This is an adaptive integration technique.  It is called with settings
+that make it slow to evaluate but give it good accuracy.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="sasmodels.resolution.romberg_slit_1d">
+<tt class="descclassname">sasmodels.resolution.</tt><tt class="descname">romberg_slit_1d</tt><big>(</big><em>q</em>, <em>delta_qv</em>, <em>form</em>, <em>pars</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.romberg_slit_1d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Romberg integration for slit resolution.</p>
+<p>This is an adaptive integration technique.  It is called with settings
+that make it slow to evaluate but give it good accuracy.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="sasmodels.resolution.slit_extend_q">
+<tt class="descclassname">sasmodels.resolution.</tt><tt class="descname">slit_extend_q</tt><big>(</big><em>q</em>, <em>width</em>, <em>height</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.slit_extend_q" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given <em>q</em>, <em>width</em> and <em>height</em>, find a set of sampling points <em>q_calc</em> so
+that each point I(q) has sufficient support from the underlying
+function.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="sasmodels.resolution.slit_resolution">
+<tt class="descclassname">sasmodels.resolution.</tt><tt class="descname">slit_resolution</tt><big>(</big><em>q_calc</em>, <em>q</em>, <em>width</em>, <em>height</em><big>)</big><a class="headerlink" href="#sasmodels.resolution.slit_resolution" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build a weight matrix to compute <em>I_s(q)</em> from <em>I(q_calc)</em>, given
+<span class="math">\(q_v\)</span> = <em>width</em> and <span class="math">\(q_h\)</span> = <em>height</em>.</p>
+<p><em>width</em> and <em>height</em> are scalars since current instruments use the
+same slit settings for all measurement points.</p>
+<p>If slit height is large relative to width, use:</p>
+<div class="math">
+\[I_s(q_o) = \frac{1}{\Delta q_v}
+    \int_0^{\Delta q_v} I(\sqrt{q_o^2 + u^2} du\]</div>
+<p>If slit width is large relative to height, use:</p>
+<div class="math">
+\[I_s(q_o) = \frac{1}{2 \Delta q_v}
+    \int_{-\Delta q_v}^{\Delta q_v} I(u) du\]</div>
+</dd></dl>
+
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        «&#160;&#160;<a href="model_test.html">3.10. Unit test support</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="resolution2d.html">3.12. 2-D resolution functions</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2014, sasview team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

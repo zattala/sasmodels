@@ -1,0 +1,169 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>2.2.2. Dab &mdash; Sasmodels</title>
+    
+    <link rel="stylesheet" href="../_static/haiku-site.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.9',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Sasmodels" href="../index.html" />
+    <link rel="up" title="2.2. Shape-Independent Functions" href="../ref/models/shape-independent.html" />
+    <link rel="next" title="2.2.3. Gaussian peak" href="gaussian_peak.html" />
+    <link rel="prev" title="2.2.1. Broad peak" href="broad_peak.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../index.html">
+          <span>Home</span></a></h1>
+        <h2 class="heading"><span>2.2.2. Dab</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        «&#160;&#160;<a href="broad_peak.html">2.2.1. Broad peak</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="gaussian_peak.html">2.2.3. Gaussian peak</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="dab">
+<span id="id1"></span><h1>2.2.2. Dab<a class="headerlink" href="#dab" title="Permalink to this headline">¶</a></h1>
+<p>DAB (Debye Anderson Brumberger) Model</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="21%" />
+<col width="38%" />
+<col width="15%" />
+<col width="27%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parameter</th>
+<th class="head">Description</th>
+<th class="head">Units</th>
+<th class="head">Default value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>scale</td>
+<td>Source intensity</td>
+<td>None</td>
+<td>1</td>
+</tr>
+<tr class="row-odd"><td>background</td>
+<td>Source background</td>
+<td>cm<sup>-1</sup></td>
+<td>0</td>
+</tr>
+<tr class="row-even"><td>length</td>
+<td>correlation length</td>
+<td>Å</td>
+<td>50</td>
+</tr>
+</tbody>
+</table>
+<p>The returned value is scaled to units of cm<sup>-1</sup>.</p>
+<p>Scattering model class for the DAB (Debye Anderson Brumberger) Model</p>
+<div class="section" id="definition">
+<h2>2.2.2.1. Definition<a class="headerlink" href="#definition" title="Permalink to this headline">¶</a></h2>
+<p>Calculates the scattering from a randomly distributed, two-phase system based on
+the Debye-Anderson-Brumberger (DAB) model for such systems. The two-phase system
+is characterized by a single length scale, the correlation length, which is a
+measure of the average spacing between regions of phase 1 and phase 2. <strong>The
+model also assumes smooth interfaces between the phases</strong> and hence exhibits
+Porod behavior (I ~ <em>q</em><sup>-4</sup>) at large <em>q</em> (<em>QL</em> &gt;&gt; 1).</p>
+<p>The DAB model is ostensibly a development of the earlier Debye-Bueche model.</p>
+<p><em>Definition</em></p>
+<div class="math">
+\[I(q) = \text{scale}\cdot\frac{L^3}{(1 + (q \cdot L)^2)^2} + \text{background}\]</div>
+<p>where scale is</p>
+<div class="math">
+\[\text{scale} = 8 \pi \phi (1-\phi)(\Delta \rho)^2\]</div>
+<p>and the parameter <em>L</em> is the correlation length.</p>
+<p>For 2D data: The 2D scattering intensity is calculated in the same way as 1D,
+where the <em>q</em> vector is defined as</p>
+<div class="math">
+\[q = \sqrt{q_x^2 + q_y^2}\]</div>
+<table border="1" class="docutils">
+<colgroup>
+<col width="40%" />
+<col width="23%" />
+<col width="37%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parameter name</th>
+<th class="head">Units</th>
+<th class="head">Default value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>scale</td>
+<td>None</td>
+<td>1.0</td>
+</tr>
+<tr class="row-odd"><td>corr length L</td>
+<td>Å</td>
+<td>50.0</td>
+</tr>
+<tr class="row-even"><td>background</td>
+<td>cm<sup>-1</sup></td>
+<td>0.0</td>
+</tr>
+</tbody>
+</table>
+<div class="figure">
+<img alt="../_images/dab_1d.jpg" src="../_images/dab_1d.jpg" />
+<p class="caption">Figure 1: 1D plot using the default values (w/200 data point).</p>
+</div>
+</div>
+<div class="section" id="reference">
+<h2>2.2.2.2. Reference<a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
+<p>P Debye, H R Anderson, H Brumberger, <em>Scattering by an Inhomogeneous Solid. II.
+The Correlation Function and its Application</em>, <em>J. Appl. Phys.</em>, 28(6) (1957) 679</p>
+<p>P Debye, A M Bueche, <em>Scattering by an Inhomogeneous Solid</em>, <em>J. Appl. Phys.</em>,
+20 (1949) 518</p>
+<p><em>2013/09/09 - Description reviewed by King, S and Parker, P.</em></p>
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        «&#160;&#160;<a href="broad_peak.html">2.2.1. Broad peak</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="gaussian_peak.html">2.2.3. Gaussian peak</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2014, sasview team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

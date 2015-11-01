@@ -1,0 +1,210 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>2.1.1.1. Barbell &mdash; Sasmodels</title>
+    
+    <link rel="stylesheet" href="../_static/haiku-site.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.9',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Sasmodels" href="../index.html" />
+    <link rel="up" title="2.1.1. Cylinder Functions" href="../ref/models/shape-cylinder.html" />
+    <link rel="next" title="2.1.1.2. Capped cylinder" href="capped_cylinder.html" />
+    <link rel="prev" title="2.1.1. Cylinder Functions" href="../ref/models/shape-cylinder.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../index.html">
+          <span>Home</span></a></h1>
+        <h2 class="heading"><span>2.1.1.1. Barbell</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        «&#160;&#160;<a href="../ref/models/shape-cylinder.html">2.1.1. Cylinder Functions</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="capped_cylinder.html">2.1.1.2. Capped cylinder</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="barbell">
+<span id="id1"></span><h1>2.1.1.1. Barbell<a class="headerlink" href="#barbell" title="Permalink to this headline">¶</a></h1>
+<p>Cylinder with spherical end caps</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="16%" />
+<col width="48%" />
+<col width="17%" />
+<col width="19%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parameter</th>
+<th class="head">Description</th>
+<th class="head">Units</th>
+<th class="head">Default value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>scale</td>
+<td>Source intensity</td>
+<td>None</td>
+<td>1</td>
+</tr>
+<tr class="row-odd"><td>background</td>
+<td>Source background</td>
+<td>cm<sup>-1</sup></td>
+<td>0</td>
+</tr>
+<tr class="row-even"><td>sld</td>
+<td>Barbell scattering length density</td>
+<td>10<sup>-6</sup>Å<sup>-2</sup></td>
+<td>4</td>
+</tr>
+<tr class="row-odd"><td>solvent_sld</td>
+<td>Solvent scattering length density</td>
+<td>10<sup>-6</sup>Å<sup>-2</sup></td>
+<td>1</td>
+</tr>
+<tr class="row-even"><td>bell_radius</td>
+<td>Spherical bell radius</td>
+<td>Å</td>
+<td>40</td>
+</tr>
+<tr class="row-odd"><td>radius</td>
+<td>Cylindrical bar radius</td>
+<td>Å</td>
+<td>20</td>
+</tr>
+<tr class="row-even"><td>length</td>
+<td>Cylinder bar length</td>
+<td>Å</td>
+<td>400</td>
+</tr>
+<tr class="row-odd"><td>theta</td>
+<td>In plane angle</td>
+<td>degree</td>
+<td>60</td>
+</tr>
+<tr class="row-even"><td>phi</td>
+<td>Out of plane angle</td>
+<td>degree</td>
+<td>60</td>
+</tr>
+</tbody>
+</table>
+<p>The returned value is scaled to units of cm<sup>-1</sup>.</p>
+<p>Calculates the scattering from a barbell-shaped cylinder (This model simply
+becomes the DumBellModel when the length of the cylinder, <em>L</em>, is set to zero).
+That is, a sphereocylinder with spherical end caps that have a radius larger
+than that of the cylinder and the center of the end cap radius lies outside
+of the cylinder. All dimensions of the BarBell are considered to be
+monodisperse. See the diagram for the details of the geometry and restrictions
+on parameter values.</p>
+<div class="section" id="definition">
+<h2>Definition<a class="headerlink" href="#definition" title="Permalink to this headline">¶</a></h2>
+<p>The returned value is scaled to units of cm<sup>-1</sup>sr<sup>-1</sup>, absolute scale.</p>
+<p>The barbell geometry is defined as</p>
+<img alt="../_images/barbell_geometry.jpg" src="../_images/barbell_geometry.jpg" />
+<p>where <em>r</em> is the radius of the cylinder. All other parameters are as defined
+in the diagram.</p>
+<p>Since the end cap radius
+<em>R</em> &gt;= <em>r</em> and by definition for this geometry <em>h</em> &lt; 0, <em>h</em> is then
+defined by <em>r</em> and <em>R</em> as</p>
+<p><em>h</em> = -1 * sqrt(<em>R</em><sup>2</sup> - <em>r</em><sup>2</sup>)</p>
+<p>The scattered intensity <em>I(q)</em> is calculated as</p>
+<div class="math">
+\[\begin{split}I(Q) = \frac{(\Delta \rho)^2}{V} \left&lt; A^2(Q)\right&gt;\end{split}\]</div>
+<p>where the amplitude <em>A(q)</em> is given as</p>
+<div class="math">
+\[\begin{split}A(Q) =&amp;\ \pi r^2L
+    {\sin\left(\tfrac12 QL\cos\theta\right)
+        \over \tfrac12 QL\cos\theta}
+    {2 J_1(Qr\sin\theta) \over Qr\sin\theta} \\
+    &amp;\ + 4 \pi R^3 \int_{-h/R}^1 dt
+    \cos\left[ Q\cos\theta
+        \left(Rt + h + {\tfrac12} L\right)\right]
+    \times (1-t^2)
+    {J_1\left[QR\sin\theta \left(1-t^2\right)^{1/2}\right]
+         \over QR\sin\theta \left(1-t^2\right)^{1/2}}\end{split}\]</div>
+<p>The &lt; &gt; brackets denote an average of the structure over all orientations.
+&lt;<em>A</em> <sup>2</sup><em>(q)</em>&gt; is then the form factor, <em>P(q)</em>. The scale factor is
+equivalent to the volume fraction of cylinders, each of volume, <em>V</em>. Contrast
+is the difference of scattering length densities of the cylinder and the
+surrounding solvent.</p>
+<p>The volume of the barbell is</p>
+<div class="math">
+\[V = \pi r_c^2 L + 2\pi\left(\tfrac23R^3 + R^2h-\tfrac13h^3\right)\]</div>
+<p>and its radius-of-gyration is</p>
+<div class="math">
+\[\begin{split}R_g^2 =&amp;\ \left[ \tfrac{12}{5}R^5
+    + R^4\left(6h+\tfrac32 L\right)
+    + R^2\left(4h^2 + L^2 + 4Lh\right)
+    + R^2\left(3Lh^2 + \tfrac32 L^2h\right) \right. \\
+    &amp;\ \left. + \tfrac25 h^5 - \tfrac12 Lh^4 - \tfrac12 L^2h^3
+    + \tfrac14 L^3r^2 + \tfrac32 Lr^4 \right]
+    \left( 4R^3 6R^2h - 2h^3 + 3r^2L \right)^{-1}\end{split}\]</div>
+<p><strong>The requirement that</strong> <em>R</em> &gt;= <em>r</em> <strong>is not enforced in the model!</strong> It is
+up to you to restrict this during analysis.</p>
+<p>This example dataset is produced by running the Macro PlotBarbell(),
+using 200 data points, <em>qmin</em> = 0.001 Å<sup>-1</sup>, <em>qmax</em> = 0.7 Å<sup>-1</sup>,
+<em>sld</em> = 4e-6 Å<sup>-2</sup> and the default model values.</p>
+<img alt="../_images/barbell_1d.jpg" src="../_images/barbell_1d.jpg" />
+<p><em>Figure. 1D plot using the default values (w/256 data point).</em></p>
+<p>For 2D data: The 2D scattering intensity is calculated similar to the 2D
+cylinder model. For example, for θ = 45 deg and φ = 0 deg with
+default values for other parameters</p>
+<img alt="../_images/barbell_2d.jpg" src="../_images/barbell_2d.jpg" />
+<p><em>Figure. 2D plot (w/(256X265) data points).</em></p>
+<img alt="../_images/orientation.jpg" src="../_images/orientation.jpg" />
+<p>Figure. Definition of the angles for oriented 2D barbells.</p>
+<img alt="../_images/orientation2.jpg" src="../_images/orientation2.jpg" />
+<p><em>Figure. Examples of the angles for oriented pp against the detector plane.</em></p>
+</div>
+<div class="section" id="reference">
+<h2>REFERENCE<a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
+<p>H Kaya, <em>J. Appl. Cryst.</em>, 37 (2004) 37 223-230</p>
+<p>H Kaya and N R deSouza, <em>J. Appl. Cryst.</em>, 37 (2004) 508-509 (addenda and errata)</p>
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        «&#160;&#160;<a href="../ref/models/shape-cylinder.html">2.1.1. Cylinder Functions</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="capped_cylinder.html">2.1.1.2. Capped cylinder</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2014, sasview team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>3.14. SESANS model evaluator &mdash; Sasmodels</title>
+    
+    <link rel="stylesheet" href="../_static/haiku-site.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.9',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Sasmodels" href="../index.html" />
+    <link rel="up" title="3. Reference" href="index.html" />
+    <link rel="next" title="3.15. Distribution functions" href="weights.html" />
+    <link rel="prev" title="3.13. Sasview interface" href="sasview_model.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../index.html">
+          <span>Home</span></a></h1>
+        <h2 class="heading"><span>3.14. SESANS model evaluator</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        «&#160;&#160;<a href="sasview_model.html">3.13. Sasview interface</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="weights.html">3.15. Distribution functions</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="sesans-model-evaluator">
+<h1>3.14. SESANS model evaluator<a class="headerlink" href="#sesans-model-evaluator" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-sasmodels.sesans">
+<span id="sasmodels-sesans"></span><h2>3.14.1. <a class="reference internal" href="#module-sasmodels.sesans" title="sasmodels.sesans"><tt class="xref py py-mod docutils literal"><span class="pre">sasmodels.sesans</span></tt></a><a class="headerlink" href="#module-sasmodels.sesans" title="Permalink to this headline">¶</a></h2>
+<p>Conversion of scattering cross section from SANS in absolute
+units into SESANS using a Hankel transformation</p>
+<p>Everything is in units of metres except specified otherwise</p>
+<p>Wim Bouwman (<a class="reference external" href="mailto:w&#46;g&#46;bouwman&#37;&#52;&#48;tudelft&#46;nl">w<span>&#46;</span>g<span>&#46;</span>bouwman<span>&#64;</span>tudelft<span>&#46;</span>nl</a>), June 2013</p>
+<dl class="class">
+<dt id="sasmodels.sesans.SesansCalculator">
+<em class="property">class </em><tt class="descclassname">sasmodels.sesans.</tt><tt class="descname">SesansCalculator</tt><big>(</big><em>kernel</em>, <em>q_zmax</em>, <em>Rmax</em>, <em>SElength</em>, <em>wavelength</em>, <em>thickness</em><big>)</big><a class="headerlink" href="#sasmodels.sesans.SesansCalculator" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="sasmodels.sesans.hankel">
+<tt class="descclassname">sasmodels.sesans.</tt><tt class="descname">hankel</tt><big>(</big><em>SElength</em>, <em>wavelength</em>, <em>thickness</em>, <em>q</em>, <em>Iq</em><big>)</big><a class="headerlink" href="#sasmodels.sesans.hankel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the expected SESANS polarization for a given SANS pattern.</p>
+<p>Uses the hankel transform followed by the exponential.  The values
+for zz (or spin echo length, or delta), wavelength and sample thickness
+information should come from the dataset.  <em>q</em> should be chosen such
+that the oscillations in <em>I(q)</em> are well sampled (e.g., 5*2*pi/d_max).</p>
+<p><em>SElength</em> [A] is the set of z points at which to compute the hankel transform</p>
+<p><em>wavelength</em> [m]  is the wavelength of each individual point <em>zz</em></p>
+<p><em>thickness</em> [cm] is the sample thickness.</p>
+<p><em>q</em> [A^{-1}] is the set of q points at which the model has been computed.
+These should be equally spaced.</p>
+<p><em>I</em> [cm^{-1}] is the value of the SANS model at <em>q</em></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="sasmodels.sesans.make_q">
+<tt class="descclassname">sasmodels.sesans.</tt><tt class="descname">make_q</tt><big>(</big><em>q_zmax</em>, <em>Rmax</em><big>)</big><a class="headerlink" href="#sasmodels.sesans.make_q" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        «&#160;&#160;<a href="sasview_model.html">3.13. Sasview interface</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="weights.html">3.15. Distribution functions</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2014, sasview team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

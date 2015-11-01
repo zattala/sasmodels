@@ -1,0 +1,68 @@
+.. _lamellar-FFHG:
+
+Lamellar ffhg
+=======================================================
+
+Random lamellar phase with Head Groups 
+
+=========== ================================= ============ =============
+Parameter   Description                       Units        Default value
+=========== ================================= ============ =============
+scale       Source intensity                  None                     1
+background  Source background                 |cm^-1|                  0
+tail_length Tail thickness                    |Ang|                   15
+head_length head thickness                    |Ang|                   10
+sld         Tail scattering length density    |1e-6Ang^-2|           0.4
+head_sld    Head scattering length density    |1e-6Ang^-2|             3
+solvent_sld Solvent scattering length density |1e-6Ang^-2|             6
+=========== ================================= ============ =============
+
+The returned value is scaled to units of |cm^-1|.
+
+
+This model provides the scattering intensity, *I(q)*, for a lyotropic lamellar
+phase where a random distribution in solution are assumed. The SLD of the head
+region is taken to be different from the SLD of the tail region.
+
+*2.1.31.1. Definition*
+
+The scattering intensity *I(q)* is
+
+.. math::
+
+    I(Q) = 2\pi{P(Q) \over (2(|delta|\ H +|delta|\ T) Q^2)
+
+The form factor is
+
+.. image:: img/lamellarFFHG_.jpg
+
+where |delta|\ T = tail length (or *tail_length*), |delta|\ H = head thickness
+(or *h_thickness*), |drho|\ H = SLD(headgroup) - SLD(solvent),
+and |drho|\ T = SLD(tail) - SLD(solvent).
+
+The 2D scattering intensity is calculated in the same way as 1D, where
+the *q* vector is defined as
+
+.. math::
+
+    Q = \sqrt{Q_x^2 + Q_y^2}
+
+The returned value is in units of |cm^-1|, on absolute scale. In the
+parameters, *sld_tail* = SLD of the tail group, and *sld_head* = SLD
+of the head group.
+
+.. image:: img/lamellarFFHG_138.jpg
+
+*Figure. 1D plot using the default values (w/1000 data point).*
+
+Our model uses the form factor calculations implemented in a C library
+provided by the NIST Center for Neutron Research (Kline, 2006).
+
+REFERENCE
+
+F Nallet, R Laversanne, and D Roux, J. Phys. II France, 3, (1993) 487-502
+
+also in J. Phys. Chem. B, 105, (2001) 11081-11088
+
+*2014/04/17 - Description reviewed by S King and P Butler.*
+

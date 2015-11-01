@@ -1,0 +1,14 @@
+..
+    Generated from doc/gentoc.py -- DO NOT EDIT --
+
+.. Shape-independent:
+
+***************************
+Shape-Independent Functions
+***************************
+
+.. toctree::
+
+    ../../model/broad_peak.rst
+    ../../model/dab.rst
+    ../../model/gaussian_peak.rst

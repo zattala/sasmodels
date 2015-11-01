@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>3.3. Model access &mdash; Sasmodels</title>
+    
+    <link rel="stylesheet" href="../_static/haiku-site.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.9',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Sasmodels" href="../index.html" />
+    <link rel="up" title="3. Reference" href="index.html" />
+    <link rel="next" title="3.4. Simple interface" href="direct_model.html" />
+    <link rel="prev" title="3.2. Sasview to sasmodel converter" href="convert.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../index.html">
+          <span>Home</span></a></h1>
+        <h2 class="heading"><span>3.3. Model access</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        «&#160;&#160;<a href="convert.html">3.2. Sasview to sasmodel converter</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="direct_model.html">3.4. Simple interface</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="model-access">
+<h1>3.3. Model access<a class="headerlink" href="#model-access" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-sasmodels.core">
+<span id="sasmodels-core"></span><h2>3.3.1. <a class="reference internal" href="#module-sasmodels.core" title="sasmodels.core"><tt class="xref py py-mod docutils literal"><span class="pre">sasmodels.core</span></tt></a><a class="headerlink" href="#module-sasmodels.core" title="Permalink to this headline">¶</a></h2>
+<p>Core model handling routines.</p>
+<dl class="function">
+<dt id="sasmodels.core.list_models">
+<tt class="descclassname">sasmodels.core.</tt><tt class="descname">list_models</tt><big>(</big><big>)</big><a class="headerlink" href="#sasmodels.core.list_models" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the list of available models on the model path.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="sasmodels.core.load_model_definition">
+<tt class="descclassname">sasmodels.core.</tt><tt class="descname">load_model_definition</tt><big>(</big><em>model_name</em><big>)</big><a class="headerlink" href="#sasmodels.core.load_model_definition" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load a model definition given the model name.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="sasmodels.core.precompile_dll">
+<tt class="descclassname">sasmodels.core.</tt><tt class="descname">precompile_dll</tt><big>(</big><em>model_name</em>, <em>dtype='double'</em><big>)</big><a class="headerlink" href="#sasmodels.core.precompile_dll" title="Permalink to this definition">¶</a></dt>
+<dd><p>Precompile the dll for a model.</p>
+<p>Returns the path to the compiled model.</p>
+<p>This can be used when build the windows distribution of sasmodels
+(which may be missing the OpenCL driver and the dll compiler), or
+otherwise sharing models with windows users who do not have a compiler.</p>
+<p>See <a class="reference internal" href="kerneldll.html#sasmodels.kerneldll.make_dll" title="sasmodels.kerneldll.make_dll"><tt class="xref py py-func docutils literal"><span class="pre">sasmodels.kerneldll.make_dll()</span></tt></a> for details on controlling the
+dll path and the allowed floating point precision.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="sasmodels.core.load_model">
+<tt class="descclassname">sasmodels.core.</tt><tt class="descname">load_model</tt><big>(</big><em>model_definition</em>, <em>dtype='single'</em>, <em>platform='ocl'</em><big>)</big><a class="headerlink" href="#sasmodels.core.load_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prepare the model for the default execution platform.</p>
+<p>This will return an OpenCL model, a DLL model or a python model depending
+on the model and the computing platform.</p>
+<p><em>model_definition</em> is the python module which defines the model.  If the
+model name is given instead, then <a class="reference internal" href="#sasmodels.core.load_model_definition" title="sasmodels.core.load_model_definition"><tt class="xref py py-func docutils literal"><span class="pre">load_model_definition()</span></tt></a> will be
+called with the model name.</p>
+<p><em>dtype</em> indicates whether the model should use single or double precision
+for the calculation. Any valid numpy single or double precision identifier
+is valid, such as &#8216;single&#8217;, &#8216;f&#8217;, &#8216;f32&#8217;, or np.float32 for single, or
+&#8216;double&#8217;, &#8216;d&#8217;, &#8216;f64&#8217;  and np.float64 for double.</p>
+<p><em>platform</em> should be &#8220;dll&#8221; to force the dll to be used for C models,
+otherwise it uses the default &#8220;ocl&#8221;.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="sasmodels.core.make_kernel">
+<tt class="descclassname">sasmodels.core.</tt><tt class="descname">make_kernel</tt><big>(</big><em>model</em>, <em>q_vectors</em><big>)</big><a class="headerlink" href="#sasmodels.core.make_kernel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a computation kernel from the model definition and the q input.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="sasmodels.core.call_kernel">
+<tt class="descclassname">sasmodels.core.</tt><tt class="descname">call_kernel</tt><big>(</big><em>kernel</em>, <em>pars</em>, <em>cutoff=0</em><big>)</big><a class="headerlink" href="#sasmodels.core.call_kernel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call <em>kernel</em> returned from <a class="reference internal" href="#sasmodels.core.make_kernel" title="sasmodels.core.make_kernel"><tt class="xref py py-func docutils literal"><span class="pre">make_kernel()</span></tt></a> with parameters <em>pars</em>.</p>
+<p><em>cutoff</em> is the limiting value for the product of dispersion weights used
+to perform the multidimensional dispersion calculation more quickly at a
+slight cost to accuracy. The default value of <em>cutoff=0</em> integrates over
+the entire dispersion cube.  Using <em>cutoff=1e-5</em> can be 50% faster, but
+with an error of about 1%, which is usually less than the measurement
+uncertainty.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="sasmodels.core.call_ER">
+<tt class="descclassname">sasmodels.core.</tt><tt class="descname">call_ER</tt><big>(</big><em>info</em>, <em>pars</em><big>)</big><a class="headerlink" href="#sasmodels.core.call_ER" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call the model ER function using <em>pars</em>.</p>
+<p><em>info</em> is either <em>model.info</em> if you have a loaded model, or <em>kernel.info</em>
+if you have a model kernel prepared for evaluation.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="sasmodels.core.call_VR">
+<tt class="descclassname">sasmodels.core.</tt><tt class="descname">call_VR</tt><big>(</big><em>info</em>, <em>pars</em><big>)</big><a class="headerlink" href="#sasmodels.core.call_VR" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call the model VR function using <em>pars</em>.</p>
+<p><em>info</em> is either <em>model.info</em> if you have a loaded model, or <em>kernel.info</em>
+if you have a model kernel prepared for evaluation.</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        «&#160;&#160;<a href="convert.html">3.2. Sasview to sasmodel converter</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="direct_model.html">3.4. Simple interface</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2014, sasview team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>2.2.1. Broad peak &mdash; Sasmodels</title>
+    
+    <link rel="stylesheet" href="../_static/haiku-site.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.9',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Sasmodels" href="../index.html" />
+    <link rel="up" title="2.2. Shape-Independent Functions" href="../ref/models/shape-independent.html" />
+    <link rel="next" title="2.2.2. Dab" href="dab.html" />
+    <link rel="prev" title="2.2. Shape-Independent Functions" href="../ref/models/shape-independent.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../index.html">
+          <span>Home</span></a></h1>
+        <h2 class="heading"><span>2.2.1. Broad peak</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        «&#160;&#160;<a href="../ref/models/shape-independent.html">2.2. Shape-Independent Functions</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="dab.html">2.2.2. Dab</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="broad-peak">
+<span id="id1"></span><h1>2.2.1. Broad peak<a class="headerlink" href="#broad-peak" title="Permalink to this headline">¶</a></h1>
+<p>Broad Lorentzian type peak on top of a power law decay</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="19%" />
+<col width="52%" />
+<col width="11%" />
+<col width="18%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parameter</th>
+<th class="head">Description</th>
+<th class="head">Units</th>
+<th class="head">Default value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>scale</td>
+<td>Source intensity</td>
+<td>None</td>
+<td>1</td>
+</tr>
+<tr class="row-odd"><td>background</td>
+<td>Source background</td>
+<td>cm<sup>-1</sup></td>
+<td>0</td>
+</tr>
+<tr class="row-even"><td>porod_scale</td>
+<td>Power law scale factor</td>
+<td>None</td>
+<td>1e-05</td>
+</tr>
+<tr class="row-odd"><td>porod_exp</td>
+<td>Exponent of power law</td>
+<td>None</td>
+<td>3</td>
+</tr>
+<tr class="row-even"><td>lorentz_scale</td>
+<td>Scale factor for broad Lorentzian peak</td>
+<td>None</td>
+<td>10</td>
+</tr>
+<tr class="row-odd"><td>lorentz_length</td>
+<td>Lorentzian screening length</td>
+<td>Å</td>
+<td>50</td>
+</tr>
+<tr class="row-even"><td>peak_pos</td>
+<td>Peak postion in q</td>
+<td>Å<sup>-1</sup></td>
+<td>0.1</td>
+</tr>
+<tr class="row-odd"><td>lorentz_exp</td>
+<td>exponent of Lorentz function</td>
+<td>None</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+<p>The returned value is scaled to units of cm<sup>-1</sup>.</p>
+<p>This model calculates an empirical functional form for SAS data characterized
+by a broad scattering peak. Many SAS spectra are characterized by a broad peak
+even though they are from amorphous soft materials. For example, soft systems
+that show a SAS peak include copolymers, polyelectrolytes, multiphase systems,
+layered structures, etc.</p>
+<p>The d-spacing corresponding to the broad peak is a characteristic distance
+between the scattering inhomogeneities (such as in lamellar, cylindrical, or
+spherical morphologies, or for bicontinuous structures).</p>
+<p>The returned value is scaled to units of cm<sup>-1</sup>, absolute scale.</p>
+<div class="section" id="definition">
+<h2>2.2.1.1. Definition<a class="headerlink" href="#definition" title="Permalink to this headline">¶</a></h2>
+<p>The scattering intensity <em>I(q)</em> is calculated as</p>
+<p>Here the peak position is related to the d-spacing as <em>Q0</em> = 2|pi| / <em>d0</em>.</p>
+<p>For 2D data: The 2D scattering intensity is calculated in the same way as 1D,
+where the <em>q</em> vector is defined as</p>
+<img alt="model/img/image175.jpg" src="model/img/image175.jpg" />
+<p><em>Figure. 1D plot using the default values (w/200 data point).</em></p>
+</div>
+<div class="section" id="reference">
+<h2>2.2.1.2. REFERENCE<a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
+<p>None.</p>
+<p><em>2013/09/09 - Description reviewed by King, S and Parker, P.</em></p>
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        «&#160;&#160;<a href="../ref/models/shape-independent.html">2.2. Shape-Independent Functions</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="dab.html">2.2.2. Dab</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2014, sasview team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

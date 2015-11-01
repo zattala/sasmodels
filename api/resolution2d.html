@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>3.12. 2-D resolution functions &mdash; Sasmodels</title>
+    
+    <link rel="stylesheet" href="../_static/haiku-site.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.9',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Sasmodels" href="../index.html" />
+    <link rel="up" title="3. Reference" href="index.html" />
+    <link rel="next" title="3.13. Sasview interface" href="sasview_model.html" />
+    <link rel="prev" title="3.11. 1-D resolution functions" href="resolution.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../index.html">
+          <span>Home</span></a></h1>
+        <h2 class="heading"><span>3.12. 2-D resolution functions</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        «&#160;&#160;<a href="resolution.html">3.11. 1-D resolution functions</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="sasview_model.html">3.13. Sasview interface</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="d-resolution-functions">
+<h1>3.12. 2-D resolution functions<a class="headerlink" href="#d-resolution-functions" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-sasmodels.resolution2d">
+<span id="sasmodels-resolution2d"></span><h2>3.12.1. <a class="reference internal" href="#module-sasmodels.resolution2d" title="sasmodels.resolution2d"><tt class="xref py py-mod docutils literal"><span class="pre">sasmodels.resolution2d</span></tt></a><a class="headerlink" href="#module-sasmodels.resolution2d" title="Permalink to this headline">¶</a></h2>
+<p>#This software was developed by the University of Tennessee as part of the
+#Distributed Data Analysis of Neutron Scattering Experiments (DANSE)
+#project funded by the US National Science Foundation. 
+#See the license text in license.txt</p>
+<dl class="class">
+<dt id="sasmodels.resolution2d.Pinhole2D">
+<em class="property">class </em><tt class="descclassname">sasmodels.resolution2d.</tt><tt class="descname">Pinhole2D</tt><big>(</big><em>data=None</em>, <em>index=None</em>, <em>nsigma=3.0</em>, <em>accuracy='Low'</em>, <em>coords='polar'</em><big>)</big><a class="headerlink" href="#sasmodels.resolution2d.Pinhole2D" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="resolution.html#sasmodels.resolution.Resolution" title="sasmodels.resolution.Resolution"><tt class="xref py py-class docutils literal"><span class="pre">sasmodels.resolution.Resolution</span></tt></a></p>
+<p>Gaussian Q smearing class for SAS 2d data</p>
+<p>Assumption: equally spaced bins in dq_r, dq_phi space.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>data</strong> &#8211; 2d data used to set the smearing parameters</li>
+<li><strong>index</strong> &#8211; 1d array with len(data) to define the range
+of the calculation: elements are given as True or False</li>
+<li><strong>nr</strong> &#8211; number of bins in dq_r-axis</li>
+<li><strong>nphi</strong> &#8211; number of bins in dq_phi-axis</li>
+<li><strong>coord</strong> &#8211; coordinates [string], &#8216;polar&#8217; or &#8216;cartesian&#8217;</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="sasmodels.resolution2d.Pinhole2D.apply">
+<tt class="descname">apply</tt><big>(</big><em>theory</em><big>)</big><a class="headerlink" href="#sasmodels.resolution2d.Pinhole2D.apply" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="sasmodels.resolution2d.Pinhole2D.q">
+<tt class="descname">q</tt><em class="property"> = None</em><a class="headerlink" href="#sasmodels.resolution2d.Pinhole2D.q" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="sasmodels.resolution2d.Pinhole2D.q_calc">
+<tt class="descname">q_calc</tt><em class="property"> = None</em><a class="headerlink" href="#sasmodels.resolution2d.Pinhole2D.q_calc" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        «&#160;&#160;<a href="resolution.html">3.11. 1-D resolution functions</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="sasview_model.html">3.13. Sasview interface</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2014, sasview team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

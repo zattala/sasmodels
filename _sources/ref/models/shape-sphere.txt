@@ -1,0 +1,13 @@
+..
+    Generated from doc/gentoc.py -- DO NOT EDIT --
+
+.. shape-sphere:
+
+****************
+Sphere Functions
+****************
+
+.. toctree::
+
+    ../../model/sphere.rst
+    ../../model/spherepy.rst

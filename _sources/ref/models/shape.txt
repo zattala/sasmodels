@@ -1,0 +1,17 @@
+..
+    Generated from doc/gentoc.py -- DO NOT EDIT --
+
+.. Shapes:
+
+***************
+Shape Functions
+***************
+
+.. toctree::
+
+    shape-cylinder.rst
+    shape-ellipsoid.rst
+    shape-lamellae.rst
+    shape-paracrystal.rst
+    shape-parallelpiped.rst
+    shape-sphere.rst

@@ -1,0 +1,213 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>2.1.3.5. Lamellarpc &mdash; Sasmodels</title>
+    
+    <link rel="stylesheet" href="../_static/haiku-site.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.9',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Sasmodels" href="../index.html" />
+    <link rel="up" title="2.1.3. Lamellae Functions" href="../ref/models/shape-lamellae.html" />
+    <link rel="next" title="2.1.4. Paracrystal Functions" href="../ref/models/shape-paracrystal.html" />
+    <link rel="prev" title="2.1.3.4. Lamellar ffhg" href="lamellarFFHG.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../index.html">
+          <span>Home</span></a></h1>
+        <h2 class="heading"><span>2.1.3.5. Lamellarpc</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        «&#160;&#160;<a href="lamellarFFHG.html">2.1.3.4. Lamellar ffhg</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="../ref/models/shape-paracrystal.html">2.1.4. Paracrystal Functions</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="lamellarpc">
+<span id="id1"></span><h1>2.1.3.5. Lamellarpc<a class="headerlink" href="#lamellarpc" title="Permalink to this headline">¶</a></h1>
+<p>Random lamellar sheet with paracrystal structure factor</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="22%" />
+<col width="45%" />
+<col width="16%" />
+<col width="18%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parameter</th>
+<th class="head">Description</th>
+<th class="head">Units</th>
+<th class="head">Default value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>scale</td>
+<td>Source intensity</td>
+<td>None</td>
+<td>1</td>
+</tr>
+<tr class="row-odd"><td>background</td>
+<td>Source background</td>
+<td>cm<sup>-1</sup></td>
+<td>0</td>
+</tr>
+<tr class="row-even"><td>thickness</td>
+<td>sheet thickness</td>
+<td>Å</td>
+<td>33</td>
+</tr>
+<tr class="row-odd"><td>Nlayers</td>
+<td>Number of layers</td>
+<td>None</td>
+<td>20</td>
+</tr>
+<tr class="row-even"><td>spacing</td>
+<td>d-spacing of paracrystal stack</td>
+<td>Å</td>
+<td>250</td>
+</tr>
+<tr class="row-odd"><td>spacing_polydisp</td>
+<td>d-spacing of paracrystal stack</td>
+<td>Å</td>
+<td>0</td>
+</tr>
+<tr class="row-even"><td>sld</td>
+<td>layer scattering length density</td>
+<td>10<sup>-6</sup>Å<sup>-2</sup></td>
+<td>1</td>
+</tr>
+<tr class="row-odd"><td>solvent_sld</td>
+<td>Solvent scattering length density</td>
+<td>10<sup>-6</sup>Å<sup>-2</sup></td>
+<td>6.34</td>
+</tr>
+</tbody>
+</table>
+<p>The returned value is scaled to units of cm<sup>-1</sup>.</p>
+<p>This model calculates the scattering from a stack of repeating lamellar
+structures. The stacks of lamellae (infinite in lateral dimension) are
+treated as a paracrystal to account for the repeating spacing. The repeat
+distance is further characterized by a Gaussian polydispersity. <strong>This model
+can be used for large multilamellar vesicles.</strong></p>
+<p><em>2.1.33.1. Definition</em></p>
+<p>The scattering intensity <em>I(q)</em> is calculated as</p>
+<img alt="model/img/image145.jpg" src="model/img/image145.jpg" />
+<p>The form factor of the bilayer is approximated as the cross section of an
+infinite, planar bilayer of thickness <em>t</em></p>
+<img alt="model/img/image146.jpg" src="model/img/image146.jpg" />
+<p>Here, the scale factor is used instead of the mass per area of the
+bilayer (<em>G</em>). The scale factor is the volume fraction of the material in
+the bilayer, <em>not</em> the total excluded volume of the paracrystal.
+<em>Z</em><sub>N</sub><em>(q)</em> describes the interference effects for aggregates
+consisting of more than one bilayer. The equations used are (3-5)
+from the Bergstrom reference below.</p>
+<p>Non-integer numbers of stacks are calculated as a linear combination of
+the lower and higher values</p>
+<img alt="model/img/image147.jpg" src="model/img/image147.jpg" />
+<p>The 2D scattering intensity is the same as 1D, regardless of the orientation
+of the <em>q</em> vector which is defined as</p>
+<div class="math">
+\[Q = \sqrt{Q_x^2 + Q_y^2}\]</div>
+<p>The parameters of the model are <em>Nlayers</em> = no. of layers, and
+<em>pd_spacing</em> = polydispersity of spacing.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="40%" />
+<col width="23%" />
+<col width="37%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parameter name</th>
+<th class="head">Units</th>
+<th class="head">Default value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>background</td>
+<td>cm<sup>-1</sup></td>
+<td>0</td>
+</tr>
+<tr class="row-odd"><td>scale</td>
+<td>None</td>
+<td>1</td>
+</tr>
+<tr class="row-even"><td>Nlayers</td>
+<td>None</td>
+<td>20</td>
+</tr>
+<tr class="row-odd"><td>pd_spacing</td>
+<td>None</td>
+<td>0.2</td>
+</tr>
+<tr class="row-even"><td>sld_layer</td>
+<td>Å<sup>-2</sup></td>
+<td>1e-6</td>
+</tr>
+<tr class="row-odd"><td>sld_solvent</td>
+<td>Å<sup>-2</sup></td>
+<td>6.34e-6</td>
+</tr>
+<tr class="row-even"><td>spacing</td>
+<td>Å</td>
+<td>250</td>
+</tr>
+<tr class="row-odd"><td>thickness</td>
+<td>Å</td>
+<td>33</td>
+</tr>
+</tbody>
+</table>
+<img alt="model/img/image148.jpg" src="model/img/image148.jpg" />
+<p><em>Figure. 1D plot using the default values above (w/20000 data point).</em></p>
+<p>Our model uses the form factor calculations implemented in a C library
+provided by the NIST Center for Neutron Research (Kline, 2006).</p>
+<p>REFERENCE</p>
+<p>M Bergstrom, J S Pedersen, P Schurtenberger, S U Egelhaaf,
+<em>J. Phys. Chem. B</em>, 103 (1999) 9888-9897</p>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        «&#160;&#160;<a href="lamellarFFHG.html">2.1.3.4. Lamellar ffhg</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="../ref/models/shape-paracrystal.html">2.1.4. Paracrystal Functions</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2014, sasview team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

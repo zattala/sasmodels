@@ -1,0 +1,217 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>2.1.2.1. Ellipsoid &mdash; Sasmodels</title>
+    
+    <link rel="stylesheet" href="../_static/haiku-site.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.9',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Sasmodels" href="../index.html" />
+    <link rel="up" title="2.1.2. Ellipsoid Functions" href="../ref/models/shape-ellipsoid.html" />
+    <link rel="next" title="2.1.2.2. Triaxial ellipsoid" href="triaxial_ellipsoid.html" />
+    <link rel="prev" title="2.1.2. Ellipsoid Functions" href="../ref/models/shape-ellipsoid.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../index.html">
+          <span>Home</span></a></h1>
+        <h2 class="heading"><span>2.1.2.1. Ellipsoid</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        «&#160;&#160;<a href="../ref/models/shape-ellipsoid.html">2.1.2. Ellipsoid Functions</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="triaxial_ellipsoid.html">2.1.2.2. Triaxial ellipsoid</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="ellipsoid">
+<span id="id1"></span><h1>2.1.2.1. Ellipsoid<a class="headerlink" href="#ellipsoid" title="Permalink to this headline">¶</a></h1>
+<p>Ellipsoid of revolution with uniform scattering length density.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="15%" />
+<col width="49%" />
+<col width="17%" />
+<col width="18%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parameter</th>
+<th class="head">Description</th>
+<th class="head">Units</th>
+<th class="head">Default value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>scale</td>
+<td>Source intensity</td>
+<td>None</td>
+<td>1</td>
+</tr>
+<tr class="row-odd"><td>background</td>
+<td>Source background</td>
+<td>cm<sup>-1</sup></td>
+<td>0</td>
+</tr>
+<tr class="row-even"><td>sld</td>
+<td>Ellipsoid scattering length density</td>
+<td>10<sup>-6</sup>Å<sup>-2</sup></td>
+<td>4</td>
+</tr>
+<tr class="row-odd"><td>solvent_sld</td>
+<td>Solvent scattering length density</td>
+<td>10<sup>-6</sup>Å<sup>-2</sup></td>
+<td>1</td>
+</tr>
+<tr class="row-even"><td>rpolar</td>
+<td>Polar radius</td>
+<td>Å</td>
+<td>20</td>
+</tr>
+<tr class="row-odd"><td>requatorial</td>
+<td>Equatorial radius</td>
+<td>Å</td>
+<td>400</td>
+</tr>
+<tr class="row-even"><td>theta</td>
+<td>In plane angle</td>
+<td>degree</td>
+<td>60</td>
+</tr>
+<tr class="row-odd"><td>phi</td>
+<td>Out of plane angle</td>
+<td>degree</td>
+<td>60</td>
+</tr>
+</tbody>
+</table>
+<p>The returned value is scaled to units of cm<sup>-1</sup>.</p>
+<p>The form factor is normalized by the particle volume.</p>
+<div class="section" id="definition">
+<h2>Definition<a class="headerlink" href="#definition" title="Permalink to this headline">¶</a></h2>
+<p>The output of the 2D scattering intensity function for oriented ellipsoids
+is given by (Feigin, 1987)</p>
+<div class="math">
+\[P(Q,\alpha) = {\text{scale} \over V} F^2(Q) + \text{background}\]</div>
+<p>where</p>
+<div class="math">
+\[F(Q) = {3 (\Delta rho)) V (\sin[Qr(R_p,R_e,\alpha)]
+            - \cos[Qr(R_p,R_e,\alpha)])
+        \over [Qr(R_p,R_e,\alpha)]^3 }\]</div>
+<p>and</p>
+<div class="math">
+\[r(R_p,R_e,\alpha) = \left[ R_e^2 \sin^2 \alpha
+    + R_p^2 \cos^2 \alpha \right]^{1/2}\]</div>
+<p><span class="math">\(\alpha\)</span> is the angle between the axis of the ellipsoid and <span class="math">\(\vec q\)</span>,
+<span class="math">\(V\)</span> is the volume of the ellipsoid, <span class="math">\(R_p\)</span> is the polar radius along the
+rotational axis of the ellipsoid, <span class="math">\(R_e\)</span> is the equatorial radius perpendicular
+to the rotational axis of the ellipsoid and <span class="math">\(\Delta \rho\)</span> (contrast) is the
+scattering length density difference between the scatterer and the solvent.</p>
+<p>To provide easy access to the orientation of the ellipsoid, we define
+the rotation axis of the ellipsoid using two angles <span class="math">\(\theta\)</span> and <span class="math">\(\phi\)</span>.
+These angles are defined in the
+<a class="reference internal" href="cylinder.html#cylinder-orientation"><em>cylinder orientation figure</em></a>.
+For the ellipsoid, <span class="math">\(\theta\)</span> is the angle between the rotational axis
+and the $z$-axis.</p>
+<p>NB: The 2nd virial coefficient of the solid ellipsoid is calculated based
+on the <span class="math">\(R_p\)</span> and <span class="math">\(R_e\)</span> values, and used as the effective radius for
+<span class="math">\(S(Q)\)</span> when <span class="math">\(P(Q) \cdot S(Q)\)</span> is applied.</p>
+<div class="figure" id="ellipsoid-1d">
+<img alt="../_images/ellipsoid_1d.JPG" src="../_images/ellipsoid_1d.JPG" />
+<p class="caption">Figure 1: The output of the 1D scattering intensity function for randomly oriented
+ellipsoids given by the equation above.</p>
+</div>
+<p>The <span class="math">\(\theta\)</span> and <span class="math">\(\phi\)</span> parameters are not used for the 1D output. Our
+implementation of the scattering kernel and the 1D scattering intensity
+use the c-library from NIST.</p>
+<div class="figure" id="ellipsoid-geometry">
+<img alt="../_images/ellipsoid_geometry.JPG" src="../_images/ellipsoid_geometry.JPG" />
+<p class="caption">Figure 2: The angles for oriented ellipsoid.</p>
+</div>
+</div>
+<div class="section" id="validation">
+<h2>Validation<a class="headerlink" href="#validation" title="Permalink to this headline">¶</a></h2>
+<p>Validation of our code was done by comparing the output of the 1D model
+to the output of the software provided by the NIST (Kline, 2006).
+ below shows a comparison of
+the 1D output of our model and the output of the NIST software.</p>
+<div class="figure" id="ellipsoid-comparison-1d">
+<img alt="../_images/ellipsoid_comparison_1d.jpg" src="../_images/ellipsoid_comparison_1d.jpg" />
+<p class="caption">Figure 3: Comparison of the SasView scattering intensity for an ellipsoid
+with the output of the NIST SANS analysis software.  The parameters
+were set to: <em>scale</em> = 1.0, <em>rpolar</em> = 20 Å,
+<em>requatorial</em> =400 Å, <em>contrast</em> = 3e-6 Å<sup>-2</sup>,
+and <em>background</em> = 0.01 cm<sup>-1</sup>.</p>
+</div>
+<p>Averaging over a distribution of orientation is done by evaluating the
+equation above. Since we have no other software to compare the
+implementation of the intensity for fully oriented ellipsoids, we can
+compare the result of averaging our 2D output using a uniform distribution
+<span class="math">\(p(\theta,\phi) = 1.0\)</span>.  <a class="pageref" href="#ellipsoid-comparison-2d">Figure  4</a>
+shows the result of such a cross-check.</p>
+<div class="figure" id="ellipsoid-comparison-2d">
+<img alt="../_images/ellipsoid_comparison_2d.jpg" src="../_images/ellipsoid_comparison_2d.jpg" />
+<p class="caption">Figure 4: Comparison of the intensity for uniformly distributed ellipsoids
+calculated from our 2D model and the intensity from the NIST SANS
+analysis software. The parameters used were: <em>scale</em> = 1.0,
+<em>rpolar</em> = 20 Å, <em>requatorial</em> = 400 Å,
+<em>contrast</em> = 3e-6 Å<sup>-2</sup>, and <em>background</em> = 0.0 cm<sup>-1</sup>.</p>
+</div>
+<p>The discrepancy above <em>q</em> = 0.3 cm<sup>-1</sup> is due to the way the form factors
+are calculated in the c-library provided by NIST. A numerical integration
+has to be performed to obtain <span class="math">\(P(Q)\)</span> for randomly oriented particles.
+The NIST software performs that integration with a 76-point Gaussian
+quadrature rule, which will become imprecise at high <span class="math">\(Q\)</span> where the amplitude
+varies quickly as a function of <span class="math">\(Q\)</span>. The SasView result shown has been
+obtained by summing over 501 equidistant points. Our result was found
+to be stable over the range of <span class="math">\(Q\)</span> shown for a number of points higher
+than 500.</p>
+<p>REFERENCE</p>
+<p>L A Feigin and D I Svergun. <em>Structure Analysis by Small-Angle X-Ray and Neutron Scattering</em>, Plenum,
+New York, 1987.</p>
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        «&#160;&#160;<a href="../ref/models/shape-ellipsoid.html">2.1.2. Ellipsoid Functions</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="triaxial_ellipsoid.html">2.1.2.2. Triaxial ellipsoid</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2014, sasview team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

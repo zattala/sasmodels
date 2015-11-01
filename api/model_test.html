@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>3.10. Unit test support &mdash; Sasmodels</title>
+    
+    <link rel="stylesheet" href="../_static/haiku-site.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.9',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Sasmodels" href="../index.html" />
+    <link rel="up" title="3. Reference" href="index.html" />
+    <link rel="next" title="3.11. 1-D resolution functions" href="resolution.html" />
+    <link rel="prev" title="3.9. Python model evaluator" href="kernelpy.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../index.html">
+          <span>Home</span></a></h1>
+        <h2 class="heading"><span>3.10. Unit test support</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        «&#160;&#160;<a href="kernelpy.html">3.9. Python model evaluator</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="resolution.html">3.11. 1-D resolution functions</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="unit-test-support">
+<h1>3.10. Unit test support<a class="headerlink" href="#unit-test-support" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-sasmodels.model_test">
+<span id="sasmodels-model-test"></span><h2>3.10.1. <a class="reference internal" href="#module-sasmodels.model_test" title="sasmodels.model_test"><tt class="xref py py-mod docutils literal"><span class="pre">sasmodels.model_test</span></tt></a><a class="headerlink" href="#module-sasmodels.model_test" title="Permalink to this headline">¶</a></h2>
+<p>Run model unit tests.</p>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre>python -m sasmodels.model_test [opencl|dll|opencl_and_dll] model1 model2 ...
+
+if model1 is &#39;all&#39;, then all except the remaining models will be tested
+</pre></div>
+</div>
+<p>Each model is tested using the default parameters at q=0.1, (qx,qy)=(0.1,0.1),
+and the ER and VR are computed.  The return values at these points are not
+considered.  The test is only to verify that the models run to completion,
+and do not produce inf or NaN.</p>
+<p>Tests are defined with the <em>tests</em> attribute in the model.py file.  <em>tests</em>
+is a list of individual tests to run, where each test consists of the
+parameter values for the test, the q-values and the expected results.  For
+the effective radius test, the q-value should be &#8216;ER&#8217;.  For the VR test,
+the q-value should be &#8216;VR&#8217;.  For 1-D tests, either specify the q value or
+a list of q-values, and the corresponding I(q) value, or list of I(q) values.</p>
+<p>That is:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">tests</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">[</span> <span class="p">{</span><span class="n">parameters</span><span class="p">},</span> <span class="n">q</span><span class="p">,</span> <span class="n">I</span><span class="p">(</span><span class="n">q</span><span class="p">)],</span>
+    <span class="p">[</span> <span class="p">{</span><span class="n">parameters</span><span class="p">},</span> <span class="p">[</span><span class="n">q</span><span class="p">],</span> <span class="p">[</span><span class="n">I</span><span class="p">(</span><span class="n">q</span><span class="p">)]</span> <span class="p">],</span>
+    <span class="p">[</span> <span class="p">{</span><span class="n">parameters</span><span class="p">},</span> <span class="p">[</span><span class="n">q1</span><span class="p">,</span> <span class="n">q2</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="p">[</span><span class="n">I</span><span class="p">(</span><span class="n">q1</span><span class="p">),</span> <span class="n">I</span><span class="p">(</span><span class="n">q2</span><span class="p">),</span> <span class="o">...</span><span class="p">]],</span>
+
+    <span class="p">[</span> <span class="p">{</span><span class="n">parameters</span><span class="p">},</span> <span class="p">(</span><span class="n">qx</span><span class="p">,</span> <span class="n">qy</span><span class="p">),</span> <span class="n">I</span><span class="p">(</span><span class="n">qx</span><span class="p">,</span> <span class="n">Iqy</span><span class="p">)],</span>
+    <span class="p">[</span> <span class="p">{</span><span class="n">parameters</span><span class="p">},</span> <span class="p">[(</span><span class="n">qx1</span><span class="p">,</span> <span class="n">qy1</span><span class="p">),</span> <span class="p">(</span><span class="n">qx2</span><span class="p">,</span> <span class="n">qy2</span><span class="p">),</span> <span class="o">...</span><span class="p">],</span>
+                    <span class="p">[</span><span class="n">I</span><span class="p">(</span><span class="n">qx1</span><span class="p">,</span><span class="n">qy1</span><span class="p">),</span> <span class="n">I</span><span class="p">(</span><span class="n">qx2</span><span class="p">,</span><span class="n">qy2</span><span class="p">),</span> <span class="o">...</span><span class="p">]],</span>
+
+    <span class="p">[</span> <span class="p">{</span><span class="n">parameters</span><span class="p">},</span> <span class="s">&#39;ER&#39;</span><span class="p">,</span> <span class="n">ER</span><span class="p">(</span><span class="n">pars</span><span class="p">)</span> <span class="p">],</span>
+    <span class="p">[</span> <span class="p">{</span><span class="n">parameters</span><span class="p">},</span> <span class="s">&#39;VR&#39;</span><span class="p">,</span> <span class="n">VR</span><span class="p">(</span><span class="n">pars</span><span class="p">)</span> <span class="p">],</span>
+    <span class="o">...</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<p>Parameters are <em>key:value</em> pairs, where key is one of the parameters of the
+model and value is the value to use for the test.  Any parameters not given
+in the parameter list will take on the default parameter value.</p>
+<p>Precision defaults to 5 digits (relative).</p>
+<dl class="function">
+<dt id="sasmodels.model_test.main">
+<tt class="descclassname">sasmodels.model_test.</tt><tt class="descname">main</tt><big>(</big><big>)</big><a class="headerlink" href="#sasmodels.model_test.main" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run tests given is sys.argv.</p>
+<p>Returns 0 if success or 1 if any tests fail.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="sasmodels.model_test.make_suite">
+<tt class="descclassname">sasmodels.model_test.</tt><tt class="descname">make_suite</tt><big>(</big><em>loaders</em>, <em>models</em><big>)</big><a class="headerlink" href="#sasmodels.model_test.make_suite" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="sasmodels.model_test.model_tests">
+<tt class="descclassname">sasmodels.model_test.</tt><tt class="descname">model_tests</tt><big>(</big><big>)</big><a class="headerlink" href="#sasmodels.model_test.model_tests" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test runner visible to nosetests.</p>
+<p>Run &#8220;nosetests sasmodels&#8221; on the command line to invoke it.</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        «&#160;&#160;<a href="kernelpy.html">3.9. Python model evaluator</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="resolution.html">3.11. 1-D resolution functions</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2014, sasview team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>3.8. Ctypes model evaluator &mdash; Sasmodels</title>
+    
+    <link rel="stylesheet" href="../_static/haiku-site.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.9',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Sasmodels" href="../index.html" />
+    <link rel="up" title="3. Reference" href="index.html" />
+    <link rel="next" title="3.9. Python model evaluator" href="kernelpy.html" />
+    <link rel="prev" title="3.7. OpenCL model evaluator" href="kernelcl.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../index.html">
+          <span>Home</span></a></h1>
+        <h2 class="heading"><span>3.8. Ctypes model evaluator</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        «&#160;&#160;<a href="kernelcl.html">3.7. OpenCL model evaluator</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="kernelpy.html">3.9. Python model evaluator</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="ctypes-model-evaluator">
+<h1>3.8. Ctypes model evaluator<a class="headerlink" href="#ctypes-model-evaluator" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-sasmodels.kerneldll">
+<span id="sasmodels-kerneldll"></span><h2>3.8.1. <a class="reference internal" href="#module-sasmodels.kerneldll" title="sasmodels.kerneldll"><tt class="xref py py-mod docutils literal"><span class="pre">sasmodels.kerneldll</span></tt></a><a class="headerlink" href="#module-sasmodels.kerneldll" title="Permalink to this headline">¶</a></h2>
+<p>C types wrapper for sasview models.</p>
+<p>The global attribute <em>ALLOW_SINGLE_PRECISION_DLLS</em> should be set to <em>True</em> if
+you wish to allow single precision floating point evaluation for the compiled
+models, otherwise it defaults to <em>False</em>.</p>
+<dl class="class">
+<dt id="sasmodels.kerneldll.DllKernel">
+<em class="property">class </em><tt class="descclassname">sasmodels.kerneldll.</tt><tt class="descname">DllKernel</tt><big>(</big><em>kernel</em>, <em>info</em>, <em>q_input</em><big>)</big><a class="headerlink" href="#sasmodels.kerneldll.DllKernel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Callable SAS kernel.</p>
+<p><em>kernel</em> is the c function to call.</p>
+<p><em>info</em> is the module information</p>
+<p><em>q_input</em> is the DllInput q vectors at which the kernel should be
+evaluated.</p>
+<p>The resulting call method takes the <em>pars</em>, a list of values for
+the fixed parameters to the kernel, and <em>pd_pars</em>, a list of (value,weight)
+vectors for the polydisperse parameters.  <em>cutoff</em> determines the
+integration limits: any points with combined weight less than <em>cutoff</em>
+will not be calculated.</p>
+<p>Call <a class="reference internal" href="#sasmodels.kerneldll.DllKernel.release" title="sasmodels.kerneldll.DllKernel.release"><tt class="xref py py-meth docutils literal"><span class="pre">release()</span></tt></a> when done with the kernel instance.</p>
+<dl class="method">
+<dt id="sasmodels.kerneldll.DllKernel.release">
+<tt class="descname">release</tt><big>(</big><big>)</big><a class="headerlink" href="#sasmodels.kerneldll.DllKernel.release" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="sasmodels.kerneldll.DllModel">
+<em class="property">class </em><tt class="descclassname">sasmodels.kerneldll.</tt><tt class="descname">DllModel</tt><big>(</big><em>dllpath</em>, <em>info</em>, <em>dtype=dtype('float32')</em><big>)</big><a class="headerlink" href="#sasmodels.kerneldll.DllModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>ctypes wrapper for a single model.</p>
+<p><em>source</em> and <em>info</em> are the model source and interface as returned
+from <tt class="xref py py-func docutils literal"><span class="pre">gen.make()</span></tt>.</p>
+<p><em>dtype</em> is the desired model precision.  Any numpy dtype for single
+or double precision floats will do, such as &#8216;f&#8217;, &#8216;float32&#8217; or &#8216;single&#8217;
+for single and &#8216;d&#8217;, &#8216;float64&#8217; or &#8216;double&#8217; for double.  Double precision
+is an optional extension which may not be available on all devices.</p>
+<p>Call <a class="reference internal" href="#sasmodels.kerneldll.DllModel.release" title="sasmodels.kerneldll.DllModel.release"><tt class="xref py py-meth docutils literal"><span class="pre">release()</span></tt></a> when done with the kernel.</p>
+<dl class="method">
+<dt id="sasmodels.kerneldll.DllModel.make_input">
+<tt class="descname">make_input</tt><big>(</big><em>q_vectors</em><big>)</big><a class="headerlink" href="#sasmodels.kerneldll.DllModel.make_input" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make q input vectors available to the model.</p>
+<p>Note that each model needs its own q vector even if the case of
+mixture models because some models may be OpenCL, some may be
+ctypes and some may be pure python.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.kerneldll.DllModel.release">
+<tt class="descname">release</tt><big>(</big><big>)</big><a class="headerlink" href="#sasmodels.kerneldll.DllModel.release" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="sasmodels.kerneldll.dll_path">
+<tt class="descclassname">sasmodels.kerneldll.</tt><tt class="descname">dll_path</tt><big>(</big><em>info</em>, <em>dtype='double'</em><big>)</big><a class="headerlink" href="#sasmodels.kerneldll.dll_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Path to the compiled model defined by <em>info</em>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="sasmodels.kerneldll.load_dll">
+<tt class="descclassname">sasmodels.kerneldll.</tt><tt class="descname">load_dll</tt><big>(</big><em>source</em>, <em>info</em>, <em>dtype='double'</em><big>)</big><a class="headerlink" href="#sasmodels.kerneldll.load_dll" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create and load a dll corresponding to the source,info pair returned
+from <a class="reference internal" href="generate.html#sasmodels.generate.make" title="sasmodels.generate.make"><tt class="xref py py-func docutils literal"><span class="pre">sasmodels.generate.make()</span></tt></a> compiled for the target precision.</p>
+<p>See <a class="reference internal" href="#sasmodels.kerneldll.make_dll" title="sasmodels.kerneldll.make_dll"><tt class="xref py py-func docutils literal"><span class="pre">make_dll()</span></tt></a> for details on controlling the dll path and the
+allowed floating point precision.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="sasmodels.kerneldll.make_dll">
+<tt class="descclassname">sasmodels.kerneldll.</tt><tt class="descname">make_dll</tt><big>(</big><em>source</em>, <em>info</em>, <em>dtype='double'</em><big>)</big><a class="headerlink" href="#sasmodels.kerneldll.make_dll" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load the compiled model defined by <em>kernel_module</em>.</p>
+<p>Recompile if any files are newer than the model file.</p>
+<p><em>dtype</em> is a numpy floating point precision specifier indicating whether
+the model should be single or double precision.  The default is double
+precision.</p>
+<p>The DLL is not loaded until the kernel is called so models can
+be defined without using too many resources.</p>
+<p>Set <em>sasmodels.kerneldll.DLL_PATH</em> to the compiled dll output path.
+The default is the system temporary directory.</p>
+<p>Set <em>sasmodels.ALLOW_SINGLE_PRECISION_DLLS</em> to True if single precision
+models are allowed as DLLs.</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        «&#160;&#160;<a href="kernelcl.html">3.7. OpenCL model evaluator</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="kernelpy.html">3.9. Python model evaluator</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2014, sasview team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

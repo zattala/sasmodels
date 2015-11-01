@@ -1,0 +1,39 @@
+.. _gaussian-peak:
+
+Gaussian peak
+=======================================================
+
+Gaussian shaped peak
+
+========== =============================== ======== =============
+Parameter  Description                     Units    Default value
+========== =============================== ======== =============
+scale      Source intensity                None                 1
+background Source background               |cm^-1|              0
+q0         Peak position                   |Ang^-1|          0.05
+sigma      Peak width (standard deviation) |Ang^-1|         0.005
+========== =============================== ======== =============
+
+The returned value is scaled to units of |cm^-1|.
+
+
+This model describes a Gaussian shaped peak on a flat background
+
+.. image:: img/image198.PNG
+
+with the peak having height of *I0* centered at *q0* and having a standard deviation of *B*. The FWHM (full-width
+half-maximum) is 2.354 B.
+
+For 2D data: The 2D scattering intensity is calculated in the same way as 1D, where the *q* vector is defined as
+
+.. image:: img/image040.gif
+
+.. image:: img/image199.jpg
+
+*Figure. 1D plot using the default values (w/500 data points).*
+
+REFERENCE
+---------
+
+None.
+

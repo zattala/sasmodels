@@ -1,0 +1,207 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>2.1.2.2. Triaxial ellipsoid &mdash; Sasmodels</title>
+    
+    <link rel="stylesheet" href="../_static/haiku-site.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.9',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Sasmodels" href="../index.html" />
+    <link rel="up" title="2.1.2. Ellipsoid Functions" href="../ref/models/shape-ellipsoid.html" />
+    <link rel="next" title="2.1.3. Lamellae Functions" href="../ref/models/shape-lamellae.html" />
+    <link rel="prev" title="2.1.2.1. Ellipsoid" href="ellipsoid.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../index.html">
+          <span>Home</span></a></h1>
+        <h2 class="heading"><span>2.1.2.2. Triaxial ellipsoid</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        «&#160;&#160;<a href="ellipsoid.html">2.1.2.1. Ellipsoid</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="../ref/models/shape-lamellae.html">2.1.3. Lamellae Functions</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="triaxial-ellipsoid">
+<span id="id1"></span><h1>2.1.2.2. Triaxial ellipsoid<a class="headerlink" href="#triaxial-ellipsoid" title="Permalink to this headline">¶</a></h1>
+<p>Ellipsoid of uniform scattering length density with three independent axes.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="15%" />
+<col width="49%" />
+<col width="17%" />
+<col width="18%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parameter</th>
+<th class="head">Description</th>
+<th class="head">Units</th>
+<th class="head">Default value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>scale</td>
+<td>Source intensity</td>
+<td>None</td>
+<td>1</td>
+</tr>
+<tr class="row-odd"><td>background</td>
+<td>Source background</td>
+<td>cm<sup>-1</sup></td>
+<td>0</td>
+</tr>
+<tr class="row-even"><td>sld</td>
+<td>Ellipsoid scattering length density</td>
+<td>10<sup>-6</sup>Å<sup>-2</sup></td>
+<td>4</td>
+</tr>
+<tr class="row-odd"><td>solvent_sld</td>
+<td>Solvent scattering length density</td>
+<td>10<sup>-6</sup>Å<sup>-2</sup></td>
+<td>1</td>
+</tr>
+<tr class="row-even"><td>req_minor</td>
+<td>Minor equitorial radius</td>
+<td>Å</td>
+<td>20</td>
+</tr>
+<tr class="row-odd"><td>req_major</td>
+<td>Major equatorial radius</td>
+<td>Å</td>
+<td>400</td>
+</tr>
+<tr class="row-even"><td>rpolar</td>
+<td>Polar radius</td>
+<td>Å</td>
+<td>10</td>
+</tr>
+<tr class="row-odd"><td>theta</td>
+<td>In plane angle</td>
+<td>degree</td>
+<td>60</td>
+</tr>
+<tr class="row-even"><td>phi</td>
+<td>Out of plane angle</td>
+<td>degree</td>
+<td>60</td>
+</tr>
+<tr class="row-odd"><td>psi</td>
+<td>Out of plane angle</td>
+<td>degree</td>
+<td>60</td>
+</tr>
+</tbody>
+</table>
+<p>The returned value is scaled to units of cm<sup>-1</sup>.</p>
+<p>All three axes are of different lengths with <span class="math">\(R_a \le R_b &lt;= R_c\)</span>
+<strong>Users should maintain this inequality for all calculations</strong>.</p>
+<div class="math">
+\[\begin{split}P(Q) = \text{scale} V \left&lt; F^2(Q) \right&gt; + \text{background}\end{split}\]</div>
+<p>where the volume <span class="math">\(V = 4/3 \pi R_a R_b R_c\)</span>, and the averaging
+<span class="math">\(\left&lt; \cdots \right&gt;\)</span> is applied over all orientations for 1D.</p>
+<div class="figure">
+<img alt="../_images/triaxial_ellipsoid_geometry.jpg" src="../_images/triaxial_ellipsoid_geometry.jpg" />
+<p class="caption">Figure 1: Ellipsoid schematic.</p>
+</div>
+<p>The returned value is in units of cm<sup>-1</sup>, on absolute scale.</p>
+<div class="section" id="definition">
+<h2>Definition<a class="headerlink" href="#definition" title="Permalink to this headline">¶</a></h2>
+<p>The form factor calculated is</p>
+<div class="math">
+\[P(Q) = \frac{\text{scale}}{V}\int_0^1\int_0^1
+    \Phi^2(QR_a^2\cos^2( \pi x/2) + QR_b^2\sin^2(\pi y/2)(1-y^2) + c^2y^2)
+    dx dy\]</div>
+<p>where</p>
+<div class="math">
+\[\Phi(u) = 3 u^{-3} (\sin u - u \cos u)\]</div>
+<p>To provide easy access to the orientation of the triaxial ellipsoid,
+we define the axis of the cylinder using the angles <span class="math">\(\theta\)</span>, <span class="math">\(\phi\)</span>
+and <span class="math">\(\psi\)</span>. These angles are defined on
+<a class="pageref" href="#triaxial-ellipsoid-angles">figure  2</a>.
+The angle <span class="math">\(\psi\)</span> is the rotational angle around its own <span class="math">\(c\)</span> axis
+against the <span class="math">\(Q\)</span> plane. For example, <span class="math">\(\psi = 0\)</span> when the
+<span class="math">\(a\)</span> axis is parallel to the <span class="math">\(x\)</span> axis of the detector.</p>
+<div class="figure" id="triaxial-ellipsoid-angles">
+<img alt="../_images/triaxial_ellipsoid_angles.jpg" src="../_images/triaxial_ellipsoid_angles.jpg" />
+<p class="caption">Figure 2: The angles for oriented ellipsoid.</p>
+</div>
+<p>The radius-of-gyration for this system is  <span class="math">\(R_g^2 = (R_a R_b R_c)^2/5\)</span>.</p>
+<p>The contrast is defined as SLD(ellipsoid) - SLD(solvent).  In the
+parameters, <em>a</em> is the minor equatorial radius, <em>b</em> is the major
+equatorial radius, and c is the polar radius of the ellipsoid.</p>
+<p>NB: The 2nd virial coefficient of the triaxial solid ellipsoid is
+calculated based on the polar radius <span class="math">\(R_p = R_c\)</span> and equatorial
+radius <span class="math">\(R_e = \sqrt{R_a R_b}\)</span>, and used as the effective radius for
+<span class="math">\(S(Q)\)</span> when <span class="math">\(P(Q) \cdot S(Q)\)</span> is applied.</p>
+<div class="figure">
+<img alt="../_images/triaxial_ellipsoid_1d.jpg" src="../_images/triaxial_ellipsoid_1d.jpg" />
+<p class="caption">Figure 3: 1D plot using the default values (w/1000 data point).</p>
+</div>
+</div>
+<div class="section" id="validation">
+<h2>Validation<a class="headerlink" href="#validation" title="Permalink to this headline">¶</a></h2>
+<p>Validation of our code was done by comparing the output of the
+1D calculation to the angular average of the output of 2D calculation
+over all possible angles.
+<a class="pageref" href="#triaxial-ellipsoid-comparison">Figure  4</a> shows the comparison where
+the solid dot refers to averaged 2D while the line represents the
+result of 1D calculation (for 2D averaging, 76, 180, and 76 points
+are taken for the angles of <span class="math">\(\theta\)</span>, <span class="math">\(\phi\)</span>, and <span class="math">\(\psi\)</span> respectively).</p>
+<div class="figure" id="triaxial-ellipsoid-comparison">
+<img alt="../_images/triaxial_ellipsoid_comparison.png" src="../_images/triaxial_ellipsoid_comparison.png" />
+<p class="caption">Figure 4: Comparison between 1D and averaged 2D.</p>
+</div>
+<p>Our model uses the form factor calculations implemented in a c-library provided by the NIST Center for Neutron Research
+(Kline, 2006)</p>
+<p>REFERENCE</p>
+<p>L A Feigin and D I Svergun, <em>Structure Analysis by Small-Angle X-Ray and Neutron Scattering</em>, Plenum,
+New York, 1987.</p>
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        «&#160;&#160;<a href="ellipsoid.html">2.1.2.1. Ellipsoid</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="../ref/models/shape-lamellae.html">2.1.3. Lamellae Functions</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2014, sasview team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

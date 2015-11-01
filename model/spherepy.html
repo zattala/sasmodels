@@ -1,0 +1,159 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>2.1.6.2. Sphere &mdash; Sasmodels</title>
+    
+    <link rel="stylesheet" href="../_static/haiku-site.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.9',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Sasmodels" href="../index.html" />
+    <link rel="up" title="2.1.6. Sphere Functions" href="../ref/models/shape-sphere.html" />
+    <link rel="next" title="2.2. Shape-Independent Functions" href="../ref/models/shape-independent.html" />
+    <link rel="prev" title="2.1.6.1. Sphere" href="sphere.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../index.html">
+          <span>Home</span></a></h1>
+        <h2 class="heading"><span>2.1.6.2. Sphere</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        «&#160;&#160;<a href="sphere.html">2.1.6.1. Sphere</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="../ref/models/shape-independent.html">2.2. Shape-Independent Functions</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="sphere">
+<span id="id1"></span><h1>2.1.6.2. Sphere<a class="headerlink" href="#sphere" title="Permalink to this headline">¶</a></h1>
+<p>Spheres with uniform scattering length density</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="16%" />
+<col width="48%" />
+<col width="17%" />
+<col width="19%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parameter</th>
+<th class="head">Description</th>
+<th class="head">Units</th>
+<th class="head">Default value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>scale</td>
+<td>Source intensity</td>
+<td>None</td>
+<td>1</td>
+</tr>
+<tr class="row-odd"><td>background</td>
+<td>Source background</td>
+<td>cm<sup>-1</sup></td>
+<td>0</td>
+</tr>
+<tr class="row-even"><td>sld</td>
+<td>Layer scattering length density</td>
+<td>10<sup>-6</sup>Å<sup>-2</sup></td>
+<td>1</td>
+</tr>
+<tr class="row-odd"><td>solvent_sld</td>
+<td>Solvent scattering length density</td>
+<td>10<sup>-6</sup>Å<sup>-2</sup></td>
+<td>6</td>
+</tr>
+<tr class="row-even"><td>radius</td>
+<td>Sphere radius</td>
+<td>Å</td>
+<td>50</td>
+</tr>
+</tbody>
+</table>
+<p>The returned value is scaled to units of cm<sup>-1</sup>.</p>
+<p>For information about polarised and magnetic scattering, click <a class="reference external" href="polar_mag_help.html">here</a>.</p>
+<div class="section" id="definition">
+<h2>Definition<a class="headerlink" href="#definition" title="Permalink to this headline">¶</a></h2>
+<p>The 1D scattering intensity is calculated in the following way (Guinier, 1955)</p>
+<div class="math">
+\[I(Q) = \frac{\text{scale}}{V} \cdot \left[ \
+    3V(\Delta\rho) \cdot \frac{\sin(QR) - QR\cos(QR))}{(QR)^3} \
+    \right]^2 + \text{background}\]</div>
+<p>where <em>scale</em> is a volume fraction, <span class="math">\(V\)</span> is the volume of the scatterer,
+<span class="math">\(R\)</span> is the radius of the sphere, <em>background</em> is the background level and
+<em>sld</em> and <em>solvent_sld</em> are the scattering length densities (SLDs) of the
+scatterer and the solvent respectively.</p>
+<p>Note that if your data is in absolute scale, the <em>scale</em> should represent
+the volume fraction (which is unitless) if you have a good fit. If not,
+it should represent the volume fraction times a factor (by which your data
+might need to be rescaled).</p>
+<p>The 2D scattering intensity is the same as above, regardless of the
+orientation of <span class="math">\(\vec q\)</span>.</p>
+<p>Our model uses the form factor calculations as defined in the IGOR
+package provided by the NIST Center for Neutron Research (Kline, 2006).</p>
+</div>
+<div class="section" id="validation">
+<h2>Validation<a class="headerlink" href="#validation" title="Permalink to this headline">¶</a></h2>
+<p>Validation of our code was done by comparing the output of the 1D model
+to the output of the software provided by the NIST (Kline, 2006).
+Figure <a class="pageref" href="#sphere-comparison">figure  1</a> shows a comparison of the output
+of our model and the output of the NIST software.</p>
+<div class="figure" id="sphere-comparison">
+<img alt="../_images/sphere_comparison.jpg" src="../_images/sphere_comparison.jpg" />
+<p class="caption">Figure 1: Comparison of the DANSE scattering intensity for a sphere with the
+output of the NIST SANS analysis software. The parameters were set to:
+<em>scale</em> = 1.0, <em>radius</em> = 60 Å, <em>contrast</em> = 1e-6 Å<sup>-2</sup>, and
+<em>background</em> = 0.01 cm<sup>-1</sup>.</p>
+</div>
+</div>
+<div class="section" id="reference">
+<h2>Reference<a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
+<p>A Guinier and G. Fournet, <em>Small-Angle Scattering of X-Rays</em>,
+John Wiley and Sons, New York, (1955)</p>
+<p><em>2013/09/09 and 2014/01/06 - Description reviewed by S King and P Parker.</em></p>
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        «&#160;&#160;<a href="sphere.html">2.1.6.1. Sphere</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="../ref/models/shape-independent.html">2.2. Shape-Independent Functions</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2014, sasview team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

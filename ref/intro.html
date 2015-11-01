@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>1. Introduction &mdash; Sasmodels</title>
+    
+    <link rel="stylesheet" href="../_static/haiku-site.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.9',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Sasmodels" href="../index.html" />
+    <link rel="up" title="2. SAS Model Reference" href="index.html" />
+    <link rel="next" title="2. Model Functions" href="models/index.html" />
+    <link rel="prev" title="2. SAS Model Reference" href="index.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../index.html">
+          <span>Home</span></a></h1>
+        <h2 class="heading"><span>1. Introduction</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        «&#160;&#160;<a href="index.html">2. SAS Model Reference</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="models/index.html">2. Model Functions</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="introduction">
+<span id="models-intro"></span><h1>1. Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
+<p>Many of our models use the form factor calculations implemented in a c-library provided by the NIST Center for Neutron
+Research and thus some content and figures in this document are originated from or shared with the NIST SANS Igor-based
+analysis package.</p>
+<p>This software provides form factors for various particle shapes. After giving a mathematical definition of each model,
+we show the list of parameters available to the user. Validation plots for each model are also presented.</p>
+<p>Instructions on how to use SasView itself are available separately.</p>
+<p>To easily compare to the scattering intensity measured in experiments, we normalize the form factors by the volume of
+the particle</p>
+<div class="math">
+\[P(\vec q) = \frac{P_o(\vec q)}{V} = \frac{1}{V} F(\vec q) F^*(\vec q)\]</div>
+<p>with</p>
+<blockquote>
+<div>F(vec q) = intintint dVrho(vec r) e^{-ivec q cdot vec r}</div></blockquote>
+<p>where <span class="math">\(P_0(\vec q)\)</span> is the un-normalized form factor, <span class="math">\(\rho(\vec r)\)</span> is the scattering length density at a given
+point in space and the integration is done over the volume <span class="math">\(V\)</span> of the scatterer.</p>
+<p>For systems without inter-particle interference, the form factors we provide can be related to the scattering intensity
+by the particle volume fraction</p>
+<div class="math">
+\[I(\vec q) = \Phi P(\vec q)\]</div>
+<p>Our so-called 1D scattering intensity functions provide <span class="math">\(P(Q)\)</span> for the case where the scatterer is randomly oriented. In
+that case, the scattering intensity only depends on the length of <span class="math">\(Q\)</span> . The intensity measured on the plane of the SAS
+detector will have an azimuthal symmetry around <span class="math">\(Q=0\)</span>.</p>
+<p>Our so-called 2D scattering intensity functions provide <span class="math">\(P(Q,\phi)\)</span> for an oriented system as a function of a
+<span class="math">\(q\)</span> vector in the plane of the detector. We define the angle <span class="math">\(\phi\)</span> as the angle between the <span class="math">\(q\)</span> vector and the horizontal
+($x$) axis of the plane of the detector.</p>
+<p>For information about polarised and magnetic scattering, see <a class="reference external" href="polar_mag_help.html">here</a>.</p>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        «&#160;&#160;<a href="index.html">2. SAS Model Reference</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="models/index.html">2. Model Functions</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2014, sasview team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

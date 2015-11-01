@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>3.9. Python model evaluator &mdash; Sasmodels</title>
+    
+    <link rel="stylesheet" href="../_static/haiku-site.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.9',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Sasmodels" href="../index.html" />
+    <link rel="up" title="3. Reference" href="index.html" />
+    <link rel="next" title="3.10. Unit test support" href="model_test.html" />
+    <link rel="prev" title="3.8. Ctypes model evaluator" href="kerneldll.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../index.html">
+          <span>Home</span></a></h1>
+        <h2 class="heading"><span>3.9. Python model evaluator</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        «&#160;&#160;<a href="kerneldll.html">3.8. Ctypes model evaluator</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="model_test.html">3.10. Unit test support</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="python-model-evaluator">
+<h1>3.9. Python model evaluator<a class="headerlink" href="#python-model-evaluator" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-sasmodels.kernelpy">
+<span id="sasmodels-kernelpy"></span><h2>3.9.1. <a class="reference internal" href="#module-sasmodels.kernelpy" title="sasmodels.kernelpy"><tt class="xref py py-mod docutils literal"><span class="pre">sasmodels.kernelpy</span></tt></a><a class="headerlink" href="#module-sasmodels.kernelpy" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="sasmodels.kernelpy.PyInput">
+<em class="property">class </em><tt class="descclassname">sasmodels.kernelpy.</tt><tt class="descname">PyInput</tt><big>(</big><em>q_vectors</em>, <em>dtype</em><big>)</big><a class="headerlink" href="#sasmodels.kernelpy.PyInput" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Make q data available to the gpu.</p>
+<p><em>q_vectors</em> is a list of q vectors, which will be <em>[q]</em> for 1-D data,
+and <em>[qx, qy]</em> for 2-D data.  Internally, the vectors will be reallocated
+to get the best performance on OpenCL, which may involve shifting and
+stretching the array to better match the memory architecture.  Additional
+points will be evaluated with <em>q=1e-3</em>.</p>
+<p><em>dtype</em> is the data type for the q vectors. The data type should be
+set to match that of the kernel, which is an attribute of
+<tt class="xref py py-class docutils literal"><span class="pre">GpuProgram</span></tt>.  Note that not all kernels support double
+precision, so even if the program was created for double precision,
+the <em>GpuProgram.dtype</em> may be single precision.</p>
+<p>Call <a class="reference internal" href="#sasmodels.kernelpy.PyInput.release" title="sasmodels.kernelpy.PyInput.release"><tt class="xref py py-meth docutils literal"><span class="pre">release()</span></tt></a> when complete.  Even if not called directly, the
+buffer will be released when the data object is freed.</p>
+<dl class="method">
+<dt id="sasmodels.kernelpy.PyInput.release">
+<tt class="descname">release</tt><big>(</big><big>)</big><a class="headerlink" href="#sasmodels.kernelpy.PyInput.release" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="sasmodels.kernelpy.PyKernel">
+<em class="property">class </em><tt class="descclassname">sasmodels.kernelpy.</tt><tt class="descname">PyKernel</tt><big>(</big><em>kernel</em>, <em>info</em>, <em>q_input</em><big>)</big><a class="headerlink" href="#sasmodels.kernelpy.PyKernel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Callable SAS kernel.</p>
+<p><em>kernel</em> is the DllKernel object to call.</p>
+<p><em>info</em> is the module information</p>
+<p><em>q_input</em> is the DllInput q vectors at which the kernel should be
+evaluated.</p>
+<p>The resulting call method takes the <em>pars</em>, a list of values for
+the fixed parameters to the kernel, and <em>pd_pars</em>, a list of (value,weight)
+vectors for the polydisperse parameters.  <em>cutoff</em> determines the
+integration limits: any points with combined weight less than <em>cutoff</em>
+will not be calculated.</p>
+<p>Call <a class="reference internal" href="#sasmodels.kernelpy.PyKernel.release" title="sasmodels.kernelpy.PyKernel.release"><tt class="xref py py-meth docutils literal"><span class="pre">release()</span></tt></a> when done with the kernel instance.</p>
+<dl class="method">
+<dt id="sasmodels.kernelpy.PyKernel.release">
+<tt class="descname">release</tt><big>(</big><big>)</big><a class="headerlink" href="#sasmodels.kernelpy.PyKernel.release" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="sasmodels.kernelpy.PyModel">
+<em class="property">class </em><tt class="descclassname">sasmodels.kernelpy.</tt><tt class="descname">PyModel</tt><big>(</big><em>info</em><big>)</big><a class="headerlink" href="#sasmodels.kernelpy.PyModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="sasmodels.kernelpy.PyModel.make_input">
+<tt class="descname">make_input</tt><big>(</big><em>q_vectors</em><big>)</big><a class="headerlink" href="#sasmodels.kernelpy.PyModel.make_input" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.kernelpy.PyModel.release">
+<tt class="descname">release</tt><big>(</big><big>)</big><a class="headerlink" href="#sasmodels.kernelpy.PyModel.release" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        «&#160;&#160;<a href="kerneldll.html">3.8. Ctypes model evaluator</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="model_test.html">3.10. Unit test support</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2014, sasview team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

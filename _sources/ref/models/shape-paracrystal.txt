@@ -1,0 +1,13 @@
+..
+    Generated from doc/gentoc.py -- DO NOT EDIT --
+
+.. shape-paracrystal:
+
+*********************
+Paracrystal Functions
+*********************
+
+.. toctree::
+
+    ../../model/bcc.rst
+    ../../model/fcc.rst

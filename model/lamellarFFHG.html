@@ -1,0 +1,155 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>2.1.3.4. Lamellar ffhg &mdash; Sasmodels</title>
+    
+    <link rel="stylesheet" href="../_static/haiku-site.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.9',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Sasmodels" href="../index.html" />
+    <link rel="up" title="2.1.3. Lamellae Functions" href="../ref/models/shape-lamellae.html" />
+    <link rel="next" title="2.1.3.5. Lamellarpc" href="lamellarPC.html" />
+    <link rel="prev" title="2.1.3.3. Lamellarcaillehg" href="lamellarCailleHG.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../index.html">
+          <span>Home</span></a></h1>
+        <h2 class="heading"><span>2.1.3.4. Lamellar ffhg</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        «&#160;&#160;<a href="lamellarCailleHG.html">2.1.3.3. Lamellarcaillehg</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="lamellarPC.html">2.1.3.5. Lamellarpc</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="lamellar-ffhg">
+<span id="id1"></span><h1>2.1.3.4. Lamellar ffhg<a class="headerlink" href="#lamellar-ffhg" title="Permalink to this headline">¶</a></h1>
+<p>Random lamellar phase with Head Groups</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="16%" />
+<col width="48%" />
+<col width="17%" />
+<col width="19%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parameter</th>
+<th class="head">Description</th>
+<th class="head">Units</th>
+<th class="head">Default value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>scale</td>
+<td>Source intensity</td>
+<td>None</td>
+<td>1</td>
+</tr>
+<tr class="row-odd"><td>background</td>
+<td>Source background</td>
+<td>cm<sup>-1</sup></td>
+<td>0</td>
+</tr>
+<tr class="row-even"><td>tail_length</td>
+<td>Tail thickness</td>
+<td>Å</td>
+<td>15</td>
+</tr>
+<tr class="row-odd"><td>head_length</td>
+<td>head thickness</td>
+<td>Å</td>
+<td>10</td>
+</tr>
+<tr class="row-even"><td>sld</td>
+<td>Tail scattering length density</td>
+<td>10<sup>-6</sup>Å<sup>-2</sup></td>
+<td>0.4</td>
+</tr>
+<tr class="row-odd"><td>head_sld</td>
+<td>Head scattering length density</td>
+<td>10<sup>-6</sup>Å<sup>-2</sup></td>
+<td>3</td>
+</tr>
+<tr class="row-even"><td>solvent_sld</td>
+<td>Solvent scattering length density</td>
+<td>10<sup>-6</sup>Å<sup>-2</sup></td>
+<td>6</td>
+</tr>
+</tbody>
+</table>
+<p>The returned value is scaled to units of cm<sup>-1</sup>.</p>
+<p>This model provides the scattering intensity, <em>I(q)</em>, for a lyotropic lamellar
+phase where a random distribution in solution are assumed. The SLD of the head
+region is taken to be different from the SLD of the tail region.</p>
+<p><em>2.1.31.1. Definition</em></p>
+<p>The scattering intensity <em>I(q)</em> is</p>
+<div class="math">
+\[I(Q) = 2\pi{P(Q) \over (2(|delta|\ H +|delta|\ T) Q^2)\]</div>
+<p>The form factor is</p>
+<img alt="model/img/lamellarFFHG_.jpg" src="model/img/lamellarFFHG_.jpg" />
+<p>where δT = tail length (or <em>tail_length</em>), δH = head thickness
+(or <em>h_thickness</em>), ΔρH = SLD(headgroup) - SLD(solvent),
+and ΔρT = SLD(tail) - SLD(solvent).</p>
+<p>The 2D scattering intensity is calculated in the same way as 1D, where
+the <em>q</em> vector is defined as</p>
+<div class="math">
+\[Q = \sqrt{Q_x^2 + Q_y^2}\]</div>
+<p>The returned value is in units of cm<sup>-1</sup>, on absolute scale. In the
+parameters, <em>sld_tail</em> = SLD of the tail group, and <em>sld_head</em> = SLD
+of the head group.</p>
+<img alt="../_images/lamellarFFHG_138.jpg" src="../_images/lamellarFFHG_138.jpg" />
+<p><em>Figure. 1D plot using the default values (w/1000 data point).</em></p>
+<p>Our model uses the form factor calculations implemented in a C library
+provided by the NIST Center for Neutron Research (Kline, 2006).</p>
+<p>REFERENCE</p>
+<p>F Nallet, R Laversanne, and D Roux, J. Phys. II France, 3, (1993) 487-502</p>
+<p>also in J. Phys. Chem. B, 105, (2001) 11081-11088</p>
+<p><em>2014/04/17 - Description reviewed by S King and P Butler.</em></p>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        «&#160;&#160;<a href="lamellarCailleHG.html">2.1.3.3. Lamellarcaillehg</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="lamellarPC.html">2.1.3.5. Lamellarpc</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2014, sasview team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

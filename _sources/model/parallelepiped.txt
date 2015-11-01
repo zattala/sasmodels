@@ -1,0 +1,123 @@
+.. _parallelepiped:
+
+Parallelepiped
+=======================================================
+
+Rectangular parallelepiped with uniform scattering length density.
+
+=========== ==================================================== ============ =============
+Parameter   Description                                          Units        Default value
+=========== ==================================================== ============ =============
+scale       Source intensity                                     None                     1
+background  Source background                                    |cm^-1|                  0
+sld         Parallelepiped scattering length density             |1e-6Ang^-2|             4
+solvent_sld Solvent scattering length density                    |1e-6Ang^-2|             1
+a_side      Shorter side of the parallelepiped                   |Ang|                   35
+b_side      Second side of the parallelepiped                    |Ang|                   75
+c_side      Larger side of the parallelepiped                    |Ang|                  400
+theta       In plane angle                                       degree                  60
+phi         Out of plane angle                                   degree                  60
+psi         Rotation angle around its own c axis against q plane degree                  60
+=========== ==================================================== ============ =============
+
+The returned value is scaled to units of |cm^-1|.
+
+
+The form factor is normalized by the particle volume.
+
+For information about polarised and magnetic scattering, click here_.
+
+Definition
+----------
+
+This model provides the form factor, *P(q)*, for a rectangular parallelepiped
+(below) where the form factor is normalized by the volume of the
+parallelepiped. If you need to apply polydispersity, see also the
+RectangularPrismModel_.
+
+The calculated form factor is:
+
+.. math::
+
+    P(Q) = {\text{scale} \over V} F^2(Q) + \text{background}
+
+where the volume *V* = *A B C* and the averaging < > is applied over all
+orientations for 1D.
+
+.. image:: img/parallelepiped.jpg
+
+*Figure. Parallelepiped with the corresponding Definition of sides.
+
+The edge of the solid must satisfy the condition that** *A* < *B* < *C*.
+Then, assuming *a* = *A* / *B* < 1, *b* = *B* / *B* = 1, and
+*c* = *C* / *B* > 1, the form factor is
+
+.. math::
+
+    P(q) = \frac{\textstyle{scale}}{V}\int_0^1 \phi(\mu \sqrt{1-\sigma^2},a)
+    [S(\mu c \sigma/2)]^2 d\sigma
+
+with
+
+.. math::
+
+    \phi(\mu,a) = \int_0^1 \{S[\frac{\mu}{2}\cos(\frac{\pi}{2}u)]
+    S[\frac{\mu a}{2}\sin(\frac{\pi}{2}u)]\}^2 du
+
+    S(x) = \frac{\sin x}{x}
+
+    \mu = qB
+
+and the contrast is defined as
+
+.. math::
+
+    \Delta\rho = \rho_{\textstyle p} - \rho_{\textstyle solvent}
+
+The scattering intensity per unit volume is returned in units of |cm^-1|;
+ie, *I(q)* = |phi| *P(q)*\ .
+
+NB: The 2nd virial coefficient of the parallelpiped is calculated based on
+the averaged effective radius (= sqrt(*short_a* \* *short_b* / |pi|)) and
+length(= *long_c*) values, and used as the effective radius for
+*S(Q)* when *P(Q)* \* *S(Q)* is applied.
+
+To provide easy access to the orientation of the parallelepiped, we define
+three angles |theta|, |phi| and |bigpsi|. The definition of |theta| and |phi|
+is the same as for the cylinder model (see also figures below).
+The angle |bigpsi| is the rotational angle around the *long_c* axis against
+the *q* plane. For example, |bigpsi| = 0 when the *short_b* axis is parallel
+to the *x*-axis of the detector.
+
+
+.. _parallelepiped-orientation:
+
+.. figure:: img/orientation.jpg
+
+    Definition of the angles for oriented parallelepipeds.
+
+.. figure:: img/orientation2.jpg
+
+    Examples of the angles for oriented parallelepipeds against the detector plane.
+
+
+Validation
+----------
+
+Validation of the code was done by comparing the output of the 1D calculation
+to the angular average of the output of a 2D calculation over all possible
+angles. The Figure below shows the comparison where the solid dot refers to
+averaged 2D while the line represents the result of the 1D calculation (for
+the averaging, 76, 180, 76 points are taken for the angles of |theta|, |phi|,
+and |psi| respectively).
+
+.. _parallelepiped-compare:
+
+.. figure:: img/parallelepiped_compare.jpg
+
+*Figure. Comparison between 1D and averaged 2D.*
+
+This model reimplements the form factor calculations implemented in a c-library
+provided by the NIST Center for Neutron Research (Kline, 2006).
+
+

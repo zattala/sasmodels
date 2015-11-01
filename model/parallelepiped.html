@@ -1,0 +1,207 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>2.1.5.1. Parallelepiped &mdash; Sasmodels</title>
+    
+    <link rel="stylesheet" href="../_static/haiku-site.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.9',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Sasmodels" href="../index.html" />
+    <link rel="up" title="2.1.5. Parallelpiped Functions" href="../ref/models/shape-parallelpiped.html" />
+    <link rel="next" title="2.1.6. Sphere Functions" href="../ref/models/shape-sphere.html" />
+    <link rel="prev" title="2.1.5. Parallelpiped Functions" href="../ref/models/shape-parallelpiped.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../index.html">
+          <span>Home</span></a></h1>
+        <h2 class="heading"><span>2.1.5.1. Parallelepiped</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        «&#160;&#160;<a href="../ref/models/shape-parallelpiped.html">2.1.5. Parallelpiped Functions</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="../ref/models/shape-sphere.html">2.1.6. Sphere Functions</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="parallelepiped">
+<span id="id1"></span><h1>2.1.5.1. Parallelepiped<a class="headerlink" href="#parallelepiped" title="Permalink to this headline">¶</a></h1>
+<p>Rectangular parallelepiped with uniform scattering length density.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="13%" />
+<col width="59%" />
+<col width="14%" />
+<col width="15%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parameter</th>
+<th class="head">Description</th>
+<th class="head">Units</th>
+<th class="head">Default value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>scale</td>
+<td>Source intensity</td>
+<td>None</td>
+<td>1</td>
+</tr>
+<tr class="row-odd"><td>background</td>
+<td>Source background</td>
+<td>cm<sup>-1</sup></td>
+<td>0</td>
+</tr>
+<tr class="row-even"><td>sld</td>
+<td>Parallelepiped scattering length density</td>
+<td>10<sup>-6</sup>Å<sup>-2</sup></td>
+<td>4</td>
+</tr>
+<tr class="row-odd"><td>solvent_sld</td>
+<td>Solvent scattering length density</td>
+<td>10<sup>-6</sup>Å<sup>-2</sup></td>
+<td>1</td>
+</tr>
+<tr class="row-even"><td>a_side</td>
+<td>Shorter side of the parallelepiped</td>
+<td>Å</td>
+<td>35</td>
+</tr>
+<tr class="row-odd"><td>b_side</td>
+<td>Second side of the parallelepiped</td>
+<td>Å</td>
+<td>75</td>
+</tr>
+<tr class="row-even"><td>c_side</td>
+<td>Larger side of the parallelepiped</td>
+<td>Å</td>
+<td>400</td>
+</tr>
+<tr class="row-odd"><td>theta</td>
+<td>In plane angle</td>
+<td>degree</td>
+<td>60</td>
+</tr>
+<tr class="row-even"><td>phi</td>
+<td>Out of plane angle</td>
+<td>degree</td>
+<td>60</td>
+</tr>
+<tr class="row-odd"><td>psi</td>
+<td>Rotation angle around its own c axis against q plane</td>
+<td>degree</td>
+<td>60</td>
+</tr>
+</tbody>
+</table>
+<p>The returned value is scaled to units of cm<sup>-1</sup>.</p>
+<p>The form factor is normalized by the particle volume.</p>
+<p>For information about polarised and magnetic scattering, click <a href="#id4"><span class="problematic" id="id5">here_</span></a>.</p>
+<div class="section" id="definition">
+<h2>Definition<a class="headerlink" href="#definition" title="Permalink to this headline">¶</a></h2>
+<p>This model provides the form factor, <em>P(q)</em>, for a rectangular parallelepiped
+(below) where the form factor is normalized by the volume of the
+parallelepiped. If you need to apply polydispersity, see also the
+<a href="#id6"><span class="problematic" id="id7">RectangularPrismModel_</span></a>.</p>
+<p>The calculated form factor is:</p>
+<div class="math">
+\[P(Q) = {\text{scale} \over V} F^2(Q) + \text{background}\]</div>
+<p>where the volume <em>V</em> = <em>A B C</em> and the averaging &lt; &gt; is applied over all
+orientations for 1D.</p>
+<img alt="model/img/parallelepiped.jpg" src="model/img/parallelepiped.jpg" />
+<p><a href="#id2"><span class="problematic" id="id3">*</span></a>Figure. Parallelepiped with the corresponding Definition of sides.</p>
+<p>The edge of the solid must satisfy the condition that** <em>A</em> &lt; <em>B</em> &lt; <em>C</em>.
+Then, assuming <em>a</em> = <em>A</em> / <em>B</em> &lt; 1, <em>b</em> = <em>B</em> / <em>B</em> = 1, and
+<em>c</em> = <em>C</em> / <em>B</em> &gt; 1, the form factor is</p>
+<div class="math">
+\[P(q) = \frac{\textstyle{scale}}{V}\int_0^1 \phi(\mu \sqrt{1-\sigma^2},a)
+[S(\mu c \sigma/2)]^2 d\sigma\]</div>
+<p>with</p>
+<div class="math">
+\[\phi(\mu,a) = \int_0^1 \{S[\frac{\mu}{2}\cos(\frac{\pi}{2}u)]
+S[\frac{\mu a}{2}\sin(\frac{\pi}{2}u)]\}^2 du\]\[S(x) = \frac{\sin x}{x}\]\[\mu = qB\]</div>
+<p>and the contrast is defined as</p>
+<div class="math">
+\[\Delta\rho = \rho_{\textstyle p} - \rho_{\textstyle solvent}\]</div>
+<p>The scattering intensity per unit volume is returned in units of cm<sup>-1</sup>;
+ie, <em>I(q)</em> = φ <em>P(q)</em>.</p>
+<p>NB: The 2nd virial coefficient of the parallelpiped is calculated based on
+the averaged effective radius (= sqrt(<em>short_a</em> * <em>short_b</em> / π)) and
+length(= <em>long_c</em>) values, and used as the effective radius for
+<em>S(Q)</em> when <em>P(Q)</em> * <em>S(Q)</em> is applied.</p>
+<p>To provide easy access to the orientation of the parallelepiped, we define
+three angles θ, φ and Ψ. The definition of θ and φ
+is the same as for the cylinder model (see also figures below).
+The angle Ψ is the rotational angle around the <em>long_c</em> axis against
+the <em>q</em> plane. For example, Ψ = 0 when the <em>short_b</em> axis is parallel
+to the <em>x</em>-axis of the detector.</p>
+<div class="figure" id="parallelepiped-orientation">
+<img alt="../_images/orientation.jpg" src="../_images/orientation.jpg" />
+<p class="caption">Figure 1: Definition of the angles for oriented parallelepipeds.</p>
+</div>
+<div class="figure">
+<img alt="../_images/orientation2.jpg" src="../_images/orientation2.jpg" />
+<p class="caption">Figure 2: Examples of the angles for oriented parallelepipeds against the detector plane.</p>
+</div>
+</div>
+<div class="section" id="validation">
+<h2>Validation<a class="headerlink" href="#validation" title="Permalink to this headline">¶</a></h2>
+<p>Validation of the code was done by comparing the output of the 1D calculation
+to the angular average of the output of a 2D calculation over all possible
+angles. The Figure below shows the comparison where the solid dot refers to
+averaged 2D while the line represents the result of the 1D calculation (for
+the averaging, 76, 180, 76 points are taken for the angles of θ, φ,
+and ψ respectively).</p>
+<div class="figure" id="parallelepiped-compare">
+<img alt="model/img/parallelepiped_compare.jpg" src="model/img/parallelepiped_compare.jpg" />
+</div>
+<p><em>Figure. Comparison between 1D and averaged 2D.</em></p>
+<p>This model reimplements the form factor calculations implemented in a c-library
+provided by the NIST Center for Neutron Research (Kline, 2006).</p>
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        «&#160;&#160;<a href="../ref/models/shape-parallelpiped.html">2.1.5. Parallelpiped Functions</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="../ref/models/shape-sphere.html">2.1.6. Sphere Functions</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2014, sasview team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

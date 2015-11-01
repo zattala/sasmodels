@@ -1,0 +1,196 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>2.1.4.1. Bcc paracrystal &mdash; Sasmodels</title>
+    
+    <link rel="stylesheet" href="../_static/haiku-site.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.9',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Sasmodels" href="../index.html" />
+    <link rel="up" title="2.1.4. Paracrystal Functions" href="../ref/models/shape-paracrystal.html" />
+    <link rel="next" title="2.1.4.2. Fcc paracrystal" href="fcc.html" />
+    <link rel="prev" title="2.1.4. Paracrystal Functions" href="../ref/models/shape-paracrystal.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../index.html">
+          <span>Home</span></a></h1>
+        <h2 class="heading"><span>2.1.4.1. Bcc paracrystal</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        «&#160;&#160;<a href="../ref/models/shape-paracrystal.html">2.1.4. Paracrystal Functions</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="fcc.html">2.1.4.2. Fcc paracrystal</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="bcc-paracrystal">
+<span id="id1"></span><h1>2.1.4.1. Bcc paracrystal<a class="headerlink" href="#bcc-paracrystal" title="Permalink to this headline">¶</a></h1>
+<p>Body-centred cubic lattic with paracrystalline distortion</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="16%" />
+<col width="49%" />
+<col width="17%" />
+<col width="19%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parameter</th>
+<th class="head">Description</th>
+<th class="head">Units</th>
+<th class="head">Default value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>scale</td>
+<td>Source intensity</td>
+<td>None</td>
+<td>1</td>
+</tr>
+<tr class="row-odd"><td>background</td>
+<td>Source background</td>
+<td>cm<sup>-1</sup></td>
+<td>0</td>
+</tr>
+<tr class="row-even"><td>dnn</td>
+<td>Nearest neighbour distance</td>
+<td>Å</td>
+<td>220</td>
+</tr>
+<tr class="row-odd"><td>d_factor</td>
+<td>Paracrystal distortion factor</td>
+<td>None</td>
+<td>0.06</td>
+</tr>
+<tr class="row-even"><td>radius</td>
+<td>Particle radius</td>
+<td>Å</td>
+<td>40</td>
+</tr>
+<tr class="row-odd"><td>sld</td>
+<td>Particle scattering length density</td>
+<td>10<sup>-6</sup>Å<sup>-2</sup></td>
+<td>4</td>
+</tr>
+<tr class="row-even"><td>solvent_sld</td>
+<td>Solvent scattering length density</td>
+<td>10<sup>-6</sup>Å<sup>-2</sup></td>
+<td>1</td>
+</tr>
+<tr class="row-odd"><td>theta</td>
+<td>In plane angle</td>
+<td>degree</td>
+<td>60</td>
+</tr>
+<tr class="row-even"><td>phi</td>
+<td>Out of plane angle</td>
+<td>degree</td>
+<td>60</td>
+</tr>
+<tr class="row-odd"><td>psi</td>
+<td>Out of plane angle</td>
+<td>degree</td>
+<td>60</td>
+</tr>
+</tbody>
+</table>
+<p>The returned value is scaled to units of cm<sup>-1</sup>.</p>
+<p>Calculates the scattering from a <strong>body-centered cubic lattice</strong> with
+paracrystalline distortion. Thermal vibrations are considered to be negligible,
+and the size of the paracrystal is infinitely large. Paracrystalline distortion
+is assumed to be isotropic and characterized by a Gaussian distribution.</p>
+<p>The returned value is scaled to units of cm<sup>-1</sup>sr<sup>-1</sup>, absolute scale.</p>
+<div class="section" id="definition">
+<h2>Definition<a class="headerlink" href="#definition" title="Permalink to this headline">¶</a></h2>
+<p>The scattering intensity <span class="math">\(I(q)\)</span> is calculated as</p>
+<p>where <em>scale</em> is the volume fraction of spheres, <em>Vp</em> is the volume of the
+primary particle, <em>V(lattice)</em> is a volume correction for the crystal
+structure, <span class="math">\(P(q)\)</span> is the form factor of the sphere (normalized), and <span class="math">\(Z(q)\)</span>
+is the paracrystalline structure factor for a body-centered cubic structure.</p>
+<p>Equation (1) of the 1990 reference is used to calculate <span class="math">\(Z(q)\)</span>, using
+equations (29)-(31) from the 1987 paper for <em>Z1</em>, <em>Z2</em>, and <em>Z3</em>.</p>
+<p>The lattice correction (the occupied volume of the lattice) for a
+body-centered cubic structure of particles of radius <span class="math">\(R\)</span> and nearest neighbor
+separation <span class="math">\(D\)</span> is</p>
+<p>The distortion factor (one standard deviation) of the paracrystal is included
+in the calculation of <span class="math">\(Z(q)\)</span></p>
+<p>where <span class="math">\(g\)</span> is a fractional distortion based on the nearest neighbor distance.</p>
+<p>The body-centered cubic lattice is</p>
+<img alt="../_images/bcc_lattice.jpg" src="../_images/bcc_lattice.jpg" />
+<p>For a crystal, diffraction peaks appear at reduced q-values given by</p>
+<p>where for a body-centered cubic lattice, only reflections where
+<span class="math">\((h + k + l) = \text{even}\)</span> are allowed and reflections where
+<span class="math">\((h + k + l) = \text{odd}\)</span> are forbidden. Thus the peak positions
+correspond to (just the first 5)</p>
+<p><strong>NB: The calculation of :math:`Z(q)` is a double numerical integral that must
+be carried out with a high density of points to properly capture the sharp
+peaks of the paracrystalline scattering.</strong> So be warned that the calculation
+is SLOW. Go get some coffee. Fitting of any experimental data must be
+resolution smeared for any meaningful fit. This makes a triple integral.
+Very, very slow. Go get lunch!</p>
+<p>This example dataset is produced using 200 data points,
+<em>qmin</em> = 0.001 Å<sup>-1</sup>, <em>qmax</em> = 0.1 Å<sup>-1</sup> and the above default values.</p>
+<img alt="../_images/bcc_1d.jpg" src="../_images/bcc_1d.jpg" />
+<p><em>Figure. 1D plot in the linear scale using the default values
+(w/200 data point).</em></p>
+<p>The 2D (Anisotropic model) is based on the reference below where <span class="math">\(I(q)\)</span> is
+approximated for 1d scattering. Thus the scattering pattern for 2D may not
+be accurate. Note that we are not responsible for any incorrectness of the 2D
+model computation.</p>
+<img alt="../_images/bcc_orientation.gif" src="../_images/bcc_orientation.gif" />
+<img alt="../_images/bcc_2d.jpg" src="../_images/bcc_2d.jpg" />
+<p><em>Figure. 2D plot using the default values (w/200X200 pixels).</em></p>
+</div>
+<div class="section" id="reference">
+<h2>REFERENCE<a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
+<p>Hideki Matsuoka et. al. <em>Physical Review B</em>, 36 (1987) 1754-1765
+(Original Paper)</p>
+<p>Hideki Matsuoka et. al. <em>Physical Review B</em>, 41 (1990) 3854 -3856
+(Corrections to FCC and BCC lattice structure calculation)</p>
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        «&#160;&#160;<a href="../ref/models/shape-paracrystal.html">2.1.4. Paracrystal Functions</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="fcc.html">2.1.4.2. Fcc paracrystal</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2014, sasview team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

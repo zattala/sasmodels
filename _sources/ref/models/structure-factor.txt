@@ -1,0 +1,13 @@
+..
+    Generated from doc/gentoc.py -- DO NOT EDIT --
+
+.. Structure-factor:
+
+*****************
+Structure Factors
+*****************
+
+.. toctree::
+
+    ../../model/hardsphere.rst
+    ../../model/stickyhardsphere.rst

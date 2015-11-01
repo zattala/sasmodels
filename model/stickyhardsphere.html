@@ -1,0 +1,196 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>2.3.2. Stickyhardsphere &mdash; Sasmodels</title>
+    
+    <link rel="stylesheet" href="../_static/haiku-site.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.9',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Sasmodels" href="../index.html" />
+    <link rel="up" title="2.3. Structure Factors" href="../ref/models/structure-factor.html" />
+    <link rel="next" title="2.4. Custom Models" href="../ref/models/custom-models.html" />
+    <link rel="prev" title="2.3.1. Hardsphere" href="hardsphere.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../index.html">
+          <span>Home</span></a></h1>
+        <h2 class="heading"><span>2.3.2. Stickyhardsphere</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        «&#160;&#160;<a href="hardsphere.html">2.3.1. Hardsphere</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="../ref/models/custom-models.html">2.4. Custom Models</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="stickyhardsphere">
+<span id="id1"></span><h1>2.3.2. Stickyhardsphere<a class="headerlink" href="#stickyhardsphere" title="Permalink to this headline">¶</a></h1>
+<p>Sticky hard sphere structure factor, with Percus-Yevick closure</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="48%" />
+<col width="11%" />
+<col width="20%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parameter</th>
+<th class="head">Description</th>
+<th class="head">Units</th>
+<th class="head">Default value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>scale</td>
+<td>Source intensity</td>
+<td>None</td>
+<td>1</td>
+</tr>
+<tr class="row-odd"><td>background</td>
+<td>Source background</td>
+<td>cm<sup>-1</sup></td>
+<td>0</td>
+</tr>
+<tr class="row-even"><td>effect_radius</td>
+<td>effective radius of hard sphere</td>
+<td>Å</td>
+<td>50</td>
+</tr>
+<tr class="row-odd"><td>volfraction</td>
+<td>volume fraction of hard spheres</td>
+<td>None</td>
+<td>0.2</td>
+</tr>
+<tr class="row-even"><td>perturb</td>
+<td>perturbation parameter, epsilon</td>
+<td>None</td>
+<td>0.05</td>
+</tr>
+<tr class="row-odd"><td>stickiness</td>
+<td>stickiness, tau</td>
+<td>None</td>
+<td>0.2</td>
+</tr>
+</tbody>
+</table>
+<p>The returned value is scaled to units of cm<sup>-1</sup>.</p>
+<p>This calculates the interparticle structure factor for a hard sphere fluid
+with a narrow attractive well. A perturbative solution of the Percus-Yevick
+closure is used. The strength of the attractive well is described in terms
+of &#8220;stickiness&#8221; as defined below. The returned value is a dimensionless
+structure factor, <em>S(q)</em>.</p>
+<p>The perturb (perturbation parameter), ε, should be held between 0.01
+and 0.1. It is best to hold the perturbation parameter fixed and let
+the &#8220;stickiness&#8221; vary to adjust the interaction strength. The stickiness,
+τ, is defined in the equation below and is a function of both the
+perturbation parameter and the interaction strength. τ and ε
+are defined in terms of the hard sphere diameter (σ = 2*<em>R</em>), the
+width of the square well, Δ (same units as <em>R</em>), and the depth of
+the well, <em>Uo</em>, in units of kT. From the definition, it is clear that
+smaller τ means stronger attraction.</p>
+<img alt="../_images/stickyhardsphere_228.PNG" src="../_images/stickyhardsphere_228.PNG" />
+<p>where the interaction potential is</p>
+<img alt="../_images/stickyhardsphere_229.PNG" src="../_images/stickyhardsphere_229.PNG" />
+<p>The Percus-Yevick (PY) closure was used for this calculation, and is an
+adequate closure for an attractive interparticle potential. This solution
+has been compared to Monte Carlo simulations for a square well fluid, with
+good agreement.</p>
+<p>The true particle volume fraction, φ, is not equal to <em>h</em>, which appears
+in most of the reference. The two are related in equation (24) of the
+reference. The reference also describes the relationship between this
+perturbation solution and the original sticky hard sphere (or adhesive
+sphere) model by Baxter.</p>
+<p>NB: The calculation can go haywire for certain combinations of the input
+parameters, producing unphysical solutions - in this case errors are
+reported to the command window and the <em>S(q)</em> is set to -1 (so it will
+disappear on a log-log plot). Use tight bounds to keep the parameters to
+values that you know are physical (test them) and keep nudging them until
+the optimization does not hit the constraints.</p>
+<p>In sasview the effective radius will be calculated from the parameters
+used in the form factor P(Q) that this S(Q) is combined with.</p>
+<p>For 2D data: The 2D scattering intensity is calculated in the same way
+as 1D, where the <em>q</em> vector is defined as</p>
+<div class="math">
+\[Q = \sqrt{Q_x^2 + Q_y^2}\]</div>
+<table border="1" class="docutils">
+<colgroup>
+<col width="40%" />
+<col width="23%" />
+<col width="37%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parameter name</th>
+<th class="head">Units</th>
+<th class="head">Default value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>effect_radius</td>
+<td>Å</td>
+<td>50</td>
+</tr>
+<tr class="row-odd"><td>perturb</td>
+<td>None</td>
+<td>0.05</td>
+</tr>
+<tr class="row-even"><td>volfraction</td>
+<td>None</td>
+<td>0.1</td>
+</tr>
+<tr class="row-odd"><td>stickiness</td>
+<td>K</td>
+<td>0.2</td>
+</tr>
+</tbody>
+</table>
+<img alt="../_images/stickyhardsphere_230.jpg" src="../_images/stickyhardsphere_230.jpg" />
+<p><em>Figure. 1D plot using the default values (in linear scale).</em></p>
+<p>REFERENCE</p>
+<p>S V G Menon, C Manohar, and K S Rao, <em>J. Chem. Phys.</em>, 95(12) (1991) 9186-9190</p>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        «&#160;&#160;<a href="hardsphere.html">2.3.1. Hardsphere</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="../ref/models/custom-models.html">2.4. Custom Models</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2014, sasview team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,218 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>3.7. OpenCL model evaluator &mdash; Sasmodels</title>
+    
+    <link rel="stylesheet" href="../_static/haiku-site.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.9',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Sasmodels" href="../index.html" />
+    <link rel="up" title="3. Reference" href="index.html" />
+    <link rel="next" title="3.8. Ctypes model evaluator" href="kerneldll.html" />
+    <link rel="prev" title="3.6. Model parser" href="generate.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../index.html">
+          <span>Home</span></a></h1>
+        <h2 class="heading"><span>3.7. OpenCL model evaluator</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        «&#160;&#160;<a href="generate.html">3.6. Model parser</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="kerneldll.html">3.8. Ctypes model evaluator</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="opencl-model-evaluator">
+<h1>3.7. OpenCL model evaluator<a class="headerlink" href="#opencl-model-evaluator" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-sasmodels.kernelcl">
+<span id="sasmodels-kernelcl"></span><h2>3.7.1. <a class="reference internal" href="#module-sasmodels.kernelcl" title="sasmodels.kernelcl"><tt class="xref py py-mod docutils literal"><span class="pre">sasmodels.kernelcl</span></tt></a><a class="headerlink" href="#module-sasmodels.kernelcl" title="Permalink to this headline">¶</a></h2>
+<p>GPU support through OpenCL</p>
+<p>There should be a single GPU environment running on the system.  This
+environment is constructed on the first call to <tt class="xref py py-func docutils literal"><span class="pre">env()</span></tt>, and the
+same environment is returned on each call.</p>
+<p>After retrieving the environment, the next step is to create the kernel.
+This is done with a call to <tt class="xref py py-meth docutils literal"><span class="pre">GpuEnvironment.make_kernel()</span></tt>, which
+returns the type of data used by the kernel.</p>
+<p>Next a <tt class="xref py py-class docutils literal"><span class="pre">GpuData</span></tt> object should be created with the correct kind
+of data.  This data object can be used by multiple kernels, for example,
+if the target model is a weighted sum of multiple kernels.  The data
+should include any extra evaluation points required to compute the proper
+data smearing.  This need not match the square grid for 2D data if there
+is an index saying which q points are active.</p>
+<p>Together the GpuData, the program, and a device form a <a class="reference internal" href="#sasmodels.kernelcl.GpuKernel" title="sasmodels.kernelcl.GpuKernel"><tt class="xref py py-class docutils literal"><span class="pre">GpuKernel</span></tt></a>.
+This kernel is used during fitting, receiving new sets of parameters and
+evaluating them.  The output value is stored in an output buffer on the
+devices, where it can be combined with other structure factors and form
+factors and have instrumental resolution effects applied.</p>
+<dl class="class">
+<dt id="sasmodels.kernelcl.GpuEnvironment">
+<em class="property">class </em><tt class="descclassname">sasmodels.kernelcl.</tt><tt class="descname">GpuEnvironment</tt><a class="headerlink" href="#sasmodels.kernelcl.GpuEnvironment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>GPU context, with possibly many devices, and one queue per device.</p>
+<dl class="method">
+<dt id="sasmodels.kernelcl.GpuEnvironment.compile_program">
+<tt class="descname">compile_program</tt><big>(</big><em>name</em>, <em>source</em>, <em>dtype</em><big>)</big><a class="headerlink" href="#sasmodels.kernelcl.GpuEnvironment.compile_program" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.kernelcl.GpuEnvironment.release_program">
+<tt class="descname">release_program</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#sasmodels.kernelcl.GpuEnvironment.release_program" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="sasmodels.kernelcl.GpuInput">
+<em class="property">class </em><tt class="descclassname">sasmodels.kernelcl.</tt><tt class="descname">GpuInput</tt><big>(</big><em>q_vectors</em>, <em>dtype=dtype('float32')</em><big>)</big><a class="headerlink" href="#sasmodels.kernelcl.GpuInput" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Make q data available to the gpu.</p>
+<p><em>q_vectors</em> is a list of q vectors, which will be <em>[q]</em> for 1-D data,
+and <em>[qx, qy]</em> for 2-D data.  Internally, the vectors will be reallocated
+to get the best performance on OpenCL, which may involve shifting and
+stretching the array to better match the memory architecture.  Additional
+points will be evaluated with <em>q=1e-3</em>.</p>
+<p><em>dtype</em> is the data type for the q vectors. The data type should be
+set to match that of the kernel, which is an attribute of
+<tt class="xref py py-class docutils literal"><span class="pre">GpuProgram</span></tt>.  Note that not all kernels support double
+precision, so even if the program was created for double precision,
+the <em>GpuProgram.dtype</em> may be single precision.</p>
+<p>Call <a class="reference internal" href="#sasmodels.kernelcl.GpuInput.release" title="sasmodels.kernelcl.GpuInput.release"><tt class="xref py py-meth docutils literal"><span class="pre">release()</span></tt></a> when complete.  Even if not called directly, the
+buffer will be released when the data object is freed.</p>
+<dl class="method">
+<dt id="sasmodels.kernelcl.GpuInput.release">
+<tt class="descname">release</tt><big>(</big><big>)</big><a class="headerlink" href="#sasmodels.kernelcl.GpuInput.release" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="sasmodels.kernelcl.GpuKernel">
+<em class="property">class </em><tt class="descclassname">sasmodels.kernelcl.</tt><tt class="descname">GpuKernel</tt><big>(</big><em>kernel</em>, <em>info</em>, <em>q_input</em><big>)</big><a class="headerlink" href="#sasmodels.kernelcl.GpuKernel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Callable SAS kernel.</p>
+<p><em>kernel</em> is the GpuKernel object to call.</p>
+<p><em>info</em> is the module information</p>
+<p><em>q_input</em> is the DllInput q vectors at which the kernel should be
+evaluated.</p>
+<p>The resulting call method takes the <em>pars</em>, a list of values for
+the fixed parameters to the kernel, and <em>pd_pars</em>, a list of (value,weight)
+vectors for the polydisperse parameters.  <em>cutoff</em> determines the
+integration limits: any points with combined weight less than <em>cutoff</em>
+will not be calculated.</p>
+<p>Call <a class="reference internal" href="#sasmodels.kernelcl.GpuKernel.release" title="sasmodels.kernelcl.GpuKernel.release"><tt class="xref py py-meth docutils literal"><span class="pre">release()</span></tt></a> when done with the kernel instance.</p>
+<dl class="method">
+<dt id="sasmodels.kernelcl.GpuKernel.release">
+<tt class="descname">release</tt><big>(</big><big>)</big><a class="headerlink" href="#sasmodels.kernelcl.GpuKernel.release" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="sasmodels.kernelcl.GpuModel">
+<em class="property">class </em><tt class="descclassname">sasmodels.kernelcl.</tt><tt class="descname">GpuModel</tt><big>(</big><em>source</em>, <em>info</em>, <em>dtype=dtype('float32')</em><big>)</big><a class="headerlink" href="#sasmodels.kernelcl.GpuModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>GPU wrapper for a single model.</p>
+<p><em>source</em> and <em>info</em> are the model source and interface as returned
+from <tt class="xref py py-func docutils literal"><span class="pre">gen.make()</span></tt>.</p>
+<p><em>dtype</em> is the desired model precision.  Any numpy dtype for single
+or double precision floats will do, such as &#8216;f&#8217;, &#8216;float32&#8217; or &#8216;single&#8217;
+for single and &#8216;d&#8217;, &#8216;float64&#8217; or &#8216;double&#8217; for double.  Double precision
+is an optional extension which may not be available on all devices.</p>
+<dl class="method">
+<dt id="sasmodels.kernelcl.GpuModel.make_input">
+<tt class="descname">make_input</tt><big>(</big><em>q_vectors</em><big>)</big><a class="headerlink" href="#sasmodels.kernelcl.GpuModel.make_input" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make q input vectors available to the model.</p>
+<p>Note that each model needs its own q vector even if the case of
+mixture models because some models may be OpenCL, some may be
+ctypes and some may be pure python.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.kernelcl.GpuModel.release">
+<tt class="descname">release</tt><big>(</big><big>)</big><a class="headerlink" href="#sasmodels.kernelcl.GpuModel.release" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="sasmodels.kernelcl.compile_model">
+<tt class="descclassname">sasmodels.kernelcl.</tt><tt class="descname">compile_model</tt><big>(</big><em>context</em>, <em>source</em>, <em>dtype</em><big>)</big><a class="headerlink" href="#sasmodels.kernelcl.compile_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build a model to run on the gpu.</p>
+<p>Returns the compiled program and its type.  The returned type will
+be float32 even if the desired type is float64 if any of the
+devices in the context do not support the cl_khr_fp64 extension.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="sasmodels.kernelcl.environment">
+<tt class="descclassname">sasmodels.kernelcl.</tt><tt class="descname">environment</tt><big>(</big><big>)</big><a class="headerlink" href="#sasmodels.kernelcl.environment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a singleton <a class="reference internal" href="#sasmodels.kernelcl.GpuEnvironment" title="sasmodels.kernelcl.GpuEnvironment"><tt class="xref py py-class docutils literal"><span class="pre">GpuEnvironment</span></tt></a>.</p>
+<p>This provides an OpenCL context and one queue per device.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="sasmodels.kernelcl.get_warp">
+<tt class="descclassname">sasmodels.kernelcl.</tt><tt class="descname">get_warp</tt><big>(</big><em>kernel</em>, <em>queue</em><big>)</big><a class="headerlink" href="#sasmodels.kernelcl.get_warp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the size of an execution batch for <em>kernel</em> running on <em>queue</em>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="sasmodels.kernelcl.has_double">
+<tt class="descclassname">sasmodels.kernelcl.</tt><tt class="descname">has_double</tt><big>(</big><em>device</em><big>)</big><a class="headerlink" href="#sasmodels.kernelcl.has_double" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return true if device supports double precision.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="sasmodels.kernelcl.make_result">
+<tt class="descclassname">sasmodels.kernelcl.</tt><tt class="descname">make_result</tt><big>(</big><em>self</em>, <em>size</em><big>)</big><a class="headerlink" href="#sasmodels.kernelcl.make_result" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        «&#160;&#160;<a href="generate.html">3.6. Model parser</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="kerneldll.html">3.8. Ctypes model evaluator</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2014, sasview team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

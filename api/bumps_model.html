@@ -1,0 +1,246 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>3.1. Bumps interface &mdash; Sasmodels</title>
+    
+    <link rel="stylesheet" href="../_static/haiku-site.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.9',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Sasmodels" href="../index.html" />
+    <link rel="up" title="3. Reference" href="index.html" />
+    <link rel="next" title="3.2. Sasview to sasmodel converter" href="convert.html" />
+    <link rel="prev" title="3. Reference" href="index.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../index.html">
+          <span>Home</span></a></h1>
+        <h2 class="heading"><span>3.1. Bumps interface</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        «&#160;&#160;<a href="index.html">3. Reference</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="convert.html">3.2. Sasview to sasmodel converter</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="bumps-interface">
+<h1>3.1. Bumps interface<a class="headerlink" href="#bumps-interface" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-sasmodels.bumps_model">
+<span id="sasmodels-bumps-model"></span><h2>3.1.1. <a class="reference internal" href="#module-sasmodels.bumps_model" title="sasmodels.bumps_model"><tt class="xref py py-mod docutils literal"><span class="pre">sasmodels.bumps_model</span></tt></a><a class="headerlink" href="#module-sasmodels.bumps_model" title="Permalink to this headline">¶</a></h2>
+<p>Wrap sasmodels for direct use by bumps.</p>
+<p><a class="reference internal" href="#sasmodels.bumps_model.Model" title="sasmodels.bumps_model.Model"><tt class="xref py py-class docutils literal"><span class="pre">Model</span></tt></a> is a wrapper for the sasmodels kernel which defines a
+bumps <em>Parameter</em> box for each kernel parameter.  <em>Model</em> accepts keyword
+arguments to set the initial value for each parameter.</p>
+<p><a class="reference internal" href="#sasmodels.bumps_model.Experiment" title="sasmodels.bumps_model.Experiment"><tt class="xref py py-class docutils literal"><span class="pre">Experiment</span></tt></a> combines the <em>Model</em> function with a data file loaded by the
+sasview data loader.  <em>Experiment</em> takes a <em>cutoff</em> parameter controlling
+how far the polydispersity integral extends.</p>
+<p>A variety of helper functions are provided:</p>
+<blockquote>
+<div><p><a class="reference internal" href="#sasmodels.bumps_model.load_data" title="sasmodels.bumps_model.load_data"><tt class="xref py py-func docutils literal"><span class="pre">load_data()</span></tt></a> loads a sasview data file.</p>
+<p><a class="reference internal" href="#sasmodels.bumps_model.empty_data1D" title="sasmodels.bumps_model.empty_data1D"><tt class="xref py py-func docutils literal"><span class="pre">empty_data1D()</span></tt></a> creates an empty dataset, which is useful for plotting
+a theory function before the data is measured.</p>
+<p><a class="reference internal" href="#sasmodels.bumps_model.empty_data2D" title="sasmodels.bumps_model.empty_data2D"><tt class="xref py py-func docutils literal"><span class="pre">empty_data2D()</span></tt></a> creates an empty 2D dataset.</p>
+<p><a class="reference internal" href="#sasmodels.bumps_model.set_beam_stop" title="sasmodels.bumps_model.set_beam_stop"><tt class="xref py py-func docutils literal"><span class="pre">set_beam_stop()</span></tt></a> masks the beam stop from the data.</p>
+<p><a class="reference internal" href="#sasmodels.bumps_model.set_half" title="sasmodels.bumps_model.set_half"><tt class="xref py py-func docutils literal"><span class="pre">set_half()</span></tt></a> selects the right or left half of the data, which can
+be useful for shear measurements which have not been properly corrected
+for path length and reflections.</p>
+<p><a class="reference internal" href="#sasmodels.bumps_model.set_top" title="sasmodels.bumps_model.set_top"><tt class="xref py py-func docutils literal"><span class="pre">set_top()</span></tt></a> cuts the top part off the data.</p>
+<p><a class="reference internal" href="#sasmodels.bumps_model.plot_data" title="sasmodels.bumps_model.plot_data"><tt class="xref py py-func docutils literal"><span class="pre">plot_data()</span></tt></a> plots the data file.</p>
+<p><a class="reference internal" href="#sasmodels.bumps_model.plot_theory" title="sasmodels.bumps_model.plot_theory"><tt class="xref py py-func docutils literal"><span class="pre">plot_theory()</span></tt></a> plots a calculated result from the model.</p>
+</div></blockquote>
+<dl class="class">
+<dt id="sasmodels.bumps_model.Experiment">
+<em class="property">class </em><tt class="descclassname">sasmodels.bumps_model.</tt><tt class="descname">Experiment</tt><big>(</big><em>data</em>, <em>model</em>, <em>cutoff=1e-05</em><big>)</big><a class="headerlink" href="#sasmodels.bumps_model.Experiment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Return a bumps wrapper for a SAS model.</p>
+<p><em>data</em> is the data to be fitted.</p>
+<p><em>model</em> is the SAS model from <tt class="xref py py-func docutils literal"><span class="pre">core.load_model()</span></tt>.</p>
+<p><em>cutoff</em> is the integration cutoff, which avoids computing the
+the SAS model where the polydispersity weight is low.</p>
+<p>Model parameters can be initialized with additional keyword
+arguments, or by assigning to model.parameter_name.value.</p>
+<p>The resulting bumps model can be used directly in a FitProblem call.</p>
+<dl class="method">
+<dt id="sasmodels.bumps_model.Experiment.nllf">
+<tt class="descname">nllf</tt><big>(</big><big>)</big><a class="headerlink" href="#sasmodels.bumps_model.Experiment.nllf" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.bumps_model.Experiment.numpoints">
+<tt class="descname">numpoints</tt><big>(</big><big>)</big><a class="headerlink" href="#sasmodels.bumps_model.Experiment.numpoints" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the number of points</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.bumps_model.Experiment.parameters">
+<tt class="descname">parameters</tt><big>(</big><big>)</big><a class="headerlink" href="#sasmodels.bumps_model.Experiment.parameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a dictionary of parameters</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.bumps_model.Experiment.plot">
+<tt class="descname">plot</tt><big>(</big><em>view='log'</em><big>)</big><a class="headerlink" href="#sasmodels.bumps_model.Experiment.plot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot the data and residuals.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.bumps_model.Experiment.residuals">
+<tt class="descname">residuals</tt><big>(</big><big>)</big><a class="headerlink" href="#sasmodels.bumps_model.Experiment.residuals" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.bumps_model.Experiment.save">
+<tt class="descname">save</tt><big>(</big><em>basename</em><big>)</big><a class="headerlink" href="#sasmodels.bumps_model.Experiment.save" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.bumps_model.Experiment.simulate_data">
+<tt class="descname">simulate_data</tt><big>(</big><em>noise=None</em><big>)</big><a class="headerlink" href="#sasmodels.bumps_model.Experiment.simulate_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.bumps_model.Experiment.theory">
+<tt class="descname">theory</tt><big>(</big><big>)</big><a class="headerlink" href="#sasmodels.bumps_model.Experiment.theory" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.bumps_model.Experiment.update">
+<tt class="descname">update</tt><big>(</big><big>)</big><a class="headerlink" href="#sasmodels.bumps_model.Experiment.update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="sasmodels.bumps_model.Model">
+<em class="property">class </em><tt class="descclassname">sasmodels.bumps_model.</tt><tt class="descname">Model</tt><big>(</big><em>kernel</em>, <em>**kw</em><big>)</big><a class="headerlink" href="#sasmodels.bumps_model.Model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="sasmodels.bumps_model.Model.parameters">
+<tt class="descname">parameters</tt><big>(</big><big>)</big><a class="headerlink" href="#sasmodels.bumps_model.Model.parameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a dictionary of parameters</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="sasmodels.bumps_model.BumpsModel">
+<tt class="descclassname">sasmodels.bumps_model.</tt><tt class="descname">BumpsModel</tt><big>(</big><em>data</em>, <em>model</em>, <em>cutoff=1e-05</em>, <em>**kw</em><big>)</big><a class="headerlink" href="#sasmodels.bumps_model.BumpsModel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="sasmodels.bumps_model.delay">
+<tt class="descclassname">sasmodels.bumps_model.</tt><tt class="descname">delay</tt><big>(</big><em>dt</em><big>)</big><a class="headerlink" href="#sasmodels.bumps_model.delay" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return number date-time delta as number seconds</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="sasmodels.bumps_model.demo">
+<tt class="descclassname">sasmodels.bumps_model.</tt><tt class="descname">demo</tt><big>(</big><big>)</big><a class="headerlink" href="#sasmodels.bumps_model.demo" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="sasmodels.bumps_model.empty_data1D">
+<tt class="descclassname">sasmodels.bumps_model.</tt><tt class="descname">empty_data1D</tt><big>(</big><em>q</em>, <em>resolution=0.05</em><big>)</big><a class="headerlink" href="#sasmodels.bumps_model.empty_data1D" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create empty 1D data using the given <em>q</em> as the x value.</p>
+<p><em>resolution</em> dq/q defaults to 5%.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="sasmodels.bumps_model.empty_data2D">
+<tt class="descclassname">sasmodels.bumps_model.</tt><tt class="descname">empty_data2D</tt><big>(</big><em>qx</em>, <em>qy=None</em>, <em>resolution=0.05</em><big>)</big><a class="headerlink" href="#sasmodels.bumps_model.empty_data2D" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create empty 2D data using the given mesh.</p>
+<p>If <em>qy</em> is missing, create a square mesh with <em>qy=qx</em>.</p>
+<p><em>resolution</em> dq/q defaults to 5%.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="sasmodels.bumps_model.load_data">
+<tt class="descclassname">sasmodels.bumps_model.</tt><tt class="descname">load_data</tt><big>(</big><em>filename</em><big>)</big><a class="headerlink" href="#sasmodels.bumps_model.load_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load data using a sasview loader.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="sasmodels.bumps_model.plot_data">
+<tt class="descclassname">sasmodels.bumps_model.</tt><tt class="descname">plot_data</tt><big>(</big><em>data</em>, <em>view='log'</em><big>)</big><a class="headerlink" href="#sasmodels.bumps_model.plot_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot data loaded by the sasview loader.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="sasmodels.bumps_model.plot_theory">
+<tt class="descclassname">sasmodels.bumps_model.</tt><tt class="descname">plot_theory</tt><big>(</big><em>data</em>, <em>theory</em>, <em>view='log'</em><big>)</big><a class="headerlink" href="#sasmodels.bumps_model.plot_theory" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="sasmodels.bumps_model.set_beam_stop">
+<tt class="descclassname">sasmodels.bumps_model.</tt><tt class="descname">set_beam_stop</tt><big>(</big><em>data</em>, <em>radius</em>, <em>outer=None</em><big>)</big><a class="headerlink" href="#sasmodels.bumps_model.set_beam_stop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a beam stop of the given <em>radius</em>.  If <em>outer</em>, make an annulus.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="sasmodels.bumps_model.set_half">
+<tt class="descclassname">sasmodels.bumps_model.</tt><tt class="descname">set_half</tt><big>(</big><em>data</em>, <em>half</em><big>)</big><a class="headerlink" href="#sasmodels.bumps_model.set_half" title="Permalink to this definition">¶</a></dt>
+<dd><p>Select half of the data, either &#8220;right&#8221; or &#8220;left&#8221;.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="sasmodels.bumps_model.set_top">
+<tt class="descclassname">sasmodels.bumps_model.</tt><tt class="descname">set_top</tt><big>(</big><em>data</em>, <em>cutoff</em><big>)</big><a class="headerlink" href="#sasmodels.bumps_model.set_top" title="Permalink to this definition">¶</a></dt>
+<dd><p>Chop the top off the data, above <em>cutoff</em>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="sasmodels.bumps_model.tic">
+<tt class="descclassname">sasmodels.bumps_model.</tt><tt class="descname">tic</tt><big>(</big><big>)</big><a class="headerlink" href="#sasmodels.bumps_model.tic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Timer function.</p>
+<p>Use &#8220;toc=tic()&#8221; to start the clock and &#8220;toc()&#8221; to measure
+a time interval.</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        «&#160;&#160;<a href="index.html">3. Reference</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="convert.html">3.2. Sasview to sasmodel converter</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2014, sasview team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

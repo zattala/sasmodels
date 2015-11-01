@@ -1,0 +1,66 @@
+.. _lamellar:
+
+Lamellar
+=======================================================
+
+Lyotropic lamellar phase with uniform SLD and random distribution
+
+=========== ================================= ============ =============
+Parameter   Description                       Units        Default value
+=========== ================================= ============ =============
+scale       Source intensity                  None                     1
+background  Source background                 |cm^-1|                  0
+sld         Layer scattering length density   |1e-6Ang^-2|             1
+solvent_sld Solvent scattering length density |1e-6Ang^-2|             6
+thickness   Bilayer thickness                 |Ang|                   50
+=========== ================================= ============ =============
+
+The returned value is scaled to units of |cm^-1|.
+
+
+Polydispersity in the bilayer thickness can be applied from the GUI.
+
+Definition
+----------
+
+The scattering intensity *I(Q)* is
+
+.. math::
+
+    I(Q) = 2\pi{P(Q) \over \delta Q^2}
+
+
+The form factor is
+
+.. math::
+
+    P(Q) = {2\Delta\rho^2 \over Q^2}(1-cos(Q\delta))
+
+
+where |delta| = bilayer thickness.
+
+The 2D scattering intensity is calculated in the same way as 1D, where the $Q$ vector is defined as
+
+.. math::
+
+    Q = \sqrt{Q_x^2 + Q_y^2}
+
+
+
+Our model uses the form factor calculations implemented in a c-library provided by the NIST Center for Neutron Research
+(Kline, 2006).
+
+.. figure:: img/lamellar_1d.jpg
+
+    1D plot using the default values (w/1000 data point).
+
+
+Reference
+---------
+
+F Nallet, R Laversanne, and D Roux, J. Phys. II France, 3, (1993) 487-502
+
+also in J. Phys. Chem. B, 105, (2001) 11081-11088
+
+
+

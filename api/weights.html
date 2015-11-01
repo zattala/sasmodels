@@ -1,0 +1,313 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>3.15. Distribution functions &mdash; Sasmodels</title>
+    
+    <link rel="stylesheet" href="../_static/haiku-site.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.9',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Sasmodels" href="../index.html" />
+    <link rel="up" title="3. Reference" href="index.html" />
+    <link rel="prev" title="3.14. SESANS model evaluator" href="sesans.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../index.html">
+          <span>Home</span></a></h1>
+        <h2 class="heading"><span>3.15. Distribution functions</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        «&#160;&#160;<a href="sesans.html">3.14. SESANS model evaluator</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="distribution-functions">
+<h1>3.15. Distribution functions<a class="headerlink" href="#distribution-functions" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-sasmodels.weights">
+<span id="sasmodels-weights"></span><h2>3.15.1. <a class="reference internal" href="#module-sasmodels.weights" title="sasmodels.weights"><tt class="xref py py-mod docutils literal"><span class="pre">sasmodels.weights</span></tt></a><a class="headerlink" href="#module-sasmodels.weights" title="Permalink to this headline">¶</a></h2>
+<p>SAS distributions for polydispersity.</p>
+<dl class="class">
+<dt id="sasmodels.weights.ArrayDispersion">
+<em class="property">class </em><tt class="descclassname">sasmodels.weights.</tt><tt class="descname">ArrayDispersion</tt><big>(</big><em>npts=None</em>, <em>width=None</em>, <em>nsigmas=None</em><big>)</big><a class="headerlink" href="#sasmodels.weights.ArrayDispersion" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#sasmodels.weights.Dispersion" title="sasmodels.weights.Dispersion"><tt class="xref py py-class docutils literal"><span class="pre">sasmodels.weights.Dispersion</span></tt></a></p>
+<dl class="method">
+<dt id="sasmodels.weights.ArrayDispersion.get_pars">
+<tt class="descname">get_pars</tt><big>(</big><big>)</big><a class="headerlink" href="#sasmodels.weights.ArrayDispersion.get_pars" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.weights.ArrayDispersion.get_weights">
+<tt class="descname">get_weights</tt><big>(</big><em>center</em>, <em>lb</em>, <em>ub</em>, <em>relative</em><big>)</big><a class="headerlink" href="#sasmodels.weights.ArrayDispersion.get_weights" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the weights for the distribution.</p>
+<p><em>center</em> is the center of the distribution</p>
+<p><em>lb</em>,*ub* are the min and max allowed values</p>
+<p><em>relative</em> is True if the distribution width is proportional to the
+center value instead of absolute.  For polydispersity use relative.
+For orientation parameters use absolute.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.weights.ArrayDispersion.set_weights">
+<tt class="descname">set_weights</tt><big>(</big><em>values</em>, <em>weights</em><big>)</big><a class="headerlink" href="#sasmodels.weights.ArrayDispersion.set_weights" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="sasmodels.weights.ArrayDispersion.default">
+<tt class="descname">default</tt><em class="property"> = {'width': 0, 'nsigmas': 1, 'npts': 35}</em><a class="headerlink" href="#sasmodels.weights.ArrayDispersion.default" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="sasmodels.weights.ArrayDispersion.type">
+<tt class="descname">type</tt><em class="property"> = 'array'</em><a class="headerlink" href="#sasmodels.weights.ArrayDispersion.type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="sasmodels.weights.Dispersion">
+<em class="property">class </em><tt class="descclassname">sasmodels.weights.</tt><tt class="descname">Dispersion</tt><big>(</big><em>npts=None</em>, <em>width=None</em>, <em>nsigmas=None</em><big>)</big><a class="headerlink" href="#sasmodels.weights.Dispersion" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Base dispersion object.</p>
+<p>Subclasses should define <em>_weights(center, sigma, lb, ub)</em>
+which returns the x points and their corresponding weights.</p>
+<dl class="method">
+<dt id="sasmodels.weights.Dispersion.get_pars">
+<tt class="descname">get_pars</tt><big>(</big><big>)</big><a class="headerlink" href="#sasmodels.weights.Dispersion.get_pars" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.weights.Dispersion.get_weights">
+<tt class="descname">get_weights</tt><big>(</big><em>center</em>, <em>lb</em>, <em>ub</em>, <em>relative</em><big>)</big><a class="headerlink" href="#sasmodels.weights.Dispersion.get_weights" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the weights for the distribution.</p>
+<p><em>center</em> is the center of the distribution</p>
+<p><em>lb</em>,*ub* are the min and max allowed values</p>
+<p><em>relative</em> is True if the distribution width is proportional to the
+center value instead of absolute.  For polydispersity use relative.
+For orientation parameters use absolute.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.weights.Dispersion.set_weights">
+<tt class="descname">set_weights</tt><big>(</big><em>values</em>, <em>weights</em><big>)</big><a class="headerlink" href="#sasmodels.weights.Dispersion.set_weights" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="sasmodels.weights.Dispersion.default">
+<tt class="descname">default</tt><em class="property"> = {'width': 0, 'nsigmas': 3, 'npts': 35}</em><a class="headerlink" href="#sasmodels.weights.Dispersion.default" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="sasmodels.weights.Dispersion.type">
+<tt class="descname">type</tt><em class="property"> = 'base disperser'</em><a class="headerlink" href="#sasmodels.weights.Dispersion.type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="sasmodels.weights.GaussianDispersion">
+<em class="property">class </em><tt class="descclassname">sasmodels.weights.</tt><tt class="descname">GaussianDispersion</tt><big>(</big><em>npts=None</em>, <em>width=None</em>, <em>nsigmas=None</em><big>)</big><a class="headerlink" href="#sasmodels.weights.GaussianDispersion" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#sasmodels.weights.Dispersion" title="sasmodels.weights.Dispersion"><tt class="xref py py-class docutils literal"><span class="pre">sasmodels.weights.Dispersion</span></tt></a></p>
+<dl class="method">
+<dt id="sasmodels.weights.GaussianDispersion.get_pars">
+<tt class="descname">get_pars</tt><big>(</big><big>)</big><a class="headerlink" href="#sasmodels.weights.GaussianDispersion.get_pars" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.weights.GaussianDispersion.get_weights">
+<tt class="descname">get_weights</tt><big>(</big><em>center</em>, <em>lb</em>, <em>ub</em>, <em>relative</em><big>)</big><a class="headerlink" href="#sasmodels.weights.GaussianDispersion.get_weights" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the weights for the distribution.</p>
+<p><em>center</em> is the center of the distribution</p>
+<p><em>lb</em>,*ub* are the min and max allowed values</p>
+<p><em>relative</em> is True if the distribution width is proportional to the
+center value instead of absolute.  For polydispersity use relative.
+For orientation parameters use absolute.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.weights.GaussianDispersion.set_weights">
+<tt class="descname">set_weights</tt><big>(</big><em>values</em>, <em>weights</em><big>)</big><a class="headerlink" href="#sasmodels.weights.GaussianDispersion.set_weights" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="sasmodels.weights.GaussianDispersion.default">
+<tt class="descname">default</tt><em class="property"> = {'width': 0, 'nsigmas': 3, 'npts': 35}</em><a class="headerlink" href="#sasmodels.weights.GaussianDispersion.default" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="sasmodels.weights.GaussianDispersion.type">
+<tt class="descname">type</tt><em class="property"> = 'gaussian'</em><a class="headerlink" href="#sasmodels.weights.GaussianDispersion.type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="sasmodels.weights.LogNormalDispersion">
+<em class="property">class </em><tt class="descclassname">sasmodels.weights.</tt><tt class="descname">LogNormalDispersion</tt><big>(</big><em>npts=None</em>, <em>width=None</em>, <em>nsigmas=None</em><big>)</big><a class="headerlink" href="#sasmodels.weights.LogNormalDispersion" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#sasmodels.weights.Dispersion" title="sasmodels.weights.Dispersion"><tt class="xref py py-class docutils literal"><span class="pre">sasmodels.weights.Dispersion</span></tt></a></p>
+<dl class="method">
+<dt id="sasmodels.weights.LogNormalDispersion.get_pars">
+<tt class="descname">get_pars</tt><big>(</big><big>)</big><a class="headerlink" href="#sasmodels.weights.LogNormalDispersion.get_pars" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.weights.LogNormalDispersion.get_weights">
+<tt class="descname">get_weights</tt><big>(</big><em>center</em>, <em>lb</em>, <em>ub</em>, <em>relative</em><big>)</big><a class="headerlink" href="#sasmodels.weights.LogNormalDispersion.get_weights" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the weights for the distribution.</p>
+<p><em>center</em> is the center of the distribution</p>
+<p><em>lb</em>,*ub* are the min and max allowed values</p>
+<p><em>relative</em> is True if the distribution width is proportional to the
+center value instead of absolute.  For polydispersity use relative.
+For orientation parameters use absolute.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.weights.LogNormalDispersion.set_weights">
+<tt class="descname">set_weights</tt><big>(</big><em>values</em>, <em>weights</em><big>)</big><a class="headerlink" href="#sasmodels.weights.LogNormalDispersion.set_weights" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="sasmodels.weights.LogNormalDispersion.default">
+<tt class="descname">default</tt><em class="property"> = {'width': 0, 'nsigmas': 8, 'npts': 80}</em><a class="headerlink" href="#sasmodels.weights.LogNormalDispersion.default" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="sasmodels.weights.LogNormalDispersion.type">
+<tt class="descname">type</tt><em class="property"> = 'lognormal'</em><a class="headerlink" href="#sasmodels.weights.LogNormalDispersion.type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="sasmodels.weights.RectangleDispersion">
+<em class="property">class </em><tt class="descclassname">sasmodels.weights.</tt><tt class="descname">RectangleDispersion</tt><big>(</big><em>npts=None</em>, <em>width=None</em>, <em>nsigmas=None</em><big>)</big><a class="headerlink" href="#sasmodels.weights.RectangleDispersion" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#sasmodels.weights.Dispersion" title="sasmodels.weights.Dispersion"><tt class="xref py py-class docutils literal"><span class="pre">sasmodels.weights.Dispersion</span></tt></a></p>
+<dl class="method">
+<dt id="sasmodels.weights.RectangleDispersion.get_pars">
+<tt class="descname">get_pars</tt><big>(</big><big>)</big><a class="headerlink" href="#sasmodels.weights.RectangleDispersion.get_pars" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.weights.RectangleDispersion.get_weights">
+<tt class="descname">get_weights</tt><big>(</big><em>center</em>, <em>lb</em>, <em>ub</em>, <em>relative</em><big>)</big><a class="headerlink" href="#sasmodels.weights.RectangleDispersion.get_weights" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the weights for the distribution.</p>
+<p><em>center</em> is the center of the distribution</p>
+<p><em>lb</em>,*ub* are the min and max allowed values</p>
+<p><em>relative</em> is True if the distribution width is proportional to the
+center value instead of absolute.  For polydispersity use relative.
+For orientation parameters use absolute.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.weights.RectangleDispersion.set_weights">
+<tt class="descname">set_weights</tt><big>(</big><em>values</em>, <em>weights</em><big>)</big><a class="headerlink" href="#sasmodels.weights.RectangleDispersion.set_weights" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="sasmodels.weights.RectangleDispersion.default">
+<tt class="descname">default</tt><em class="property"> = {'width': 0, 'nsigmas': 1.70325, 'npts': 35}</em><a class="headerlink" href="#sasmodels.weights.RectangleDispersion.default" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="sasmodels.weights.RectangleDispersion.type">
+<tt class="descname">type</tt><em class="property"> = 'rectangle'</em><a class="headerlink" href="#sasmodels.weights.RectangleDispersion.type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="sasmodels.weights.SchulzDispersion">
+<em class="property">class </em><tt class="descclassname">sasmodels.weights.</tt><tt class="descname">SchulzDispersion</tt><big>(</big><em>npts=None</em>, <em>width=None</em>, <em>nsigmas=None</em><big>)</big><a class="headerlink" href="#sasmodels.weights.SchulzDispersion" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#sasmodels.weights.Dispersion" title="sasmodels.weights.Dispersion"><tt class="xref py py-class docutils literal"><span class="pre">sasmodels.weights.Dispersion</span></tt></a></p>
+<dl class="method">
+<dt id="sasmodels.weights.SchulzDispersion.get_pars">
+<tt class="descname">get_pars</tt><big>(</big><big>)</big><a class="headerlink" href="#sasmodels.weights.SchulzDispersion.get_pars" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.weights.SchulzDispersion.get_weights">
+<tt class="descname">get_weights</tt><big>(</big><em>center</em>, <em>lb</em>, <em>ub</em>, <em>relative</em><big>)</big><a class="headerlink" href="#sasmodels.weights.SchulzDispersion.get_weights" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the weights for the distribution.</p>
+<p><em>center</em> is the center of the distribution</p>
+<p><em>lb</em>,*ub* are the min and max allowed values</p>
+<p><em>relative</em> is True if the distribution width is proportional to the
+center value instead of absolute.  For polydispersity use relative.
+For orientation parameters use absolute.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sasmodels.weights.SchulzDispersion.set_weights">
+<tt class="descname">set_weights</tt><big>(</big><em>values</em>, <em>weights</em><big>)</big><a class="headerlink" href="#sasmodels.weights.SchulzDispersion.set_weights" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="sasmodels.weights.SchulzDispersion.default">
+<tt class="descname">default</tt><em class="property"> = {'width': 0, 'nsigmas': 8, 'npts': 80}</em><a class="headerlink" href="#sasmodels.weights.SchulzDispersion.default" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="sasmodels.weights.SchulzDispersion.type">
+<tt class="descname">type</tt><em class="property"> = 'schulz'</em><a class="headerlink" href="#sasmodels.weights.SchulzDispersion.type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="sasmodels.weights.get_weights">
+<tt class="descclassname">sasmodels.weights.</tt><tt class="descname">get_weights</tt><big>(</big><em>disperser</em>, <em>n</em>, <em>width</em>, <em>nsigmas</em>, <em>value</em>, <em>limits</em>, <em>relative</em><big>)</big><a class="headerlink" href="#sasmodels.weights.get_weights" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the set of values and weights for a polydisperse parameter.</p>
+<p><em>disperser</em> is the name of the disperser.</p>
+<p><em>n</em> is the number of points in the weight vector.</p>
+<p><em>width</em> is the width of the disperser distribution.</p>
+<p><em>nsigmas</em> is the number of sigmas to span for the dispersion convolution.</p>
+<p><em>value</em> is the value of the parameter in the model.</p>
+<p><em>limits</em> is [lb, ub], the lower and upper bound of the weight value.</p>
+<p><em>relative</em> is true if <em>width</em> is defined in proportion to the value
+of the parameter, and false if it is an absolute width.</p>
+<p>Returns <em>(value,weight)</em>, where <em>value</em> and <em>weight</em> are vectors.</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        «&#160;&#160;<a href="sesans.html">3.14. SESANS model evaluator</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2014, sasview team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

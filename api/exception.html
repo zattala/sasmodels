@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>3.5. Annotate exceptions &mdash; Sasmodels</title>
+    
+    <link rel="stylesheet" href="../_static/haiku-site.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.9',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Sasmodels" href="../index.html" />
+    <link rel="up" title="3. Reference" href="index.html" />
+    <link rel="next" title="3.6. Model parser" href="generate.html" />
+    <link rel="prev" title="3.4. Simple interface" href="direct_model.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../index.html">
+          <span>Home</span></a></h1>
+        <h2 class="heading"><span>3.5. Annotate exceptions</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        «&#160;&#160;<a href="direct_model.html">3.4. Simple interface</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="generate.html">3.6. Model parser</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="annotate-exceptions">
+<h1>3.5. Annotate exceptions<a class="headerlink" href="#annotate-exceptions" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-sasmodels.exception">
+<span id="sasmodels-exception"></span><h2>3.5.1. <a class="reference internal" href="#module-sasmodels.exception" title="sasmodels.exception"><tt class="xref py py-mod docutils literal"><span class="pre">sasmodels.exception</span></tt></a><a class="headerlink" href="#module-sasmodels.exception" title="Permalink to this headline">¶</a></h2>
+<p>Utility to add annotations to python exceptions.</p>
+<dl class="exception">
+<dt id="sasmodels.exception.WindowsError">
+<em class="property">exception </em><tt class="descclassname">sasmodels.exception.</tt><tt class="descname">WindowsError</tt><a class="headerlink" href="#sasmodels.exception.WindowsError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></tt></p>
+<dl class="attribute">
+<dt id="sasmodels.exception.WindowsError.args">
+<tt class="descname">args</tt><a class="headerlink" href="#sasmodels.exception.WindowsError.args" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="sasmodels.exception.WindowsError.message">
+<tt class="descname">message</tt><a class="headerlink" href="#sasmodels.exception.WindowsError.message" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="sasmodels.exception.annotate_exception">
+<tt class="descclassname">sasmodels.exception.</tt><tt class="descname">annotate_exception</tt><big>(</big><em>exc</em>, <em>msg</em><big>)</big><a class="headerlink" href="#sasmodels.exception.annotate_exception" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add an annotation to the current exception, which can then be forwarded
+to the caller using a bare &#8220;raise&#8221; statement to reraise the annotated
+exception.
+Example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">D</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">try</span><span class="p">:</span>
+<span class="gp">... </span>   <span class="k">print</span> <span class="n">D</span><span class="p">[</span><span class="s">&#39;hello&#39;</span><span class="p">]</span>
+<span class="gp">... </span><span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span><span class="n">exc</span><span class="p">:</span>
+<span class="gp">... </span>   <span class="n">annotate_exception</span><span class="p">(</span><span class="n">exc</span><span class="p">,</span> <span class="s">&quot;while accessing &#39;D&#39;&quot;</span><span class="p">)</span>
+<span class="gp">... </span>   <span class="k">raise</span>
+<span class="gt">Traceback (most recent call last):</span>
+    <span class="o">...</span>
+<span class="gr">KeyError</span>: <span class="n">&quot;hello while accessing &#39;D&#39;&quot;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        «&#160;&#160;<a href="direct_model.html">3.4. Simple interface</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="generate.html">3.6. Model parser</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2014, sasview team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>
