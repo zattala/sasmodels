@@ -3,104 +3,189 @@
 Polarisation/Magnetic Scattering
 ================================
 
-Models which define a scattering length density parameter can be evaluated
-as magnetic models. In general, the scattering length density (SLD =
-$\beta$) in each region where the SLD is uniform, is a combination of the
-nuclear and magnetic SLDs and, for polarised neutrons, also depends on the
-spin states of the neutrons.
+(Version 2: Spherical Polarimetry in SANS: Allow for freedom in field/polarisation axis away from the detector plane,
+i.e. allow in-beam direction or oscillatory/rotational fields...)
 
-For magnetic scattering, only the magnetization component $\mathbf{M_\perp}$
-perpendicular to the scattering vector $\mathbf{Q}$ contributes to the magnetic
-scattering length.
+For magnetic systems, the scattering length density (SLD = $\beta$) is a combination
+of the nuclear and magnetic SLD. For polarised neutrons, the resulting effective SLD
+depends on the spin state of the neutron before and after being scattered in the sample.
 
-.. figure::
-    mag_img/mag_vector.png
+Models in Sasview, which define a SLD parameter, can be evaluated also as magnetic models introducing
+the magnetisation (vector) $\mathbf{M}=M (\sin\theta_M \cos \phi_M, \sin \theta_M \sin \phi_M,\cos\theta_M )$ and the associated magnetic SLD given by
+the simple relation $\beta_M= b_H M$, where $b_H=\dfrac{\gamma r_0}{2\mu_B}=2.7$ fm
+denotes the magnetic scattering length and $M=\lvert \mathbf{M} \rvert$ the magnetisation
+magnitude, where $\gamma = -1.913$ is the gyromagnetic ratio, $\mu_B$ is the
+Bohr magneton, $r_0$ is the classical radius of electron.
 
-The magnetic scattering length density is then
+It is assumed that the magnetic SLD in each region of the model is uniformly for
+nuclear scattering and has one effective magnetisation orientation
 
-.. math::
-    \beta_M = \dfrac{\gamma r_0}{2\mu_B}\sigma \cdot
-    \mathbf{M_\perp} = D_M\sigma \cdot \mathbf{M_\perp}
-
-where $\gamma = -1.913$ is the gyromagnetic ratio, $\mu_B$ is the
-Bohr magneton, $r_0$ is the classical radius of electron, and $\sigma$
-is the Pauli spin.
-
-Assuming that incident neutrons are polarized parallel $(+)$ and anti-parallel
-$(-)$ to the $x'$ axis, the possible spin states after the sample are then:
-
-* Non spin-flip $(+ +)$ and $(- -)$
-
-* Spin-flip $(+ -)$ and $(- +)$
-
-Each measurement is an incoherent mixture of these spin states based on the
-fraction of $+$ neutrons before ($u_i$) and after ($u_f$) the sample,
-with weighting:
-
-.. math::
-    -- &= (1-u_i)(1-u_f) \\
-    -+ &= (1-u_i)(u_f) \\
-    +- &= (u_i)(1-u_f) \\
-    ++ &= (u_i)(u_f)
-
-Ideally the experiment would measure the pure spin states independently and
-perform a simultaneous analysis of the four states, tying all the model
-parameters together except $u_i$ and $u_f$.
+The external field $\mathbf{H}=H \mathbf{P}$coincides with the polarisation axis
+$\mathbf{P}=(\sin\theta_P \cos \phi_P, \sin \theta_P \sin \phi_P,\cos\theta_P )$ for the neutrons, which is the quantisation axis
+for the Pauli spin operator.
 
 .. figure::
     mag_img/M_angles_pic.png
 
-If the angles of the $Q$ vector and the spin-axis $x'$ to the $x$ - axis are
-$\phi$ and $\theta_{up}$, respectively, then, depending on the spin state of the
+.. note::
+    The polarisation axis at the sample position is the determining factor and determines
+    the scattering geometry. Before and after the field at the sample position,
+    the polarisation turns adiabatically to the guide field of the instrument.
+    This operation does not change the observed spin-resolved scattering at the detector.
+    Anyway the magnetic field is the vector defining a symmetry axis of the
+    system and the magnetisation vector will orient with respect to the field.
+
+
+.. note::
+    For AC oscillating/rotation field varying in space with time, you can coupling the magnetisation
+    with the field axis via a constrained fit. This will allow to easily parametrise
+    a phase shift of the magnetisation lagging behind a magnetic field varying from time frame to time frame.
+    Anyway the magnetic field is the vector defining a symmetry axis of the
+    system and the magnetisation vector will most often orient symmetrically with respect to the field.
+
+
+The neutrons are polarised parallel (+) or antiparallel (-) to $\mathbf{P}$. One can
+distinguish 4 spin-resolved cross sections:
+
+ * Non-spin-flip (NSF) $(+ +)$ and $(- -)$
+
+ * Spin-flip (SF) $(+ -)$ and $(- +)$
+
+The spin-dependent magnetic scattering length densities are defined as (see Moon, Riste, Koehler)
+
+.. math::
+    \beta_{M, s_{in} s_{out}}  = b_H\sigma \cdot \mathbf{M_\perp}
+
+where  $\sigma$ is the Pauli spin, and $s_{in/out}$ describes the spin state of the neutron before and
+after the sample.
+
+For magnetic neutron scattering, only the magnetisation component or Halpern-Johnson vector 
+$\mathbf{M_\perp}$ perpendicular to the scattering vector
+$\mathbf{Q}=q \mathbf{n}=q (\cos\theta, \sin \theta,0)$ contributes to the magnetic scattering:
+
+.. math::
+    \mathbf{M_\perp} = \mathbf{n} [\mathbf{n} \cdot \mathbf{M}] -\mathbf{M}
+
+with $\mathbf{n}$ the unit scattering vector and $\theta$ denotes the angle
+between $\mathbf{Q}$ and the x-axis.
+
+.. figure::
+    mag_img/mag_vector.png
+
+The two NSF cross sections are given by
+
+.. math::
+    I^{\pm\pm} = N^2 \mp \mathbf{P}\cdot(N^{\ast}\mathbf{M_\perp} +N\mathbf{M_\perp}^{\ast}) 
+	+ (\mathbf{P}\cdot \mathbf{M_\perp})^2
+
+and the two SF channels:
+
+.. math::
+    I^{\pm\mp} = \mathbf{M_\perp}\cdot \mathbf{M_\perp} - (\mathbf{P}\cdot \mathbf{M_\perp})^2
+	\mp i \mathbf{P}\cdot \mathbf{M_\perp} \times \mathbf{M_\perp}^{\ast}
+
+with $i=\sqrt{-1}$, and $^{\ast}$ denoting the complex conjugate quantity, and
+$\times$ and $\cdot$  the vector and scalar product, respectively.
+
+The polarisation axis at the sample position is the determining factor and determines
+the scattering geometry. For the NSF scattering the component of the Halpern-Johnson
+vector parallel to $P$ contributes
+
+.. math::
+    \mathbf{M}_{\perp,\parallel P } = ( mathbf{P}\cdot \mathbf{M}_{\perp }) mathbf{P}
+    \text{ magnetisation component parallel to polarisation for NSF scattering}
+
+The component perpendicular to the polarisation gives rise to SF scattering. The perpendicular
+plane is constructed with the two vectors
+
+.. math::
+    \mathbf{M}_{\perp,\perp P } = \mathbf{M}_{\perp } - (\mathbf{P}\cdot \mathbf{M}_{\perp }) \mathbf{P}
+    \text{ magnetisation component perpendicular to polarisation for SF scattering}
+
+and a third vector perpendicular to both $\mathbf{P}$ and $\mathbf{M}_{\perp,\perp P } $ :
+
+.. math::
+    \mathbf{O} = \mathbf{M}_{\perp} \times \mathbf{P} - \mathbf{M}_{\perp,\perp P } = [\mathbf{q}\cdot(\mathbf{M}\times\mathbf{P})(\mathbf{q}-\mathbf{P}\times\mathbf{q})]
+    \text{ vector perpendicular to polarisation and Halpern-Johnson vector for SF scattering}
+
+For symmetric, collinear spin structures ($\mathbf{M}_{\perp}^{\ast}=\matbf{M}_{\perp}^{\ast}$), $\mathbf{O}\cdot \matbf{O}^{\ast}=0$
+since  $\mathbf{M}_{\perp} \times \mathbf{P} \cdot \mathbf{M}_{\perp} \times \mathbf{P} = \mathbf{M}_{\perp,\perp P }$.
+
+
+Depending on the spin state of the
 neutrons, the scattering length densities, including the nuclear scattering
 length density $(\beta{_N})$ are
 
 .. math::
-    \beta_{\pm\pm} =  \beta_N \mp D_M M_{\perp x'}
-    \text{ for non spin-flip states}
+    \beta_{\pm\pm} =  \beta_N \mp b_H math{P}\cdot M_{\perp }
+    \text{ for non-spin-flip states}
 
 and
 
 .. math::
-    \beta_{\pm\mp} =  -D_M (M_{\perp y'} \pm iM_{\perp z'})
+    \beta_{\pm\mp} =  -b_H (\lvert\mathbf{M}_{\perp,\perp P }\rvert \pm i \mathbf{q}\cdot (\mathbf{M}\times \mathbf{P}  (1-\mathbf{P}\cdot\mathbf{q}))
     \text{ for spin-flip states}
 
-where
 
-.. math::
-    M_{\perp x'} &= M_{0q_x}\cos(\theta_{up})+M_{0q_y}\sin(\theta_{up}) \\
-    M_{\perp y'} &= M_{0q_y}\cos(\theta_{up})-M_{0q_x}\sin(\theta_{up}) \\
-    M_{\perp z'} &= M_{0z} \\
-    M_{0q_x} &= (M_{0x}\cos\phi - M_{0y}\sin\phi)\cos\phi \\
-    M_{0q_y} &= (M_{0y}\sin\phi - M_{0x}\cos\phi)\sin\phi
+with $\lvert\mathbf{M}_{\perp,\perp P }\rvert= (\mathbf{M}_{\perp,\perp P } \cdot \mathbf{M}_{\perp,\perp P })^{1/2}
+=(M_{\perp,x}^2+M_{\perp,y}^2+M_{\perp,z}^2-(M_{\perp,x} P_x+ M_{\perp,y} P_y + M_{\perp,z} P_z   )^2 )^{1/2}$.
 
-Here, $M_{0x}$, $M_{0x}$, $M_{0z}$ are the x, y and z components
-of the magnetization vector given in the laboratory xyz frame given by
 
-.. math::
-    M_{0x} &= M_0\cos\theta_M\cos\phi_M \\
-    M_{0y} &= M_0\sin\theta_M \\
-    M_{0z} &= -M_0\cos\theta_M\sin\phi_M
 
-and the magnetization angles $\theta_M$ and $\phi_M$ are defined in
-the figure above.
+
+Every magnetic scattering cross section can be constructed from an incoherent mixture
+of the 4 spin-resolved spin states depending on the efficiency parameters before
+($u_i$) and after ($u_f$) the sample. For a half-polarised experiment(SANSPOL with $u_f=0.5$) or
+full (longitudinal) polarisation analysis, the accessible spin states are measured
+independently and a simultaneous analysis of the measured states is performed,
+tying all the model parameters together except $u_i$ and $u_f$, which are set based
+on the (known) polarisation efficiencies of the instrument.
+
+.. note::
+    The values of the 'up_frac_i' ($u_i$) and 'up_frac_f' ($u_f$) must be in the range 0 to 1.
+    The parameters 'up_frac_i' and 'up_frac_f' can be easily associated to
+    polarisation efficiencies 'e_in/out' (of the instrument). Efficiency values range from 0.5
+    (unpolarised beam)  to 1 (perfect optics). For 'up_frac_i/f'  <0.5
+    a cross section is constructed with the spin reversed/flipped with respect
+    to the initial supermirror polariser. The actual polarisation efficiency
+    in this case is however  'e_in/out' = 1-'up_frac_i/f'.
+
+
+
 
 The user input parameters are:
 
 ===========   ================================================================
- sld_M0       $D_M M_0$
+ sld_M0       $b_H M_0$
  sld_mtheta   $\theta_M$
  sld_mphi     $\phi_M$
- up_frac_i    $u_i$ = (spin up)/(spin up + spin down) *before* the sample
- up_frac_f    $u_f$ = (spin up)/(spin up + spin down) *after* the sample
- up_angle     $\theta_\mathrm{up}$
+ up_frac_i    $u_i$ polarisation efficiency *before* the sample
+ up_frac_f    $u_f$ = polarisation efficiency *after* the sample
+ p_theta      $\theta_P$
+ p_phi        $\phi_P$
 ===========   ================================================================
 
+
 .. note::
-    The values of the 'up_frac_i' and 'up_frac_f' must be in the range 0 to 1.
+    P.S. of Dirk:
+    This is the most general description of magnetic SANS ever written and will supersede prior art!
+    Works for fully magnetically saturated systems. If you figure out how to
+    implement an isotropic ensemble of particle magnetisation ( similar for orientations).
+    This is needed to generate two populations with spin pointing in opposite directions in order to describe
+    field-dependence correctly, i.e. the different variation of mean magnetisation vs
+    square mean quantities.
+    With proper generalised orientation distribution, you cover all "normal" use cases
+   (except of the fancy stuff one have to simulate).
+
+
+References
+----------
+
+    .. [#] R. M. Moon and T. Riste and W. C. Koehler, *Phys. Rev.*, 181 (1969) 920.
 
 *Document History*
 
 | 2015-05-02 Steve King
 | 2017-11-15 Paul Kienzle
 | 2018-06-02 Adam Washington
+| 2019-03-29 Dirk Honecker
