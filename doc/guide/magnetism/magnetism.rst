@@ -3,8 +3,9 @@
 Polarisation/Magnetic Scattering
 ================================
 
-(Version 2: Spherical Polarimetry in SANS: Allow for freedom in field/polarisation axis away from the detector plane,
-i.e. allow in-beam direction or oscillatory/rotational fields...)
+Spherical Polarimetry in SANS: This description allows for freedom in
+field/polarisation axis away from the detector plane
+i.e. allows in-beam direction or AC or rotational fields.
 
 For magnetic systems, the scattering length density (SLD = $\beta$) is a combination
 of the nuclear and magnetic SLD. For polarised neutrons, the resulting effective SLD
@@ -20,7 +21,7 @@ Bohr magneton, $r_0$ is the classical radius of electron.
 It is assumed that the magnetic SLD in each region of the model is uniformly for
 nuclear scattering and has one effective magnetisation orientation
 
-The external field $\mathbf{H}=H \mathbf{P}$coincides with the polarisation axis
+The external field $\mathbf{H}=H \mathbf{P}$ coincides with the polarisation axis
 $\mathbf{P}=(\sin\theta_P \cos \phi_P, \sin \theta_P \sin \phi_P,\cos\theta_P )$ for the neutrons, which is the quantisation axis
 for the Pauli spin operator.
 
@@ -59,7 +60,7 @@ The spin-dependent magnetic scattering length densities are defined as (see Moon
 where  $\sigma$ is the Pauli spin, and $s_{in/out}$ describes the spin state of the neutron before and
 after the sample.
 
-For magnetic neutron scattering, only the magnetisation component or Halpern-Johnson vector 
+For magnetic neutron scattering, only the magnetisation component or Halpern-Johnson vector
 $\mathbf{M_\perp}$ perpendicular to the scattering vector
 $\mathbf{Q}=q \mathbf{n}=q (\cos\theta, \sin \theta,0)$ contributes to the magnetic scattering:
 
@@ -75,7 +76,7 @@ between $\mathbf{Q}$ and the x-axis.
 The two NSF cross sections are given by
 
 .. math::
-    I^{\pm\pm} = N^2 \mp \mathbf{P}\cdot(N^{\ast}\mathbf{M_\perp} +N\mathbf{M_\perp}^{\ast}) 
+    I^{\pm\pm} = N^2 \mp \mathbf{P}\cdot(N^{\ast}\mathbf{M_\perp} +N\mathbf{M_\perp}^{\ast})
 	+ (\mathbf{P}\cdot \mathbf{M_\perp})^2
 
 and the two SF channels:
@@ -92,43 +93,47 @@ the scattering geometry. For the NSF scattering the component of the Halpern-Joh
 vector parallel to $P$ contributes
 
 .. math::
-    \mathbf{M}_{\perp,\parallel P } = ( mathbf{P}\cdot \mathbf{M}_{\perp }) mathbf{P}
-    \text{ magnetisation component parallel to polarisation for NSF scattering}
+    \mathbf{M}_{\perp,\parallel P } = ( \mathbf{P}\cdot \mathbf{M}_{\perp }) \mathbf{P}
+
 
 The component perpendicular to the polarisation gives rise to SF scattering. The perpendicular
 plane is constructed with the two vectors
 
 .. math::
     \mathbf{M}_{\perp,\perp P } = \mathbf{M}_{\perp } - (\mathbf{P}\cdot \mathbf{M}_{\perp }) \mathbf{P}
-    \text{ magnetisation component perpendicular to polarisation for SF scattering}
+
 
 and a third vector perpendicular to both $\mathbf{P}$ and $\mathbf{M}_{\perp,\perp P } $ :
 
 .. math::
-    \mathbf{O} = \mathbf{M}_{\perp} \times \mathbf{P} - \mathbf{M}_{\perp,\perp P } = [\mathbf{q}\cdot(\mathbf{M}\times\mathbf{P})(\mathbf{q}-\mathbf{P}\times\mathbf{q})]
-    \text{ vector perpendicular to polarisation and Halpern-Johnson vector for SF scattering}
+    \mathbf{O} = \mathbf{M}_{\perp} \times \mathbf{P} - \mathbf{M}_{\perp,\perp P }
+        = [\mathbf{n}\cdot(\mathbf{M}\times\mathbf{P})(\mathbf{n}-\mathbf{P}\times\mathbf{n})]
 
-For symmetric, collinear spin structures ($\mathbf{M}_{\perp}^{\ast}=\matbf{M}_{\perp}^{\ast}$), $\mathbf{O}\cdot \matbf{O}^{\ast}=0$
+
+For symmetric, collinear spin structures ($\mathbf{M}_{\perp}^{\ast}=\mathbf{M}_{\perp}^{\ast}$), $\mathbf{O}\cdot \mathbf{O}^{\ast}=0$
 since  $\mathbf{M}_{\perp} \times \mathbf{P} \cdot \mathbf{M}_{\perp} \times \mathbf{P} = \mathbf{M}_{\perp,\perp P }$.
 
 
 Depending on the spin state of the
 neutrons, the scattering length densities, including the nuclear scattering
-length density $(\beta{_N})$ are
+length density $(\beta{_N})$ are for the non-spin-flip states
 
 .. math::
-    \beta_{\pm\pm} =  \beta_N \mp b_H math{P}\cdot M_{\perp }
-    \text{ for non-spin-flip states}
+    \beta_{\pm\pm} =  \beta_N \mp b_H \mathbf{P}\cdot \mathbf{M}_{\perp }
 
-and
+
+and for spin-flip states
 
 .. math::
-    \beta_{\pm\mp} =  -b_H (\lvert\mathbf{M}_{\perp,\perp P }\rvert \pm i \mathbf{q}\cdot (\mathbf{M}\times \mathbf{P}  (1-\mathbf{P}\cdot\mathbf{q}))
-    \text{ for spin-flip states}
+    \beta_{\pm\mp} =  -b_H (\lvert\mathbf{M}_{\perp,\perp P }\rvert \pm i \mathbf{n}\cdot (\mathbf{M}\times \mathbf{P}  (1-\mathbf{P}\cdot\mathbf{n}))
 
 
-with $\lvert\mathbf{M}_{\perp,\perp P }\rvert= (\mathbf{M}_{\perp,\perp P } \cdot \mathbf{M}_{\perp,\perp P })^{1/2}
-=(M_{\perp,x}^2+M_{\perp,y}^2+M_{\perp,z}^2-(M_{\perp,x} P_x+ M_{\perp,y} P_y + M_{\perp,z} P_z   )^2 )^{1/2}$.
+
+with
+
+.. math::
+    \lvert\mathbf{M}_{\perp,\perp P }\rvert= (\mathbf{M}_{\perp,\perp P } \cdot \mathbf{M}_{\perp,\perp P })^{1/2}
+        =(M_{\perp,x}^2+M_{\perp,y}^2+M_{\perp,z}^2-(M_{\perp,x} P_x+ M_{\perp,y} P_y + M_{\perp,z} P_z   )^2 )^{1/2}.
 
 
 
