@@ -379,14 +379,14 @@ def _Iqxy(values, x, y, z, qa, qb, qc):
     return Iq
 
 if USE_NUMBA:
-    # Override simple numpy solution with numba if available
-    from numba import njit
-    @njit("f8[:](f8[:],f8[:],f8[:],f8[:],f8[:],f8[:],f8[:])")
+# Override simple numpy solution with numba if available
+    from numba import njit, prange
+    @njit("f8[:](f8[:],f8[:],f8[:],f8[:],f8[:],f8[:],f8[:])", parallel = True)
     def _Iqxy(values, x, y, z, qa, qb, qc):
         Iq = np.zeros_like(qa)
-        for j in range(len(Iq)):
+        for j in prange(len(Iq)):
             total = 0. + 0j
-            for k in range(len(values)):
+            for k in prange(len(values)):
                 total += values[k]*np.exp(1j*(qa[j]*x[k] + qb[j]*y[k] + qc[j]*z[k]))
             Iq[j] = abs(total)**2
         return Iq
@@ -472,14 +472,14 @@ void pdfcalc(int n, const double *pts, const double *rho,
 
 if USE_NUMBA:
     # Override simple numpy solution with numba if available
-    @njit("f8[:](f8[:], f8[:], f8[:,:])")
+    @njit("f8[:](f8[:], f8[:], f8[:,:])", parallel = True)
     def _calc_Pr_uniform(r, rho, points):
         dr = r[0]
         n_max = len(r)
         Pr = np.zeros_like(r)
-        for j in range(len(rho) - 1):
+        for j in prange(len(rho) - 1):
             x, y, z = points[j, 0], points[j, 1], points[j, 2]
-            for k in range(j+1, len(rho)):
+            for k in prange(j+1, len(rho)):
                 distance = sqrt((x - points[k, 0])**2
                                 + (y - points[k, 1])**2
                                 + (z - points[k, 2])**2)
@@ -491,6 +491,27 @@ if USE_NUMBA:
         #Pr = Pr * 2 / len(rho)**2
         return Pr
 
+@njit("f8[:](f8[:], f8[:], f8[:,:])", parallel = True)
+def _calc_Pr_uniform_test(r, rho, points):
+    dr = r[0]
+    n_max = len(r)
+    Pr = np.zeros_like(r)
+    size = len(rho) - 1
+    result_loop1 = np.zeros(size, size, size)
+    for j in prange(len(rho) - 1):
+        result_loop1[j] = points[j, 0], points[j, 1], points[j, 2]
+
+    for k in prange(j+1, len(rho)):
+        distance = sqrt((result_loop1[:, 0] - points[k, 0])**2
+                        + (result_loop1[:, 1] - points[k, 1])**2
+                        + (result_loop1[:, 2] - points[k, 2])**2)
+        index = int(distance/dr)
+        if index < n_max:
+            Pr[index] += rho[j] * rho[k]
+    # Make Pr independent of sampling density.  The factor of 2 comes because
+    # we are only accumulating the upper triangular distances.
+    #Pr = Pr * 2 / len(rho)**2
+    return Pr
 
 def calc_Pr(r, rho, points):
     # P(r) with uniform steps in r is 3x faster; check if we are uniform
@@ -1016,9 +1037,7 @@ def main():
         check_shape_2d(title, shape, fn_xy, view=view, show_points=opts.plot,
                        mesh=opts.mesh, qmax=opts.qmax, samples=opts.samples)
 
-
-if __name__ == "__main__":
-    # Make sure sasmodels in on the path
+def run_main():
     try:
         import sasmodels
     except ImportError:
@@ -1026,3 +1045,9 @@ if __name__ == "__main__":
         from os.path import realpath, dirname, join as joinpath
         sys.path.insert(0, dirname(dirname(realpath(__file__))))
     main()
+if __name__ == "__main__":
+    # Make sure sasmodels in on the path
+    #run_main()
+    _calc_Pr_uniform_test.parallel_diagonistics(level = 4)
+    #_calc_Pr_uniform.parallel_diagnostics(level = 4)
+    #_Iqxy.parallel_diagnostics(level = 4)
