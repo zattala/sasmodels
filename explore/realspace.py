@@ -472,14 +472,14 @@ void pdfcalc(int n, const double *pts, const double *rho,
 
 if USE_NUMBA:
     # Override simple numpy solution with numba if available
-    @njit("f8[:](f8[:], f8[:], f8[:,:])", parallel = True)
+    @njit("f8[:](f8[:], f8[:], f8[:,:])")
     def _calc_Pr_uniform(r, rho, points):
         dr = r[0]
         n_max = len(r)
         Pr = np.zeros_like(r)
-        for j in prange(len(rho) - 1):
+        for j in range(len(rho) - 1):
             x, y, z = points[j, 0], points[j, 1], points[j, 2]
-            for k in prange(j+1, len(rho)):
+            for k in range(j+1, len(rho)):
                 distance = sqrt((x - points[k, 0])**2
                                 + (y - points[k, 1])**2
                                 + (z - points[k, 2])**2)
@@ -497,14 +497,17 @@ def _calc_Pr_uniform_test(r, rho, points):
     n_max = len(r)
     Pr = np.zeros_like(r)
     size = len(rho) - 1
-    result_loop1 = np.zeros(size, size, size)
+    result_loop1 = np.zeros((size, size))
     for j in prange(len(rho) - 1):
-        result_loop1[j] = points[j, 0], points[j, 1], points[j, 2]
+        result_loop1[j, 0] = points[j, 0]
+        result_loop1[j, 1] = points[j, 1]
+        result_loop1[j, 2] = points[j, 2]
 
-    for k in prange(j+1, len(rho)):
-        distance = sqrt((result_loop1[:, 0] - points[k, 0])**2
-                        + (result_loop1[:, 1] - points[k, 1])**2
-                        + (result_loop1[:, 2] - points[k, 2])**2)
+    for k in prange(len(rho)):
+        j = (k - 1)
+        distance = sqrt((result_loop1[j, 0] - points[k, 0])**2
+                        + (result_loop1[j, 1] - points[k, 1])**2
+                        + (result_loop1[j, 2] - points[k, 2])**2)
         index = int(distance/dr)
         if index < n_max:
             Pr[index] += rho[j] * rho[k]
@@ -1048,6 +1051,13 @@ def run_main():
 if __name__ == "__main__":
     # Make sure sasmodels in on the path
     #run_main()
-    _calc_Pr_uniform_test.parallel_diagonistics(level = 4)
+    size = 30
+    r = np.arange(size, dtype = np.float64) + 1
+    rho = np.arange(size, dtype = np.float64) + 1
+    points = np.ones((size, size), dtype = np.float64)
+
+    print(_calc_Pr_uniform_test(r, rho, points))
+    print(_calc_Pr_uniform(r, rho, points))
+    #_calc_Pr_uniform_test.parallel_diagonistics(level = 4)
     #_calc_Pr_uniform.parallel_diagnostics(level = 4)
     #_Iqxy.parallel_diagnostics(level = 4)
